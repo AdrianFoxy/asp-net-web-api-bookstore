@@ -1,0 +1,15 @@
+@import "./src/utils/adaptiv-value";
+
+.header {
+    &__list {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        @include adaptiv-value("font-size", 20, 14, 1);
+        li {
+            &:not(:last-child) {
+                @include adaptiv-value("margin-right", 20, 14, 1)
+            }
+        }
+    }
+}
