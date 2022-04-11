@@ -11,8 +11,10 @@ namespace WebBookShopProject.Data.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "FullName Error")]
         public string FullName { get; set; }
         public string ImageUrl { get; set; }
+        [Required(ErrorMessage = "Необходимо заполнить поле описания автора")]
         public string Description { get; set; }
 
         // Relationship
