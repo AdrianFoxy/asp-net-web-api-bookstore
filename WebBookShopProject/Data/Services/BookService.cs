@@ -6,8 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Models;
 using WebBookShopProject.Data.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace WebBookShopProject.Data.Services
 {
@@ -26,7 +29,19 @@ namespace WebBookShopProject.Data.Services
             return result;
         }
 
-        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllWithAuthorAsync()
+        public async Task<IEnumerable<Book>> GetGenreCountAsync(string genre)
+        {
+            var result = await _context.Book.Where(g => g.Book_Genre.Any(mg => mg.Genre.Name == genre)).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<Book>> GetAuthorCountAsync(string author)
+        {
+            var result = await _context.Book.Where(g => g.Book_Author.Any(mg => mg.Author.FullName == author)).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllWithAuthorAsync(PaginationParams @params)
         {
             var result = await _context.Book.Select(book => new BookWithAuthorsVM()
             {
@@ -44,11 +59,16 @@ namespace WebBookShopProject.Data.Services
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
-            }).ToListAsync();
-            return result;
+            }).OrderBy(p => p.Id)
+            .ToListAsync();
+
+            var items =  result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
         }
 
-        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByAuthor(string fullName)
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByAuthor(string fullName, PaginationParams @params)
         {
             var result = await _context.Book.Where(g => g.Book_Author.Any(mg => mg.Author.FullName == fullName)).Select(book => new BookWithAuthorsVM()
             {
@@ -66,11 +86,16 @@ namespace WebBookShopProject.Data.Services
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
-            }).ToListAsync();
-            return result;
+            }).OrderBy(p => p.Id)
+              .ToListAsync();
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
         }
 
-        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByGenre(string genre)
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByGenre(string genre, PaginationParams @params)
         {
             var result = await _context.Book.Where(g => g.Book_Genre.Any(mg => mg.Genre.Name == genre)).Select(book => new BookWithAuthorsVM()
             {
@@ -88,8 +113,13 @@ namespace WebBookShopProject.Data.Services
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
-            }).ToListAsync();
-            return result;
+            }).OrderBy(p => p.Id)
+              .ToListAsync();
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
         }
 
         public async Task<BookFullInfoVM> GetByIdAsync(int id)

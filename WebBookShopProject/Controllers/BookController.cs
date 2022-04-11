@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using WebBookShopProject.Data.Models;
 using WebBookShopProject.Data.Services;
 using WebBookShopProject.Data.ViewModels;
+using WebBookShopProject.Data.Dtos;
+using System.Text.Json;
 
 namespace WebBookShopProject.Controllers
 {
@@ -29,26 +31,41 @@ namespace WebBookShopProject.Controllers
 
         // Get Books by Genre Name
         [HttpGet("get-all-books-by-genre/{genre}")]
-        public async Task<IActionResult> GetBooksByGenre(string genre)
+        public async Task<IActionResult> GetBooksByGenre([FromQuery] PaginationParams @params, string genre)
         {
-            var allBook = await _bookService.GetAllByGenre(genre);
+            var allBook = await _bookService.GetAllByGenre(genre, @params);
+            var counter = await _bookService.GetGenreCountAsync(genre);
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
             return Ok(allBook);
         }
 
         // Get Books by Author Name
         [HttpGet("get-all-books-by-author/{fullName}")]
-        public async Task<IActionResult> GetBooksByAuthor(string fullName)
+        public async Task<IActionResult> GetBooksByAuthor([FromQuery] PaginationParams @params, string fullName)
         {
-            var allBook = await _bookService.GetAllByAuthor(fullName);
+            var allBook = await _bookService.GetAllByAuthor(fullName, @params);
+            var counter = await _bookService.GetAuthorCountAsync(fullName);
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
             return Ok(allBook);
         }
 
         // List of all books + info about genres and authors
         // I used there my own terrible method, so I it can be broken)))
         [HttpGet("get-all-books-info")]
-        public async Task<IActionResult> GetFullAllBook()
+        public async Task<IActionResult> GetFullAllBook([FromQuery] PaginationParams @params)
         {
-            var allBook = await _bookService.GetAllWithAuthorAsync();
+            var allBook = await _bookService.GetAllWithAuthorAsync(@params);
+            var counter = await _bookService.GetAllAsync();
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
             return Ok(allBook);
         }
 
