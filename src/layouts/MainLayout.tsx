@@ -1,20 +1,16 @@
 import React from 'react';
 import {Link, Outlet} from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
+import PrimarySearchAppBar from '../components/Navbar/PrimarySearchAppBar';
 import styles from "./MainLayout.module.scss";
+import Navbar from "../components/Navbar/Navbar";
 
 const MainLayout = () => {
     return (
         <>
-            <Navbar/>
+            <PrimarySearchAppBar/>
             <div className={styles.wrapper}>
                 <nav className={styles.header}>
-                    <ul className={styles.header__list}>
-                        <li>
-                            <Link to="/"> Home page</Link>
-                            <Link to="/products"> Products page</Link>
-                        </li>
-                    </ul>
+                    <Navbar/>
                 </nav>
                 <div className={styles.route}>
                     <main>
@@ -22,8 +18,6 @@ const MainLayout = () => {
                     </main>
                 </div>
             </div>
-
-
         </>
     );
 };

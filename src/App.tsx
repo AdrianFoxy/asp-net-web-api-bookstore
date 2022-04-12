@@ -10,6 +10,7 @@ function App() {
             <Routes>
                 <Route element={<MainLayout/>}>
                     <Route path="/products" element={<Products/>}/>
+                    <Route path="/products/:genre" element={<Products/>}/>
                 </Route>
                 <Route path="/" element={<Home/>}/>
             </Routes>

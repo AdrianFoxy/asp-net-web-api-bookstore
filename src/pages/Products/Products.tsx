@@ -1,9 +1,18 @@
 import React from 'react';
+import styles from "./Products.module.scss"
+import {useParams} from "react-router-dom";
+import ProductList from "../../components/ProductList/ProductList";
 
 const Products = () => {
+
+    const {genre} = useParams()
+
+
+
     return (
-        <div>
-            Products page (by genre)
+        <div className={styles.products}>
+            <h1>{genre}</h1>
+            <ProductList/>
         </div>
     );
 };

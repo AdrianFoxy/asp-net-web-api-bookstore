@@ -1,5 +1,8 @@
+@import "./src/utils/adaptiv-value";
+
 .wrapper {
     display: flex;
+    @include adaptiv-value("font-size", 20, 14, 1);
 }
 
 .header {
