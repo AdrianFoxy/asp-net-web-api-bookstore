@@ -28,6 +28,15 @@ namespace WebBookShopProject.Controllers
             return Ok(alllGenres);
         }
 
+        // Get info about desc genre
+        [HttpGet("get-genre-description/{genre}")]
+        public async Task<IActionResult> GetBookById(string genre)
+        {
+            var genreDesc = await _genreService.GetGenreDescByName(genre);
+            return Ok(genreDesc);
+        }
+
+
         // Add New Genre
         [HttpPost("add-genre")]
         public async Task<IActionResult> AddGenre([FromBody] GenreVM genre)

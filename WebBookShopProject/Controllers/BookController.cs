@@ -42,12 +42,38 @@ namespace WebBookShopProject.Controllers
             return Ok(allBook);
         }
 
+        // Get Books by Genre Name
+        [HttpGet("get-all-books-by-typegenre/{genre}")]
+        public async Task<IActionResult> GetBooksByTypeGenre([FromQuery] PaginationParams @params, string genre)
+        {
+            var allBook = await _bookService.GetAllByTypeGenre(genre, @params);
+            var counter = await _bookService.GetTypeGenreCountAsync(genre);
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+            return Ok(allBook);
+        }
+
+
         // Get Books by Author Name
         [HttpGet("get-all-books-by-author/{fullName}")]
         public async Task<IActionResult> GetBooksByAuthor([FromQuery] PaginationParams @params, string fullName)
         {
             var allBook = await _bookService.GetAllByAuthor(fullName, @params);
             var counter = await _bookService.GetAuthorCountAsync(fullName);
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+            return Ok(allBook);
+        }
+
+        [HttpGet("get-all-favorite-books")]
+        public async Task<IActionResult> GetAllFavoriteBooks([FromQuery] PaginationParams @params)
+        {
+            var allBook = await _bookService.GetAllFavoriteBook(@params);
+            var counter = await _bookService.GetAllFavoriteAsync();
 
             var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
@@ -108,7 +134,6 @@ namespace WebBookShopProject.Controllers
 
         // Add New Book with Image
         [HttpPost("add-book")]
-
         public async Task<IActionResult> AddBookImage([FromForm] BookVM book, IFormFile image)
         {
             var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName);

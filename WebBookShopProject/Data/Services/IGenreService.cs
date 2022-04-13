@@ -12,5 +12,7 @@ namespace WebBookShopProject.Data.Services
     {
         Task AddGenreAsync(GenreVM genre);
         Task<Genre> UpdateAsync(int id, GenreVM genre);
+
+        Task<GenreDescriptionVM> GetGenreDescByName(string name);
     }
 }

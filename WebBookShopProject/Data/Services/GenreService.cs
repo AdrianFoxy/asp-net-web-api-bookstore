@@ -40,5 +40,16 @@ namespace WebBookShopProject.Data.Services
 
             return _genre;
         }
+
+        public async Task<GenreDescriptionVM> GetGenreDescByName(string name)
+        {
+            var _genre_desc = await _context.Genre.Where(n => n.NameForUrl == name).Select(genre => new GenreDescriptionVM()
+            {
+                Description = genre.Description
+
+            }).FirstOrDefaultAsync();
+
+            return _genre_desc;
+        }
     }
 }

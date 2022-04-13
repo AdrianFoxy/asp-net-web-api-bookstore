@@ -9,4 +9,10 @@ namespace WebBookShopProject.Data.ViewModels
     {
         public string Name { get; set; }
     }
+
+    public class GenreDescriptionVM
+    {
+        public string Description { get; set; }
+    }
+
 }

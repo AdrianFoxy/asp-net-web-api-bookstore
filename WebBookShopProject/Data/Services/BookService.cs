@@ -29,9 +29,28 @@ namespace WebBookShopProject.Data.Services
             return result;
         }
 
+        public async Task<IEnumerable<Book>> GetAllFavoriteAsync()
+        {
+            var result = await _context.Book.Where(x => x.IsFavor == true).ToListAsync();
+            return result;
+        }
+        
+
         public async Task<IEnumerable<Book>> GetGenreCountAsync(string genre)
         {
             var result = await _context.Book.Where(g => g.Book_Genre.Any(mg => mg.Genre.Name == genre)).ToListAsync();
+            return result;
+        }
+
+        //
+        public async Task<IEnumerable<Book>> GetTypeGenreCountAsync(string genre)
+        {
+            var result = from b in _context.Book
+                         join gb in _context.Book_Genre on b.Id equals gb.Fk_BookId
+                         join g in _context.Genre on gb.Fk_GenreId equals g.Id
+                         join gt in _context.TypeGenre on g.Fk_TypeGenreId equals gt.Id
+                         where gt.NameForUrl == genre
+                         select b;
             return result;
         }
 
@@ -66,11 +85,39 @@ namespace WebBookShopProject.Data.Services
             .Take(@params.ItemsPerPage);
 
             return items;
+        }   
+
+
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllFavoriteBook(PaginationParams @params)
+        {
+            var result = await _context.Book.Where(x => x.IsFavor == true).Select(book => new BookWithAuthorsVM()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Pages = book.Pages,
+                Format = book.Format,
+                LongDescription = book.LongDescription,
+                ShortDescription = book.ShortDescription,
+                Amount = book.Amount,
+                Price = book.Price,
+                ImageUrl = book.ImageUrl,
+                IsFavor = book.IsFavor,
+                ResealeDate = book.ResealeDate,
+                PublisherName = book.Publisher.Name,
+                AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
+                GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
+            }).OrderBy(p => p.Id)
+            .ToListAsync();
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
         }
 
-        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByAuthor(string fullName, PaginationParams @params)
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByAuthor(string NameForUrl, PaginationParams @params)
         {
-            var result = await _context.Book.Where(g => g.Book_Author.Any(mg => mg.Author.FullName == fullName)).Select(book => new BookWithAuthorsVM()
+            var result = await _context.Book.Where(g => g.Book_Author.Any(mg => mg.Author.NameForUrl == NameForUrl)).Select(book => new BookWithAuthorsVM()
             {
                 Id = book.Id,
                 Title = book.Title,
@@ -97,7 +144,7 @@ namespace WebBookShopProject.Data.Services
 
         public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByGenre(string genre, PaginationParams @params)
         {
-            var result = await _context.Book.Where(g => g.Book_Genre.Any(mg => mg.Genre.Name == genre)).Select(book => new BookWithAuthorsVM()
+            var result = await _context.Book.Where(g => g.Book_Genre.Any(mg => mg.Genre.NameForUrl == genre)).Select(book => new BookWithAuthorsVM()
             {
                 Id = book.Id,
                 Title = book.Title,
@@ -115,6 +162,38 @@ namespace WebBookShopProject.Data.Services
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
             }).OrderBy(p => p.Id)
               .ToListAsync();
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
+        }
+
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByTypeGenre(string genre, PaginationParams @params)
+        {
+            var result = await (from b in _context.Book
+                         join gb in _context.Book_Genre on b.Id equals gb.Fk_BookId
+                         join g in _context.Genre on gb.Fk_GenreId equals g.Id
+                         join gt in _context.TypeGenre on g.Fk_TypeGenreId equals gt.Id
+                         where gt.NameForUrl == genre
+                         select new BookWithAuthorsVM()
+                         {
+                             Id = b.Id,
+                             Title = b.Title,
+                             Pages = b.Pages,
+                             Format = b.Format,
+                             LongDescription = b.LongDescription,
+                             ShortDescription = b.ShortDescription,
+                             Amount = b.Amount,
+                             Price = b.Price,
+                             ImageUrl = b.ImageUrl,
+                             IsFavor = b.IsFavor,
+                             ResealeDate = b.ResealeDate,
+                             PublisherName = b.Publisher.Name,
+                             AuthorNames = b.Book_Author.Select(n => n.Author.FullName).ToList(),
+                             GenreNames = b.Book_Genre.Select(g => g.Genre.Name).ToList()
+                         }).ToListAsync();
+
 
             var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
             .Take(@params.ItemsPerPage);

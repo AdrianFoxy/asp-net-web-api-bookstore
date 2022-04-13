@@ -11,5 +11,6 @@ namespace WebBookShopProject.Data.Services
     public interface ITypeGenreService : IEntityBaseRepository<TypeGenre>
     {
         Task<IEnumerable<TypeGenreVM>> GetTypesAndGenres();
+        Task<TypeGenreDescVM> GetTypeGenreDescByName(string name);
     }
 }

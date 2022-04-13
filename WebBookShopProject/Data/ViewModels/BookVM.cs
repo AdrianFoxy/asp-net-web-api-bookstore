@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebBookShopProject.Data.Models;
 
 namespace WebBookShopProject.Data.ViewModels
 {
@@ -31,6 +32,12 @@ namespace WebBookShopProject.Data.ViewModels
         public List<int> GenresId { get; set; }
     }
 
+    public class BookGroup
+    {
+        public int Id { get; set; }
+
+        public List<Book> Books { get; set; }
+    }
     public class BookImgVM
     {
         //public int Id { get; set; }

@@ -13,6 +13,7 @@ namespace WebBookShopProject.Data.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "FullName Error")]
         public string FullName { get; set; }
+        public string NameForUrl { get; set; }
         public string ImageUrl { get; set; }
         [Required(ErrorMessage = "Необходимо заполнить поле описания автора")]
         public string Description { get; set; }
