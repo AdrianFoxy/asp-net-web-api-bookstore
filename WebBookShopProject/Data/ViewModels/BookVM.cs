@@ -76,7 +76,6 @@ namespace WebBookShopProject.Data.ViewModels
     public class BookWithAuthorsVM
     {
         public int Id { get; set; }
-
         public string Title { get; set; }
         public int Pages { get; set; }
         public string Format { get; set; }
