@@ -26,7 +26,7 @@ namespace WebBookShopProject.Data.Models
         public int Fk_PublisherId { get; set; }
         [ForeignKey("Fk_PublisherId")]
         public Publisher Publisher { get; set; }
-
+        public List<OrderItem> OrderItem { get; set; }
         public List<Book_Author> Book_Author { get; set; }
         public List<Book_Genre> Book_Genre { get; set; }
     }

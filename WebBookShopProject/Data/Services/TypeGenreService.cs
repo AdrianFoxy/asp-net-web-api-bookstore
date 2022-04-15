@@ -29,6 +29,26 @@ namespace WebBookShopProject.Data.Services
             return result;
         }
 
+        public async Task<IEnumerable<TypeGenreTestVM>> GetTypesAndGenresEng()
+        {
+            var result = await _context.TypeGenre.Select(genres => new TypeGenreTestVM()
+            {
+                Name = genres.Name,
+                NameEng = genres.NameForUrl,
+                GenreNames = genres.Genre.Select(g => new TypeGenreNamesVM
+                {
+                    Name = g.Name,
+                    NameForUrl = g.NameForUrl
+                })
+                .ToList()
+
+
+            }).ToListAsync();
+
+            return result;
+        }
+
+
         public async Task<TypeGenreDescVM> GetTypeGenreDescByName(string name)
         {
             var _genre_desc = await _context.TypeGenre.Where(n => n.NameForUrl == name).Select(genre => new TypeGenreDescVM()

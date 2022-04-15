@@ -42,5 +42,12 @@ namespace WebBookShopProject.Controllers
             var genreDesc = await _typeGenreService.GetTypeGenreDescByName(genre);
             return Ok(genreDesc);
         }
+
+        [HttpGet("get-all-types-and-genres-eng")]
+        public async Task<IActionResult> GetTypesAndGenresEng()
+        {
+            var allTypes = await _typeGenreService.GetTypesAndGenresEng();
+            return Ok(allTypes);
+        }
     }
 }

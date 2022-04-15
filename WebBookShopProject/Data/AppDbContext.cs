@@ -41,6 +41,21 @@ namespace WebBookShopProject.Data
             m.Fk_GenreId);
             base.OnModelCreating(modelBuilder);
 
+
+
+            modelBuilder.Entity<OrderItem>().HasKey(am => new
+            {
+                am.Fk_BookId,
+                am.Fk_OrderId
+            });
+
+            modelBuilder.Entity<OrderItem>().HasOne(m => m.Book).WithMany((System.Linq.Expressions.Expression<Func<Book, IEnumerable<OrderItem>>>)(am => (IEnumerable<OrderItem>)am.OrderItem)).HasForeignKey(m =>
+            m.Fk_BookId);
+
+            modelBuilder.Entity<OrderItem>().HasOne(m => m.Order).WithMany(am => am.OrderItem).HasForeignKey(m =>
+            m.Fk_OrderId);
+            base.OnModelCreating(modelBuilder);
+
         }
 
         public DbSet<Book> Book { get; set; }
@@ -50,5 +65,11 @@ namespace WebBookShopProject.Data
         public DbSet<Genre> Genre { get; set; }
         public DbSet<TypeGenre> TypeGenre { get; set; }
         public DbSet<Book_Genre> Book_Genre { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
+        public DbSet<Delivery> Deliverie { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
+
     }
 }

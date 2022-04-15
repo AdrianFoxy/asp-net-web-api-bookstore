@@ -169,6 +169,7 @@ namespace WebBookShopProject.Data.Services
             return items;
         }
 
+
         public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByTypeGenre(string genre, PaginationParams @params)
         {
             var result = await (from b in _context.Book

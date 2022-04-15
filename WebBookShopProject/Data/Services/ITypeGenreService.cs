@@ -12,5 +12,6 @@ namespace WebBookShopProject.Data.Services
     {
         Task<IEnumerable<TypeGenreVM>> GetTypesAndGenres();
         Task<TypeGenreDescVM> GetTypeGenreDescByName(string name);
+        Task<IEnumerable<TypeGenreTestVM>> GetTypesAndGenresEng();
     }
 }
