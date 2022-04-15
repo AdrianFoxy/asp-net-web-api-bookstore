@@ -46,12 +46,9 @@ namespace WebBookShopProject.Data.Services
         public async Task<IEnumerable<Book>> GetTypeGenreCountAsync(string genre)
         {
             var result = from b in _context.Book
-                         join gb in _context.Book_Genre on b.Id equals gb.Fk_BookId
-                         join g in _context.Genre on gb.Fk_GenreId equals g.Id
-                         join gt in _context.TypeGenre on g.Fk_TypeGenreId equals gt.Id
-                         where gt.NameForUrl == genre
-                         select b;
-            return result;
+                           where b.Book_Genre.Any(bg => bg.Genre.TypeGenre.NameForUrl == genre)
+                           select b;
+                       return result;
         }
 
         public async Task<IEnumerable<Book>> GetAuthorCountAsync(string author)
@@ -172,34 +169,32 @@ namespace WebBookShopProject.Data.Services
 
         public async Task<IEnumerable<BookWithAuthorsVM>> GetAllByTypeGenre(string genre, PaginationParams @params)
         {
-            var result = await (from b in _context.Book
-                         join gb in _context.Book_Genre on b.Id equals gb.Fk_BookId
-                         join g in _context.Genre on gb.Fk_GenreId equals g.Id
-                         join gt in _context.TypeGenre on g.Fk_TypeGenreId equals gt.Id
-                         where gt.NameForUrl == genre
-                         select new BookWithAuthorsVM()
-                         {
-                             Id = b.Id,
-                             Title = b.Title,
-                             Pages = b.Pages,
-                             Format = b.Format,
-                             LongDescription = b.LongDescription,
-                             ShortDescription = b.ShortDescription,
-                             Amount = b.Amount,
-                             Price = b.Price,
-                             ImageUrl = b.ImageUrl,
-                             IsFavor = b.IsFavor,
-                             ResealeDate = b.ResealeDate,
-                             PublisherName = b.Publisher.Name,
-                             AuthorNames = b.Book_Author.Select(n => n.Author.FullName).ToList(),
-                             GenreNames = b.Book_Genre.Select(g => g.Genre.Name).ToList()
-                         }).ToListAsync();
+            var result =
+                from b in _context.Book
+                where b.Book_Genre.Any(bg => bg.Genre.TypeGenre.NameForUrl == genre)
+                select new BookWithAuthorsVM()
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Pages = b.Pages,
+                    Format = b.Format,
+                    LongDescription = b.LongDescription,
+                    ShortDescription = b.ShortDescription,
+                    Amount = b.Amount,
+                    Price = b.Price,
+                    ImageUrl = b.ImageUrl,
+                    IsFavor = b.IsFavor,
+                    ResealeDate = b.ResealeDate,
+                    PublisherName = b.Publisher.Name,
+                    AuthorNames = b.Book_Author.Select(n => n.Author.FullName).ToList(),
+                    GenreNames = b.Book_Genre.Select(g => g.Genre.Name).ToList()
+                };
 
 
             var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
             .Take(@params.ItemsPerPage);
 
-            return items;
+            return result;
         }
 
         public async Task<BookFullInfoVM> GetByIdAsync(int id)

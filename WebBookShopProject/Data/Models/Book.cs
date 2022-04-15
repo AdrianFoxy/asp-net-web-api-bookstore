@@ -22,7 +22,6 @@ namespace WebBookShopProject.Data.Models
         public bool IsFavor { get; set; }
         public DateTime? ResealeDate { get; set; }
 
-        // Realtionship
         public int Fk_PublisherId { get; set; }
         [ForeignKey("Fk_PublisherId")]
         public Publisher Publisher { get; set; }
