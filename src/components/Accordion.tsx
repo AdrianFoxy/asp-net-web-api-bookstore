@@ -9,12 +9,11 @@ import {FC} from "react";
 import {Link} from "react-router-dom";
 
 interface SimpleAccordionProps {
-    genres: IGenre[],
-    genre: string | undefined
+    genres: IGenre[]
 }
 
-const SimpleAccordion: FC<SimpleAccordionProps> = ({genres, genre}) => {
-    console.log(genre)
+const SimpleAccordion: FC<SimpleAccordionProps> = ({genres}) => {
+
     return (
         <div>
             {genres?.map((genre) =>

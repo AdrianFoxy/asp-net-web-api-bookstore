@@ -7,7 +7,10 @@ export interface IProduct {
     shortDescription: string
     amount: number
     price: number
-    image: string
+    imageUrl: string
     isFavor: boolean
     resealeDate: Date
+    authorNames: string[]
+    genreNames: string[]
+    publisherName: string
 }

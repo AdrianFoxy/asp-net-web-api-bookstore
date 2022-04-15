@@ -16,12 +16,10 @@ const Navbar = () => {
         dispatch(fetchGenres())
     }, [])
 
-    const {genre} = useParams()
-
     return (
         <ul className={styles.header__list}>
             <li>
-                <SimpleAccordion genres={genres.genres} genre={genre}/>
+                <SimpleAccordion genres={genres.genres}/>
                 <Link to="/"></Link>
             </li>
             <li>
