@@ -1,0 +1,38 @@
+.menu {
+    color: #221F1F;
+    &__flex {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        &:hover {
+            background-color: #73b4e4;
+            transition: 0.5s linear background-color;
+            border-radius: 5px;
+        }
+        &:hover .menu__icon_wrapper {
+            background-color: transparent;
+        }
+    }
+    &__icon_wrapper {
+        background-color: #ede8e8;
+        z-index: 1;
+        border-radius: 9999px;
+        padding: 10px;
+        margin-right: 10px;
+    }
+    &__info {
+        color: #686363;
+        margin-bottom: 15px;
+    }
+    &__info_link_block {
+        margin-bottom: 10px;
+    }
+    &__info_link {
+        @media(any-hover: hover) {
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

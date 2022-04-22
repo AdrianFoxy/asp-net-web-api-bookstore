@@ -13,7 +13,7 @@ interface SimpleAccordionProps {
 }
 
 const SimpleAccordion: FC<SimpleAccordionProps> = ({genres}) => {
-
+    console.log(genres)
     return (
         <div>
             {genres?.map((genre) =>
@@ -24,17 +24,17 @@ const SimpleAccordion: FC<SimpleAccordionProps> = ({genres}) => {
                         id="panel1a-header"
                     >
                         <Typography onClick={(e) => e.stopPropagation()}>
-                            <Link to={`/products/${genre.name}`}>
+                            <Link to={`/products/${genre.nameEng}`}>
                                 {genre.name}
                             </Link>
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
+                        <Typography style={{}}>
                             {genre.genreNames?.map((name) =>
                                 <div>
-                                    <Link to={`/products/${name}`}>
-                                        {name}
+                                    <Link to={`/products/${name.nameForUrl}`}>
+                                        {name.name}
                                     </Link>
                                 </div>
                             )}

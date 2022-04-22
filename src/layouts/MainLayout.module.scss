@@ -2,7 +2,7 @@
 
 .wrapper {
     display: flex;
-    @include adaptiv-value("font-size", 20, 14, 1);
+    @include adaptiv-value("font-size", 16, 14, 1);
 }
 
 .header {
@@ -11,4 +11,5 @@
 
 .route {
     width: 80%;
+    padding: 30px;
 }

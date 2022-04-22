@@ -3,10 +3,10 @@
 .header {
     &__list {
         color: #1976d2;
-        padding: 15px;
+        padding: 30px;
         li {
             &:not(:last-child) {
-                @include adaptiv-value("margin-right", 20, 14, 1)
+                //@include adaptiv-value("margin-right", 20, 14, 1)
             }
             a {
                 color: inherit;

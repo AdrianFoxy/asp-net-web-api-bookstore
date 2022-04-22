@@ -3,14 +3,14 @@ import styles from "./Navbar.module.scss"
 import {Link, useParams} from "react-router-dom";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {fetchGenres} from "../../redux/actions/genre";
-import {useAppSelector} from "../../hooks/useAppSelector";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 import SimpleAccordion from "../Accordion";
 
 const Navbar = () => {
 
     const dispatch = useAppDispatch()
 
-    const genres = useAppSelector(state => state.genreReducer)
+    const genres = useTypedSelector(state => state.genreReducer)
 
     useEffect(() => {
         dispatch(fetchGenres())

@@ -1,0 +1,30 @@
+.cart {
+    &__wrapper {
+        display: flex;
+
+    }
+    &__items {
+        width: 70%;
+    }
+    &__total {
+        width: 30%;
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        //justify-content: space-between;
+    }
+    &__item_info {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    &__img {
+        //width: 100%;
+        height: 200px;
+        object-fit: contain;
+        padding: 10px;
+    }
+}

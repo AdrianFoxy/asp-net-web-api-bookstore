@@ -15,8 +15,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import logo from "../../assets/img/logo.png"
-import MenuBurger from "../MenuBurger";
+import MenuBurger from "../UI/MenuBurger/MenuBurger";
 import KeepMountedModal from "../Modal";
+import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -60,8 +63,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 function PrimarySearchAppBar() {
 
-
-    //Сверху меню бургер
+    const cart = useTypedSelector(state => state.cartReducer.products)
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -169,7 +171,9 @@ function PrimarySearchAppBar() {
                     <Link to="/">
                         <img src={logo} style={{width: "40px"}}/>
                     </Link>
-                    <KeepMountedModal/>
+                    <KeepMountedModal>
+                        <WidgetsOutlinedIcon style={{color: "#fff", cursor: "pointer", marginLeft: "10px"}}/>
+                    </KeepMountedModal>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon/>
@@ -182,9 +186,11 @@ function PrimarySearchAppBar() {
                     <Box sx={{flexGrow: 1}}/>
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon/>
-                            </Badge>
+                            <Link to="/cart">
+                                <Badge badgeContent={cart.length} color="error">
+                                    <ShoppingCartOutlinedIcon/>
+                                </Badge>
+                            </Link>
                         </IconButton>
                         <IconButton
                             size="large"

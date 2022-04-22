@@ -7,12 +7,18 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import {Link} from "react-router-dom";
 import Button from "../UI/Button";
+import {useActions} from "../../hooks/useAppDispatch";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 interface ProductListProps {
     products: IProduct[]
 }
 
 const ProductList: FC<ProductListProps> = ({products}) => {
+
+    const {addProduct} = useActions()
+    const cart = useTypedSelector(state => state.cartReducer.products)
+    console.log(cart)
 
     return (
         <div className={styles.products__container}>
@@ -41,7 +47,13 @@ const ProductList: FC<ProductListProps> = ({products}) => {
                             <EditOutlinedIcon className={styles.products__change_btn}/>
                         </div>
                         <Link to={"/product"} className={styles.products__link}> Подробнее </Link>
-                        <Button onClick={() => alert("f")} className={styles.products__btn}> В
+                        <Button onClick={() => addProduct({
+                            id: product.id,
+                            name: product.title,
+                            imageUrl: product.imageUrl,
+                            price: product.price,
+                            quantity: 1
+                        })} className={styles.products__btn}> В
                             корзину <ShoppingCartCheckoutIcon/> </Button>
                     </div>
                 </Card>

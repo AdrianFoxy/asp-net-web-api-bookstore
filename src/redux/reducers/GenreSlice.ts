@@ -3,10 +3,12 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface GenreState {
     genres: IGenre[]
+    descriptionGenre: string
 }
 
 const initialState: GenreState = {
-    genres: []
+    genres: [],
+    descriptionGenre: ""
 }
 
 export const genreSlice = createSlice({
@@ -16,6 +18,9 @@ export const genreSlice = createSlice({
         genresFetching(state, action: PayloadAction<IGenre[]>) {
             state.genres = action.payload
         },
+        descriptionGenre(state, action: PayloadAction<string>) {
+            state.descriptionGenre = action.payload
+        }
     }
 })
 
