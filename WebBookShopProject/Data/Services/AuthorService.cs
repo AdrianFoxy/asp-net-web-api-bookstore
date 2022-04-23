@@ -42,6 +42,19 @@ namespace WebBookShopProject.Data.Services
             return _author;
         }
 
+        public async Task<IEnumerable<AuthorDPVM>> GetAuthorsForDropList()
+        {
+
+            var authors = await _context.Author.Select(item => new AuthorDPVM()
+            {
+                Id = item.Id,
+                FullName = item.FullName
+
+            }).ToListAsync();
+
+            return authors;
+        }
+
         public async Task<Author> UpdateAsync(int id, AuthorVM author)
         {
             var _author = await _context.Author.FirstOrDefaultAsync(n => n.Id == id);

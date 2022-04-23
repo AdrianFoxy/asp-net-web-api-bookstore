@@ -51,5 +51,18 @@ namespace WebBookShopProject.Data.Services
 
             return _genre_desc;
         }
+
+        public async Task<IEnumerable<GenreDPVM>> GetGenresForDropList()
+        {
+
+            var genres = await _context.Genre.Select(genre => new GenreDPVM()
+            {
+                Id = genre.Id,
+                Name = genre.Name
+
+            }).ToListAsync();
+
+            return genres;
+        }
     }
 }

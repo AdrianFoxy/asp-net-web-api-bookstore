@@ -14,7 +14,8 @@ namespace WebBookShopProject.Data.Models
         public string ContactEmail { get; set; }
         public int ContactPhone { get; set; }
         public string ContactName { get; set; }
-        public float Sum { get; set; }
+        public string Address { get; set; }
+        public double Sum { get; set; }
         public string UserID { get; set; }
         public int Fk_OrderStatusId { get; set; }
         [ForeignKey("Fk_OrderStatusId")]

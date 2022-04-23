@@ -29,6 +29,19 @@ namespace WebBookShopProject.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<PublisherDPVM>> GetPublishersForDropList()
+        {
+
+            var publishers = await _context.Publisher.Select(publisher => new PublisherDPVM()
+            {
+                Id = publisher.Id,
+                Name = publisher.Name
+
+            }).ToListAsync();
+
+            return publishers;
+        }
+
         //public async Task DeleteAsync(int id)
         //{
         //    var _publisher = await _context.Publisher.FirstOrDefaultAsync(n => n.Id == id);

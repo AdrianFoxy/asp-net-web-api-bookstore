@@ -36,6 +36,13 @@ namespace WebBookShopProject.Controllers
             return Ok(publisher);
         }
 
+        [HttpGet("get-publishers-for-drop-list")]
+        public async Task<IActionResult> GetPublishersForDropList()
+        {
+            var publisher = await _publihserService.GetPublishersForDropList();
+            return Ok(publisher);
+        }
+
         // Add New Publishers
         [HttpPost("add-publisher")]
         public async Task<IActionResult> AddPublisher([FromBody] PublisherVM publisher)

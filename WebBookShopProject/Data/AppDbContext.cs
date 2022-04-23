@@ -67,7 +67,7 @@ namespace WebBookShopProject.Data
         public DbSet<Book_Genre> Book_Genre { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderStatus> OrderStatus { get; set; }
-        public DbSet<Delivery> Deliverie { get; set; }
+        public DbSet<Delivery> Delivery { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
 

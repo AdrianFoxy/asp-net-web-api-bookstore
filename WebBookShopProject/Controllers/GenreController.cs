@@ -36,6 +36,13 @@ namespace WebBookShopProject.Controllers
             return Ok(genreDesc);
         }
 
+        [HttpGet("get-genres-for-drop-list")]
+        public async Task<IActionResult> GetGenresForDropList()
+        {
+            var responce = await _genreService.GetGenresForDropList();
+            return Ok(responce);
+        }
+
 
         // Add New Genre
         [HttpPost("add-genre")]

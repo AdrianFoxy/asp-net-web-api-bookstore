@@ -14,5 +14,7 @@ namespace WebBookShopProject.Data.Services
         Task<Genre> UpdateAsync(int id, GenreVM genre);
 
         Task<GenreDescriptionVM> GetGenreDescByName(string name);
+
+        Task<IEnumerable<GenreDPVM>> GetGenresForDropList();
     }
 }

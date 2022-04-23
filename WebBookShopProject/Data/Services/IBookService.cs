@@ -24,12 +24,21 @@ namespace WebBookShopProject.Data.Services
         Task<IEnumerable<Book>> GetAuthorCountAsync(string author);
 
 
+        //Task<BookDropDownListVM> GetBookDropdownsValues();
+
+
+        Task<Book> GetByIdShopAsync(int id);
+
         Task<IEnumerable<BookWithAuthorsVM>> GetAllWithAuthorAsync(PaginationParams @params);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllByAuthor(string fullName, PaginationParams @params);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllByGenre(string genre, PaginationParams @params);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllByTypeGenre(string genre, PaginationParams @params);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllFavoriteBook(PaginationParams @params);
         Task<BookFullInfoVM> GetByIdAsync(int id);
+
+        Task<UpdateCountBookVM> GetUpdateAmountId(int id);
+
+        Task UpdateBookAmountAsync(UpdateCountBookVM updatedBook, int id);
         Task DeleteAsync(int id);
     }
 }

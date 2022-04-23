@@ -15,4 +15,10 @@ namespace WebBookShopProject.Data.ViewModels
         public string Description { get; set; }
     }
 
+    public class GenreDPVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
 }

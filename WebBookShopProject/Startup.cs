@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebBookShopProject.Data;
+using WebBookShopProject.Data.Cart;
 using WebBookShopProject.Data.Services;
 
 namespace WebBookShopProject
@@ -39,6 +41,12 @@ namespace WebBookShopProject
             services.AddTransient<IPublihserService, PublisherService>();
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<ITypeGenreService, TypeGenreService>();
+            services.AddTransient<IOrderService, OrderService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+            services.AddSession();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -70,6 +78,7 @@ namespace WebBookShopProject
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseSession();
             app.UseCors();
             app.UseAuthorization();
 

@@ -9,4 +9,10 @@ namespace WebBookShopProject.Data.ViewModels
     {
         public string Name { get; set; }
     }
+
+    public class PublisherDPVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 }

@@ -28,12 +28,11 @@ namespace WebBookShopProject.Controllers
             return Ok(allAuthors);
         }
 
-        // Add new Author
-        [HttpPost("add-author")]
-        public async Task<IActionResult> AddAuthor([FromBody] AuthorVM author)
+        [HttpGet("get-authors-for-drop-list")]
+        public async Task<IActionResult> GetAuthorsForDropList()
         {
-            await _authorService.AddAuthorAsync(author);
-            return Ok(author);
+            var responce = await _authorService.GetAuthorsForDropList();
+            return Ok(responce);
         }
 
         // Get Author By Id
@@ -43,6 +42,14 @@ namespace WebBookShopProject.Controllers
         {
             var responce = _authorService.GetAuthorsWithBooksTitle(id);
             return Ok(responce);
+        }
+
+        // Add new Author
+        [HttpPost("add-author")]
+        public async Task<IActionResult> AddAuthor([FromBody] AuthorVM author)
+        {
+            await _authorService.AddAuthorAsync(author);
+            return Ok(author);
         }
     }
 }

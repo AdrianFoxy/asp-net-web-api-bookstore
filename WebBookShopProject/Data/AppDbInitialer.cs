@@ -16,16 +16,37 @@ namespace WebBookShopProject.Data
             {
                 var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
 
+                if (!context.Delivery.Any())
+                {
+                    context.Delivery.AddRange(new List<Delivery>()
+                    {
+                        new Delivery() {Name = "Самовывоз"},
+                        new Delivery() {Name = "Доставка по адресу"}
+                    });
+                }
+
+                if (!context.OrderStatus.Any())
+                {
+                    context.OrderStatus.AddRange(new List<OrderStatus>()
+                    {
+                        new OrderStatus() {Name = "Ожидается подтверждение"},
+                        new OrderStatus() {Name = "Отменно"},
+                        new OrderStatus() {Name = "Выполнено"},
+                        new OrderStatus() {Name = "Ожидает в пункте выдачи"},
+                        new OrderStatus() {Name = "В пути"}
+                    });
+                }
+
                 if (!context.Publisher.Any())
                 {
                     context.Publisher.AddRange(new List<Publisher>()
-                {
+                    {
                         new Publisher() { Name = "КнигоЛав"},
                         new Publisher() { Name = "КСД"},
                         new Publisher() {Name = "Талант"},
                         new Publisher() {Name = "ИсторияЭд"},
                         new Publisher() {Name = "Незнайка"}
-                });
+                    });
                     context.SaveChanges();
                 }
 
@@ -74,6 +95,13 @@ namespace WebBookShopProject.Data
                         NameForUrl = "Sara-Dzhanet-Maas",
                         ImageUrl = "/img/authorImage_SaraMaas.jpg",
                         Description = "В средней школе Сара слыла «рассказчиком небылиц» и начала писать свой первый роман в 16 лет. Он был по сути переосмыслением детской сказки «Золушка». Ведь как бы сложилась сказка, если бы Золушка была убийцей и приехала на бал не танцевать с принцем, а убить его? Позже эти девичьи фантазии нашли отражение в эпическом фэнтези «Стеклянный трон»."
+                    },
+                    new Author()
+                    {
+                        FullName = "Test",
+                        NameForUrl = "Test-Author",
+                        ImageUrl = "/img/book_template.jpg",
+                        Description = "Test Description"
                     }
                 });
                     context.SaveChanges();
@@ -272,6 +300,608 @@ namespace WebBookShopProject.Data
                             IsFavor = false,
                             ResealeDate =  new DateTime(10, 4, 18),
                             Fk_PublisherId = 3
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
+                        },
+                        new Book()
+                        {
+                            Title = "Книга",
+                            Pages = 200,
+                            Format = "145х200",
+                            ShortDescription = "Коротное описание книги",
+                            LongDescription = "Основное описание книги",
+                            Amount = 20,
+                            Price = 120,
+                            ImageUrl = "/img/book_template.jpg",
+                            IsFavor = false,
+                            ResealeDate = new DateTime(10, 4, 18),
+                            Fk_PublisherId = 2
                         }
                     });
 
@@ -341,6 +971,51 @@ namespace WebBookShopProject.Data
                     {
                         Fk_GenreId = 9,
                         Fk_BookId = 7
+                    },
+                    new Book_Genre()
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 8
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 9
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 10,
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 11
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 12
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 13
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 14
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 15
+                    },
+                    new Book_Genre
+                    {
+                        Fk_GenreId = 3,
+                        Fk_BookId = 16
                     }
 
                 });

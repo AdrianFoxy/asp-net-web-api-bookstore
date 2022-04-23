@@ -12,6 +12,7 @@ namespace WebBookShopProject.Data.Services
     {
         Task AddPublisherAsync(PublisherVM publiser);
         Task<Publisher> UpdateAsync(int id, PublisherVM publiser);
+        Task<IEnumerable<PublisherDPVM>> GetPublishersForDropList();
         //Task<IEnumerable<Publisher>> GetAllAsync();
         //Task<Publisher> GetByIdAsync(int id);
         //Task DeleteAsync(int id);

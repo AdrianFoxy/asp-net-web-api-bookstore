@@ -13,7 +13,8 @@ namespace WebBookShopProject.Data.Services
         Task AddAuthorAsync(AuthorVM author);
         Task<Author> UpdateAsync(int id, AuthorVM author);
         AuthorWithBooksTitleVM GetAuthorsWithBooksTitle(int id);
-         
+
+        Task<IEnumerable<AuthorDPVM>> GetAuthorsForDropList();
 
         //Task<IEnumerable<Author>> GetAllAsync();
         //Task<Author> GetByIdAsync(int id);

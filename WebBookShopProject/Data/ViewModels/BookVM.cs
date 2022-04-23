@@ -90,4 +90,10 @@ namespace WebBookShopProject.Data.ViewModels
         public List<string> AuthorNames { get; set; }
         public List<string> GenreNames { get; set; }
     }
+
+    public class UpdateCountBookVM
+    {
+        public int Id { get; set; }
+        public int Amount { get; set; }
+    }
 }

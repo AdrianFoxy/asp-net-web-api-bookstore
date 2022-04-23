@@ -132,6 +132,8 @@ namespace WebBookShopProject.Controllers
             return Ok();
         }
 
+        // All API's for ADD BOOK
+
         // Add New Book with Image
         [HttpPost("add-book")]
         public async Task<IActionResult> AddBookImage([FromForm] BookVM book, IFormFile image)
@@ -144,5 +146,14 @@ namespace WebBookShopProject.Controllers
 
             return Ok(book);
         }
+
+        //[HttpGet]
+        //public IActionResult GetPublisher()
+        //{
+        //    //var studioDropdownData = await _bookService.GetBookDropdownsValues();
+
+        //    //fk_id_studio_developer = new SelectList(studioDropdownData.StudioDeveloper, "Id_Studio_Developer", "Studio_Name");
+        //}
+
     }
 }

@@ -219,6 +219,18 @@ namespace WebBookShopProject.Data.Services
             return _book_full;
         }
 
+        
+        public async Task<UpdateCountBookVM> GetUpdateAmountId(int id)
+        {
+            var _book = await _context.Book.Where(n => n.Id == id).Select(book => new UpdateCountBookVM()
+            {
+                Amount = book.Amount
+
+            }).FirstOrDefaultAsync();
+
+            return _book;
+        }
+
         public async Task AddBookAsync (BookVM book, string pathImg)
         {
             var _book = new Book()
@@ -316,6 +328,14 @@ namespace WebBookShopProject.Data.Services
             return _book;
         }
 
+        public async Task<Book> GetByIdShopAsync(int id)
+        {
+            var bookDet = _context.Book
+                .FirstOrDefaultAsync(n => n.Id == id);
+
+            return await bookDet;
+        }
+
         public async Task DeleteAsync(int id)
         {
             var _book = await _context.Book.FirstOrDefaultAsync(n => n.Id == id);
@@ -324,6 +344,16 @@ namespace WebBookShopProject.Data.Services
                 _context.Book.Remove(_book);
                 await _context.SaveChangesAsync();
             } 
+        }
+
+
+        public async Task UpdateBookAmountAsync(UpdateCountBookVM updatedBook, int id)
+        {
+            var book = await _context.Book.FirstOrDefaultAsync(n => n.Id == id);
+
+            book.Amount = updatedBook.Amount;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

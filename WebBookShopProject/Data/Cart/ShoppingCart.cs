@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +14,22 @@ namespace WebBookShopProject.Data.Cart
         public AppDbContext _context { get; set; }
         public string ShoppingCartId { get; set; }
         public List<ShoppingCartItem> ShoppingCartItem { get; set; }
+
         public ShoppingCart(AppDbContext context)
         {
             _context = context;
+        }
+
+
+        public static ShoppingCart GetShoppingCart (IServiceProvider services)
+        {
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            var context = services.GetService<AppDbContext>();
+
+            string cardId = session.GetString("CardId") ?? Guid.NewGuid().ToString();
+            session.SetString("CardId", cardId);
+
+            return new ShoppingCart(context) { ShoppingCartId = cardId };
         }
 
         public List<ShoppingCartItem> GetShoppingCartItems()
@@ -23,9 +38,19 @@ namespace WebBookShopProject.Data.Cart
             ShoppingCartId).Include(n => n.Book).ToList());
         }
 
+
+        public int GetShoppingCartItemsSummary()
+        {
+            var total = _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Amount).Sum();
+
+            return total;
+        }
+
         public double GetShoppingCartTotal()
         {
-            var total = _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Book.Price * n.Amount).Sum();
+
+                var total = _context.ShoppingCartItem.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Book.Price * n.Amount).Sum();
+
             return total;
         }
 
@@ -68,6 +93,14 @@ namespace WebBookShopProject.Data.Cart
                 }
             }
             _context.SaveChanges();
+        }
+
+        public async Task ClearShoppingCartAsync()
+        {
+            var items = await _context.ShoppingCartItem.Where(n => n.ShoppingCartId ==
+            ShoppingCartId).ToListAsync();
+            _context.ShoppingCartItem.RemoveRange(items);
+            await _context.SaveChangesAsync();
         }
     }
 }
