@@ -1,0 +1,16 @@
+@import "./src/utils/adaptiv-value";
+
+.wrapper {
+    display: flex;
+    @include adaptiv-value("font-size", 16, 14, 1);
+}
+
+.header {
+
+}
+
+.route {
+    width: 100%;
+    padding: 30px;
+    padding-top: 90px;
+}

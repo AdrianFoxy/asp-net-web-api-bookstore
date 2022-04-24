@@ -41,3 +41,25 @@ export const fetchFavoriteProducts = () => async (dispatch: AppDispatch) => {
 
     }
 }
+
+export const fetchAllProduct = (page: number = 0) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.get<IProduct[]>(`/Book/get-all-books-info`, {
+            params: {
+                Page: page + 1,
+                ItemsPerPage: 10
+            }
+        })
+        const x = JSON.parse(response.headers["x-pagination"])
+
+        //console.log(x)
+        dispatch(productSlice.actions.productsFetching(response.data))
+        dispatch(productSlice.actions.setCount(x.TotalCount))
+    } catch (error) {
+
+    }
+}
+
+export const setPage = (newPage: number) => async (dispatch: AppDispatch) => {
+    dispatch(productSlice.actions.setPage(newPage))
+}

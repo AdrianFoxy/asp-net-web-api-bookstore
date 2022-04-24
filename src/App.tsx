@@ -4,8 +4,10 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home/Home";
 import Products from './pages/Products/Products';
 import Cart from "./pages/Cart/Cart";
-import Admin from "./pages/Admin/Admin";
+import AdminHome from "./pages/Admin/AdminHome";
 import {useActions} from "./hooks/useAppDispatch";
+import AdminLayout from "./layouts/AdminLayout/AdminLayout";
+import AdminProducts from "./pages/Admin/AdminProducts";
 
 function App() {
 
@@ -24,7 +26,10 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/cart" element={<Cart/>}/>
                 </Route>
-                <Route path="/admin" element={<Admin />}/>
+                <Route element={<AdminLayout/>}>
+                    <Route path="/admin" element={<AdminHome/>}/>
+                    <Route path="/admin/products" element={<AdminProducts/>}/>
+                </Route>
             </Routes>
         </BrowserRouter>
     );
