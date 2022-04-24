@@ -1,31 +1,28 @@
 import {AppDispatch} from "../index";
 import $api from "../../http";
-import { IProduct } from "../../types/IProduct";
+import {IProduct} from "../../types/IProduct";
 import {productSlice} from "../reducers/ProductSlice";
 
-export const fetchProducts = (genre: string) => async (dispatch: AppDispatch) => {
+export const fetchProducts = (genre: string, type: string) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get<IProduct[]>(`/Book/get-all-books-by-typegenre/${genre}`, {
-            params: {
-                Page: 1,
-                ItemsPerPage: 10
-            }
-        })
-        dispatch(productSlice.actions.productsFetching(response.data))
-    } catch (error) {
+        if (type === "type-genre") {
+            const response = await $api.get<IProduct[]>(`/Book/get-all-books-by-typegenre/${genre}`, {
+                params: {
+                    Page: 1,
+                    ItemsPerPage: 10
+                }
+            })
+            dispatch(productSlice.actions.productsFetching(response.data))
+        } else if (type === "genre") {
+            const response = await $api.get<IProduct[]>(`/Book/get-all-books-by-genre/${genre}`, {
+                params: {
+                    Page: 1,
+                    ItemsPerPage: 10
+                }
+            })
+            dispatch(productSlice.actions.productsFetching(response.data))
+        }
 
-    }
-}
-
-export const fetchProductsByGenre = (genre: string) => async (dispatch: AppDispatch) => {
-    try {
-        const response = await $api.get<IProduct[]>(`/Book/get-all-books-by-genre/${genre}`, {
-            params: {
-                Page: 1,
-                ItemsPerPage: 10
-            }
-        })
-        dispatch(productSlice.actions.productsFetching(response.data))
     } catch (error) {
 
     }

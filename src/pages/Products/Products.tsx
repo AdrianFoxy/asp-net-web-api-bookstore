@@ -3,7 +3,7 @@ import styles from "./Products.module.scss"
 import {useParams} from "react-router-dom";
 import ProductList from "../../components/ProductList/ProductList";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {fetchProducts, fetchProductsByGenre} from "../../redux/actions/product";
+import {fetchProducts} from "../../redux/actions/product";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {fetchDescriptionGenre} from "../../redux/actions/genre";
 
@@ -18,9 +18,9 @@ const Products = () => {
     useEffect(() => {
         if (genre) {
             if (genres.genres.some(genre2 => genre2.nameEng === genre)) {
-                dispatch(fetchProducts(genre))
+                dispatch(fetchProducts(genre, "type-genre"))
             } else {
-                dispatch(fetchProductsByGenre(genre))
+                dispatch(fetchProducts(genre, "genre"))
             }
         }
     }, [genre, genres])
@@ -30,7 +30,11 @@ const Products = () => {
 
     useEffect(() => {
         if (genre) {
-            dispatch(fetchDescriptionGenre(genre))
+            if (genres.genres.some(genre2 => genre2.nameEng === genre)) {
+                dispatch(fetchDescriptionGenre(genre, "type-genre"))
+            } else {
+                dispatch(fetchDescriptionGenre(genre, "genre"))
+            }
         }
     }, [genre])
 

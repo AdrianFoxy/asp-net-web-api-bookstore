@@ -12,11 +12,15 @@ export const fetchGenres = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const fetchDescriptionGenre = (genre: string) => async (dispatch: AppDispatch) => {
+export const fetchDescriptionGenre = (genre: string, type: string) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get(`TypeGenre/get-type-genre-description/${genre}`)
-        console.log(response.data.description)
-        dispatch(genreSlice.actions.descriptionGenre(response.data.description))
+        if (type === "type-genre") {
+            const response = await $api.get(`TypeGenre/get-type-genre-description/${genre}`)
+            dispatch(genreSlice.actions.descriptionGenre(response.data.description))
+        } else if (type === "genre") {
+            const response = await $api.get(`Genre/get-genre-description/${genre}`)
+            dispatch(genreSlice.actions.descriptionGenre(response.data.description))
+        }
     } catch (error) {
 
     }
