@@ -33,22 +33,18 @@ namespace WebBookShopProject.Controllers
             var responce = new ShopCartVM()
             {
                 ShoppingCartItem = items,
-                ShopCartTotal = _shoppingCart.GetShoppingCartTotal()
+                ShopCartTotal = _shoppingCart.GetShoppingCartTotal(),
+                TotalItems = _shoppingCart.GetShoppingCartItemsSummary()
             };
 
-            return Ok(responce); // тут должен быть респонс, но лагает шо пздц
-        }
 
-        [HttpGet("get-shopping-cart-items-summary")]
-        public IActionResult GetShoppingCartItemsSummary()
-        {
-            var count = _shoppingCart.GetShoppingCartItemsSummary();
-            return Ok(count);
+            return Ok(responce);
         }
 
         [HttpPost("add-item-to-cart")]
         public async Task<IActionResult> AddItemToShoppingCart(int id)
         {
+
             var item = await _bookService.GetByIdShopAsync(id);
 
             if (item != null)

@@ -10,5 +10,6 @@ namespace WebBookShopProject.Data.ViewModels
     {
         public List<ShoppingCartItem> ShoppingCartItem { get; set; }
         public double ShopCartTotal { get; set; }
+        public int TotalItems { get; set; }
     }
 }

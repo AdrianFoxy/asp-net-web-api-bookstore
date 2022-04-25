@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -46,7 +47,20 @@ namespace WebBookShopProject
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
-            services.AddSession();
+            //services.AddSession();
+
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.Cookie.Name = "Card";
+                options.IdleTimeout = TimeSpan.FromMinutes(3600); // время действия сессии в виде объекта System.TimeSpan прм неактивности пользователя
+                options.Cookie.HttpOnly = false; // доступны ли куки только при передаче через HTTP-запрос
+                options.Cookie.IsEssential = true; // время действия куки в виде объекта System.TimeSpan
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+            });
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -56,11 +70,17 @@ namespace WebBookShopProject
 
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+
+
             services.AddCors(option =>
             {
                 option.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins("http://localhost:3000")
+                    .WithExposedHeaders("X-Pagination")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
             });
         }
@@ -75,12 +95,14 @@ namespace WebBookShopProject
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebBookShopProject v1"));
             }
 
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
             app.UseCors();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -23,13 +23,14 @@ namespace WebBookShopProject.Data.Cart
 
         public static ShoppingCart GetShoppingCart (IServiceProvider services)
         {
-            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session; // if not null
             var context = services.GetService<AppDbContext>();
 
-            string cardId = session.GetString("CardId") ?? Guid.NewGuid().ToString();
-            session.SetString("CardId", cardId);
+            string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
+            session.SetString("CartId", cartId);
 
-            return new ShoppingCart(context) { ShoppingCartId = cardId };
+
+            return new ShoppingCart(context) { ShoppingCartId = cartId };
         }
 
         public List<ShoppingCartItem> GetShoppingCartItems()

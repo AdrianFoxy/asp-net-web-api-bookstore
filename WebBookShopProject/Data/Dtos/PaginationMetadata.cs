@@ -14,7 +14,7 @@ namespace WebBookShopProject.Data.Dtos
             TotalPages = (int)Math.Ceiling(totalcount / (double)itemsPerPage);
 
         }
-        public int CurrentPage { get; private set; }
+        public int CurrentPage { get; private set; } = 1;
         public int TotalCount { get; private set; }
         public int TotalPages { get; private set; }
         public bool HasPrevious => CurrentPage > 1;

@@ -29,6 +29,21 @@ namespace WebBookShopProject.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+        //[HttpGet("set/{data}")]
+        //public IActionResult setsession(string data)
+        //{
+        //    HttpContext.Session.SetString("keyname", data);
+        //    return Ok("session data set");
+        //}
+
+        //[HttpGet("get")]
+        //public IActionResult getsessiondata()
+        //{
+        //    var sessionData = HttpContext.Session.GetString("keyname");
+        //    return Ok(sessionData);
+        //}
+
+
         // Get Books by Genre Name
         [HttpGet("get-all-books-by-genre/{genre}")]
         public async Task<IActionResult> GetBooksByGenre([FromQuery] PaginationParams @params, string genre)
@@ -54,7 +69,6 @@ namespace WebBookShopProject.Controllers
 
             return Ok(allBook);
         }
-
 
         // Get Books by Author Name
         [HttpGet("get-all-books-by-author/{fullName}")]
