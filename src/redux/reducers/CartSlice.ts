@@ -32,6 +32,12 @@ export const cartSlice = createSlice({
         },
         setCart(state, action: PayloadAction<ICart[]>) {
             state.products = action.payload
+        },
+        setTotalPrice(state, action: PayloadAction<number>) {
+            state.totalPrice = action.payload
+        },
+        setTotalCount(state, action: PayloadAction<number>) {
+            state.totalCount = action.payload
         }
     }
 })

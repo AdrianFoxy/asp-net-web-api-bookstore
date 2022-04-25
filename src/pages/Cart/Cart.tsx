@@ -5,8 +5,9 @@ import styles from "./Cart.module.scss"
 
 const Cart: FC = () => {
 
+    const d = useTypedSelector(state => state.cartReducer)
     const products = useTypedSelector(state => state.cartReducer.products)
-    console.log(products)
+    console.log(d)
     const totalPrice = useTypedSelector(state => state.cartReducer.totalPrice)
     const totalCount = useTypedSelector(state => state.cartReducer.totalCount)
 

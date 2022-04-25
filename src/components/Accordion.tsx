@@ -13,7 +13,6 @@ interface SimpleAccordionProps {
 }
 
 const SimpleAccordion: FC<SimpleAccordionProps> = ({genres}) => {
-    console.log(genres)
     return (
         <div>
             {genres?.map((genre) =>

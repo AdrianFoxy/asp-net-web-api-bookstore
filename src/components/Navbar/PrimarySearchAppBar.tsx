@@ -63,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 function PrimarySearchAppBar() {
 
-    const cart = useTypedSelector(state => state.cartReducer.products)
+    const {totalCount} = useTypedSelector(state => state.cartReducer)
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -187,7 +187,7 @@ function PrimarySearchAppBar() {
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Link to="/cart">
-                                <Badge badgeContent={cart.length} color="error">
+                                <Badge badgeContent={totalCount} color="error">
                                     <ShoppingCartOutlinedIcon/>
                                 </Badge>
                             </Link>
