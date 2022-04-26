@@ -43,6 +43,9 @@ namespace WebBookShopProject
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<ITypeGenreService, TypeGenreService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IDeliveryService, DeliveryService>();
+
+            
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));

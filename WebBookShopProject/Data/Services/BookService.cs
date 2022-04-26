@@ -82,7 +82,40 @@ namespace WebBookShopProject.Data.Services
             .Take(@params.ItemsPerPage);
 
             return items;
-        }   
+        }
+
+
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetAllSearchedAsync(PaginationParams @params, string searchedString)
+        {
+            var result = await _context.Book.Select(book => new BookWithAuthorsVM()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Pages = book.Pages,
+                Format = book.Format,
+                LongDescription = book.LongDescription,
+                ShortDescription = book.ShortDescription,
+                Amount = book.Amount,
+                Price = book.Price,
+                ImageUrl = book.ImageUrl,
+                IsFavor = book.IsFavor,
+                ResealeDate = book.ResealeDate,
+                PublisherName = book.Publisher.Name,
+                AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
+                GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
+            }).OrderBy(p => p.Id)
+            .ToListAsync();
+
+            if (!string.IsNullOrEmpty(searchedString))
+            {
+                result = result.Where(n => n.Title.Contains(searchedString) || n.LongDescription.Contains(searchedString) || n.ShortDescription.Contains(searchedString)).ToList();
+            }
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
+        }
 
 
         public async Task<IEnumerable<BookWithAuthorsVM>> GetAllFavoriteBook(PaginationParams @params)

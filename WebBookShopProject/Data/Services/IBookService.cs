@@ -29,6 +29,7 @@ namespace WebBookShopProject.Data.Services
 
         Task<Book> GetByIdShopAsync(int id);
 
+        Task<IEnumerable<BookWithAuthorsVM>> GetAllSearchedAsync(PaginationParams @params, string searchedString);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllWithAuthorAsync(PaginationParams @params);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllByAuthor(string fullName, PaginationParams @params);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllByGenre(string genre, PaginationParams @params);
