@@ -34,11 +34,17 @@ namespace WebBookShopProject.Data.Services
             var result = await _context.Book.Where(x => x.IsFavor == true).ToListAsync();
             return result;
         }
+
         
+        public async Task<IEnumerable<Book>> GetSeachedCountAsync(string searchedString)
+        {
+            var result = await _context.Book.Where(n => n.Title.Contains(searchedString) || n.LongDescription.Contains(searchedString) || n.ShortDescription.Contains(searchedString)).ToListAsync();
+            return result;
+        }
 
         public async Task<IEnumerable<Book>> GetGenreCountAsync(string genre)
         {
-            var result = await _context.Book.Where(g => g.Book_Genre.Any(mg => mg.Genre.Name == genre)).ToListAsync();
+            var result = await _context.Book.Where(g => g.Book_Genre.Any(mg => mg.Genre.NameForUrl == genre)).ToListAsync();
             return result;
         }
 
@@ -53,7 +59,7 @@ namespace WebBookShopProject.Data.Services
 
         public async Task<IEnumerable<Book>> GetAuthorCountAsync(string author)
         {
-            var result = await _context.Book.Where(g => g.Book_Author.Any(mg => mg.Author.FullName == author)).ToListAsync();
+            var result = await _context.Book.Where(g => g.Book_Author.Any(mg => mg.Author.NameForUrl == author)).ToListAsync();
             return result;
         }
 

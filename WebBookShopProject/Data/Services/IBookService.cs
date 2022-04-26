@@ -23,6 +23,8 @@ namespace WebBookShopProject.Data.Services
         Task<IEnumerable<Book>> GetTypeGenreCountAsync(string genre);
         Task<IEnumerable<Book>> GetAuthorCountAsync(string author);
 
+        Task<IEnumerable<Book>> GetSeachedCountAsync(string searchedString);
+
 
         //Task<BookDropDownListVM> GetBookDropdownsValues();
 

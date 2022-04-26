@@ -49,8 +49,9 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> GetBooksByGenre([FromQuery] PaginationParams @params, string genre)
         {
             var allBook = await _bookService.GetAllByGenre(genre, @params);
+            var counter = await _bookService.GetGenreCountAsync(genre);
 
-            var paginationMetadata = new PaginationMetadata(allBook.Count(), @params.Page, @params.ItemsPerPage);
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(allBook);
@@ -61,8 +62,9 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> GetBooksByTypeGenre([FromQuery] PaginationParams @params, string genre)
         {
             var allBook = await _bookService.GetAllByTypeGenre(genre, @params);
+            var counter = await _bookService.GetTypeGenreCountAsync(genre);
 
-            var paginationMetadata = new PaginationMetadata(allBook.Count(), @params.Page, @params.ItemsPerPage);
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(allBook);
@@ -73,8 +75,9 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> GetBooksByAuthor([FromQuery] PaginationParams @params, string fullName)
         {
             var allBook = await _bookService.GetAllByAuthor(fullName, @params);
+            var counter = await _bookService.GetAuthorCountAsync(fullName);
 
-            var paginationMetadata = new PaginationMetadata(allBook.Count(), @params.Page, @params.ItemsPerPage);
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(allBook);
@@ -84,8 +87,9 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> GetAllFavoriteBooks([FromQuery] PaginationParams @params)
         {
             var allBook = await _bookService.GetAllFavoriteBook(@params);
+            var counter = await _bookService.GetAllFavoriteAsync();
 
-            var paginationMetadata = new PaginationMetadata(allBook.Count(), @params.Page, @params.ItemsPerPage);
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(allBook);
@@ -97,9 +101,9 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> GetFullAllBook([FromQuery] PaginationParams @params)
         {
             var allBook = await _bookService.GetAllWithAuthorAsync(@params);
-            //var counter = await _bookService.GetAllAsync();
+            var counter = await _bookService.GetAllAsync();
 
-            var paginationMetadata = new PaginationMetadata(allBook.Count(), @params.Page, @params.ItemsPerPage);
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(allBook);
@@ -110,8 +114,9 @@ namespace WebBookShopProject.Controllers
         {
 
             var allBook = await _bookService.GetAllSearchedAsync(@params, searchString);
+            var counter = await _bookService.GetSeachedCountAsync(searchString);
 
-            var paginationMetadata = new PaginationMetadata(allBook.Count(), @params.Page, @params.ItemsPerPage);
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
             return Ok(allBook);
