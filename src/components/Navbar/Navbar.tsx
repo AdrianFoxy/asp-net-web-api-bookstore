@@ -9,7 +9,9 @@ import SimpleAccordion from "../Accordion";
 const Navbar = () => {
 
     const genres = useTypedSelector(state => state.genreReducer)
+
     const {fetchGenres} = useActions()
+
     useEffect(() => {
         fetchGenres()
     }, [])

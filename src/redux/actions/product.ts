@@ -23,7 +23,7 @@ export const fetchProducts = (genre: string, type: string) => async (dispatch: A
             dispatch(productSlice.actions.productsFetching(response.data))
         }
 
-    } catch (error) {
+    } catch (err) {
 
     }
 }
@@ -37,7 +37,7 @@ export const fetchFavoriteProducts = () => async (dispatch: AppDispatch) => {
             }
         })
         dispatch(productSlice.actions.productsFetching(response.data))
-    } catch (error) {
+    } catch (err) {
 
     }
 }
@@ -51,15 +51,21 @@ export const fetchAllProduct = (page: number = 0) => async (dispatch: AppDispatc
             }
         })
         const x = JSON.parse(response.headers["x-pagination"])
-
-        //console.log(x)
         dispatch(productSlice.actions.productsFetching(response.data))
         dispatch(productSlice.actions.setCount(x.TotalCount))
-    } catch (error) {
+    } catch (err) {
 
     }
 }
 
 export const setPage = (newPage: number) => async (dispatch: AppDispatch) => {
     dispatch(productSlice.actions.setPage(newPage))
+}
+
+export const createProduct = (product: Object) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.post(`/Book/add-book`, product)
+    } catch (err) {
+
+    }
 }

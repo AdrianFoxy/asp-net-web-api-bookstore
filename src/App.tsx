@@ -8,6 +8,7 @@ import AdminHome from "./pages/Admin/AdminHome";
 import {useActions} from "./hooks/useAppDispatch";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminProducts from "./pages/Admin/AdminProducts";
+import AdminAuthors from "./pages/Admin/AdminAuthors";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
                 <Route element={<AdminLayout/>}>
                     <Route path="/admin" element={<AdminHome/>}/>
                     <Route path="/admin/products" element={<AdminProducts/>}/>
+                    <Route path="admin/authors" element={<AdminAuthors/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

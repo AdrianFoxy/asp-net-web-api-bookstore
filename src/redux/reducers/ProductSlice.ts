@@ -25,6 +25,9 @@ export const productSlice = createSlice({
         },
         setPage(state, action: PayloadAction<number>) {
             state.page = action.payload
+        },
+        createProduct() {
+
         }
     }
 })
