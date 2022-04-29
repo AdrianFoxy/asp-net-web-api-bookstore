@@ -257,8 +257,28 @@ namespace WebBookShopProject.Data.Services
 
             return _book_full;
         }
+        public async Task<BookFullInfoForUpdateVM> GetForUpdateByIdAsync(int id)
+        {
+            var _book_full = await _context.Book.Where(n => n.Id == id).Select(book => new BookFullInfoForUpdateVM()
+            {
+                Title = book.Title,
+                Pages = book.Pages,
+                Format = book.Format,
+                LongDescription = book.LongDescription,
+                ShortDescription = book.ShortDescription,
+                Amount = book.Amount,
+                Price = book.Price,
+                ImageUrl = book.ImageUrl,
+                IsFavor = book.IsFavor,
+                ResealeDate = book.ResealeDate,
+                PublisherId = book.Publisher.Id,
+                AuthorId = book.Book_Author.Select(n => n.Author.Id).ToList(),
+                GenreId = book.Book_Genre.Select(g => g.Genre.Id).ToList()
+            }).FirstOrDefaultAsync();
 
-        
+            return _book_full;
+        }
+
         public async Task<UpdateCountBookVM> GetUpdateAmountId(int id)
         {
             var _book = await _context.Book.Where(n => n.Id == id).Select(book => new UpdateCountBookVM()
@@ -312,7 +332,7 @@ namespace WebBookShopProject.Data.Services
             }
         }
 
-        public async Task<Book> UpdateAsync(int id, BookImgVM book, string imagePath)
+        public async Task<Book> UpdateAsync(int id, BookVM book, string imagePath)
         {
 
             var _book = await _context.Book.FirstOrDefaultAsync(n => n.Id == id);
@@ -352,7 +372,7 @@ namespace WebBookShopProject.Data.Services
             _context.Book_Genre.RemoveRange(existingGenresDb);
             await _context.SaveChangesAsync();
 
-            // Add book authors
+            // Add book genres
             foreach (var GenreId in book.GenresId)
             {
                 var newGenreBook = new Book_Genre()
@@ -374,6 +394,7 @@ namespace WebBookShopProject.Data.Services
 
             return await bookDet;
         }
+
 
         public async Task DeleteAsync(int id)
         {

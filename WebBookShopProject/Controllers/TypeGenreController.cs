@@ -49,5 +49,12 @@ namespace WebBookShopProject.Controllers
             var allTypes = await _typeGenreService.GetTypesAndGenresEng();
             return Ok(allTypes);
         }
+
+        [HttpGet("get-types-genres-for-drop-list")]
+        public async Task<IActionResult> GetPublishersForDropList()
+        {
+            var result = await _typeGenreService.GetTypeGenresForDropList();
+            return Ok(result);
+        }
     }
 }

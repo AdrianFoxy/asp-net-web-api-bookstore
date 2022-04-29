@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebBookShopProject.Data.Base;
+using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Models;
 using WebBookShopProject.Data.ViewModels;
 
@@ -29,6 +30,22 @@ namespace WebBookShopProject.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Publisher>> GetAllWithPaginationAsync(PaginationParams @params)
+        {
+            var result = await _context.Publisher.Select(item => new Publisher()
+            {
+                Id = item.Id,
+                Name = item.Name
+
+            }).OrderBy(p => p.Id)
+            .ToListAsync();
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
+        }
+
         public async Task<IEnumerable<PublisherDPVM>> GetPublishersForDropList()
         {
 
@@ -41,28 +58,6 @@ namespace WebBookShopProject.Data.Services
 
             return publishers;
         }
-
-        //public async Task DeleteAsync(int id)
-        //{
-        //    var _publisher = await _context.Publisher.FirstOrDefaultAsync(n => n.Id == id);
-        //    if (_publisher != null)
-        //    {
-        //        _context.Publisher.Remove(_publisher);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //}
-
-        //public async Task<IEnumerable<Publisher>> GetAllAsync()
-        //{
-        //    var result = await _context.Publisher.ToListAsync();
-        //    return result;
-        //}
-
-        //public async Task<Publisher> GetByIdAsync(int id)
-        //{
-        //    var result = await _context.Publisher.FirstOrDefaultAsync(n => n.Id == id);
-        //    return result;
-        //}
 
         public async Task<Publisher> UpdateAsync(int id, PublisherVM publisher)
         {

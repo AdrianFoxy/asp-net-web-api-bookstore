@@ -13,7 +13,7 @@ namespace WebBookShopProject.Data.Services
     public interface IBookService
     {
         Task AddBookAsync(BookVM book, string pathImg);
-        Task<Book> UpdateAsync(int id, BookImgVM book, string imagePath);
+        Task<Book> UpdateAsync(int id, BookVM book, string imagePath);
 
         //This methods are using for count for pagination Headers
         Task<IEnumerable<Book>> GetAllAsync();
@@ -38,6 +38,7 @@ namespace WebBookShopProject.Data.Services
         Task<IEnumerable<BookWithAuthorsVM>> GetAllByTypeGenre(string genre, PaginationParams @params);
         Task<IEnumerable<BookWithAuthorsVM>> GetAllFavoriteBook(PaginationParams @params);
         Task<BookFullInfoVM> GetByIdAsync(int id);
+        Task<BookFullInfoForUpdateVM> GetForUpdateByIdAsync(int id);
 
         Task<UpdateCountBookVM> GetUpdateAmountId(int id);
 

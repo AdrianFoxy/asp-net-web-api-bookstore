@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebBookShopProject.Data.Base;
+using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Models;
 using WebBookShopProject.Data.ViewModels;
 
@@ -19,12 +20,13 @@ namespace WebBookShopProject.Data.Services
             _context = context;
         }
 
-        public async Task AddAuthorAsync(AuthorVM author)
+        public async Task AddAuthorAsync(AuthorVM author, string pathImg)
         {
             var _author = new Author()
             {
                 FullName = author.FullName,
-                ImageUrl = author.ImageUrl,
+                NameForUrl = author.NameForUrl,
+                ImageUrl = pathImg,
                 Description = author.Description
             };
             await _context.Author.AddAsync(_author);
@@ -42,6 +44,25 @@ namespace WebBookShopProject.Data.Services
             return _author;
         }
 
+        public async Task<IEnumerable<Author>> GetAllWithPaginationAsync(PaginationParams @params)
+        {
+            var result = await _context.Author.Select(authour => new Author()
+            {
+                Id = authour.Id,
+                FullName = authour.FullName,
+                NameForUrl = authour.NameForUrl,
+                ImageUrl = authour.ImageUrl,
+                Description = authour.Description
+
+            }).OrderBy(p => p.Id)
+            .ToListAsync();
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
+        }
+
         public async Task<IEnumerable<AuthorDPVM>> GetAuthorsForDropList()
         {
 
@@ -55,13 +76,14 @@ namespace WebBookShopProject.Data.Services
             return authors;
         }
 
-        public async Task<Author> UpdateAsync(int id, AuthorVM author)
+        public async Task<Author> UpdateAsync(int id, AuthorVM author, string imagePath)
         {
             var _author = await _context.Author.FirstOrDefaultAsync(n => n.Id == id);
             if (_author != null)
             {
                 _author.FullName = author.FullName;
-                _author.ImageUrl = author.ImageUrl;
+                _author.NameForUrl = author.NameForUrl;
+                _author.ImageUrl = imagePath;
                 _author.Description = author.Description;
 
                 await _context.SaveChangesAsync();

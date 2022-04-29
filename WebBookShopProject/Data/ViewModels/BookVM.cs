@@ -16,19 +16,24 @@ namespace WebBookShopProject.Data.ViewModels
         [Required(ErrorMessage = "Необходимо указать кол-во страниц")]
         public int Pages { get; set; }
         public string Format { get; set; }
+        [StringLength(1200, ErrorMessage = "Основное описание должно содержать не более 1200 символов")]
         [Required(ErrorMessage = "Необходимо указать короткое описание")]
         public string LongDescription { get; set; }
-        [Required(ErrorMessage = "Необходимо указать основное описание")]
+        [StringLength(500, ErrorMessage = "Коротное описание должно содержать не более 500 символов")]
+        [Required(ErrorMessage = "Необходимо указать короткое описание")]
         public string ShortDescription { get; set; }
-        [Required(ErrorMessage = "Необходимо указать число товара")]
+        [Required(ErrorMessage = "Необходимо указать кол-во товара")]
         public int Amount { get; set; }
         [Required(ErrorMessage = "Необходимо цену товара")]
         public float Price { get; set; }
         //public string ImageUrl { get; set; }
         public bool IsFavor { get; set; }
         public DateTime? ResealeDate { get; set; }
+        [Required(ErrorMessage = "У Книги должен быть издатель")]
         public int Fk_PublisherId { get; set; }
+        [Required(ErrorMessage = "У Книги должен быть один или несколько авторов, в случае отсутвия таковых выберите вариант Неизвестно")]
         public List<int> AuthorsId { get; set; }
+        [Required(ErrorMessage = "У Книги должен быть один или несколько жанров")]
         public List<int> GenresId { get; set; }
     }
 
@@ -38,9 +43,26 @@ namespace WebBookShopProject.Data.ViewModels
 
         public List<Book> Books { get; set; }
     }
-    public class BookImgVM
+    //public class BookImgVM
+    //{
+    //    //public int Id { get; set; }
+    //    public string Title { get; set; }
+    //    public int Pages { get; set; }
+    //    public string Format { get; set; }
+    //    public string LongDescription { get; set; }
+    //    public string ShortDescription { get; set; }
+    //    public int Amount { get; set; }
+    //    public float Price { get; set; }
+    //    //public string ImageUrl { get; set; }
+    //    public bool IsFavor { get; set; }
+    //    public DateTime? ResealeDate { get; set; }
+    //    public int Fk_PublisherId { get; set; }
+    //    public List<int> AuthorsId { get; set; }
+    //    public List<int> GenresId { get; set; }
+    //}
+
+    public class BookFullInfoForUpdateVM
     {
-        //public int Id { get; set; }
         public string Title { get; set; }
         public int Pages { get; set; }
         public string Format { get; set; }
@@ -48,12 +70,12 @@ namespace WebBookShopProject.Data.ViewModels
         public string ShortDescription { get; set; }
         public int Amount { get; set; }
         public float Price { get; set; }
-        //public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
         public bool IsFavor { get; set; }
         public DateTime? ResealeDate { get; set; }
-        public int Fk_PublisherId { get; set; }
-        public List<int> AuthorsId { get; set; }
-        public List<int> GenresId { get; set; }
+        public int PublisherId { get; set; }
+        public List<int> AuthorId { get; set; }
+        public List<int> GenreId { get; set; }
     }
 
     public class BookFullInfoVM

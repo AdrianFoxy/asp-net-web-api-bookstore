@@ -11,6 +11,12 @@ namespace WebBookShopProject.Data.ViewModels
         public List<string> GenreNames { get; set; }
     }
 
+    public class TypeGenreDPVM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
     public class TypeGenreTestVM
     {
         public string Name { get; set; }

@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Services;
 using WebBookShopProject.Data.ViewModels;
 
@@ -15,9 +19,12 @@ namespace WebBookShopProject.Controllers
     {
         private IAuthorService _authorService;
 
-        public AuthorController(IAuthorService authorService)
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public AuthorController(IAuthorService authorService, IHostingEnvironment hostingEnvironment)
         {
             _authorService = authorService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // Get All Authors
@@ -25,6 +32,18 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> GetAllAuthor()
         {
             var allAuthors = await _authorService.GetAllAsync();
+            return Ok(allAuthors);
+        }
+
+        [HttpGet("get-all-authors-pagination")]
+        public async Task<IActionResult> GetFullAuthorPag([FromQuery] PaginationParams @params)
+        {
+            var allAuthors = await _authorService.GetAllWithPaginationAsync(@params);
+            var counter = await _authorService.GetAllAsync();
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
             return Ok(allAuthors);
         }
 
@@ -44,12 +63,45 @@ namespace WebBookShopProject.Controllers
             return Ok(responce);
         }
 
+        [HttpGet("get-author-by-id/{id}")]
+        public async Task<IActionResult> GetAuthorById(int id)
+        {
+            var result = await _authorService.GetByIdAsync(id);
+            return Ok(result);
+        }
+
         // Add new Author
         [HttpPost("add-author")]
-        public async Task<IActionResult> AddAuthor([FromBody] AuthorVM author)
+        public async Task<IActionResult> AddAuthor([FromForm] AuthorVM author, IFormFile image)
         {
-            await _authorService.AddAuthorAsync(author);
+
+            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
+            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
+            var streamImage = new FileStream(imagePath, FileMode.Append);
+            image.CopyTo(streamImage);
+
+            await _authorService.AddAuthorAsync(author, imagePathforForm);
             return Ok(author);
+        }
+
+        [HttpPut("update-author-by-id/{id}")]
+        public async Task<IActionResult> UpdateAuthorById(int id, [FromForm] AuthorVM author, IFormFile image)
+        {
+            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName);
+            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
+            var streamImage = new FileStream(imagePath, FileMode.Append);
+            image.CopyTo(streamImage);
+
+            var updatedAuthor = await _authorService.UpdateAsync(id, author, imagePathforForm);
+            return Ok(updatedAuthor);
+        }
+
+        // Delete Choosen Publisher
+        [HttpDelete("delete-author-by-id/{id}")]
+        public async Task<IActionResult> DeleteAuthorById(int id)
+        {
+            await _authorService.DeleteAsync(id);
+            return Ok();
         }
     }
 }

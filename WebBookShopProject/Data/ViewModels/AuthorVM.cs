@@ -9,11 +9,14 @@ namespace WebBookShopProject.Data.ViewModels
 {
     public class AuthorVM
     {
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина ФИО должна быть от 3 до 50 символов")]
-        [Required(ErrorMessage = "Необходимо заполнить поле ФИО автора")]
+        [StringLength(90, MinimumLength = 2, ErrorMessage = "Длина ФИО должна быть от 2 до 90 символов")]
+        [Required(ErrorMessage = "Необходимо заполнить поле ФИО автора")]     
         public string FullName { get; set; }
-        public string ImageUrl { get; set; }
-        [Required(ErrorMessage = "Необходимо заполнить поле описание автора")]
+        [StringLength(90, MinimumLength = 2, ErrorMessage = "Длина названия для ссылки должна быть от 2 до 90 символов")]
+        [Required(ErrorMessage = "Поле обязательное. Эти данные будут отображаться в адресной строке при переходе на профиль автора")]
+        public string NameForUrl { get; set; }
+        [StringLength(1200, ErrorMessage = "Описание может содержать не более 1200 символов")]
+        [Required(ErrorMessage = "Необходимо заполнить поле описания автора")]
         public string Description { get; set; }
     }
 

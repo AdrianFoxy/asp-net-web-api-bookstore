@@ -96,7 +96,7 @@ namespace WebBookShopProject.Controllers
         }
 
         // List of all books + info about genres and authors
-        // I used there my own terrible method, so I it can be broken)))
+        // I used there my own terrible method, so it can be broken)))
         [HttpGet("get-all-books-info")]
         public async Task<IActionResult> GetFullAllBook([FromQuery] PaginationParams @params)
         {
@@ -138,18 +138,28 @@ namespace WebBookShopProject.Controllers
             return Ok(book);
         }
 
+        // Get info about book by Id
+        [HttpGet("get-book-for-update-by-id/{id}")]
+        public async Task<IActionResult> GetBookForUpdateById(int id)
+        {
+            var book = await _bookService.GetForUpdateByIdAsync(id);
+            return Ok(book);
+        }
+
 
         // Update choosed Book
         [HttpPut("update-book-by-id/{id}")]
-        public async Task<IActionResult> UpdateBookById(int id, [FromForm]BookImgVM book, IFormFile image)
+        public async Task<IActionResult> UpdateBookById(int id, [FromForm] BookVM book, IFormFile image)
         {
             var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName);
+            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
             var streamImage = new FileStream(imagePath, FileMode.Append);
             image.CopyTo(streamImage);
 
-            var updatedBook = await _bookService.UpdateAsync(id, book, imagePath);
-            return Ok(updatedBook);
+            var updatedBook = await _bookService.UpdateAsync(id, book, imagePathforForm);
+            return Ok(book);
         }
+
 
         // Delete choosed Book
         [HttpDelete("delete-book-by-id/{id}")]
@@ -165,22 +175,15 @@ namespace WebBookShopProject.Controllers
         [HttpPost("add-book")]
         public async Task<IActionResult> AddBookImage([FromForm] BookVM book, IFormFile image)
         {
-            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName);
+            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
+            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
             var streamImage = new FileStream(imagePath, FileMode.Append);
             image.CopyTo(streamImage);
 
-            await _bookService.AddBookAsync(book, imagePath);
+            await _bookService.AddBookAsync(book, imagePathforForm);
 
             return Ok(book);
         }
-
-        //[HttpGet]
-        //public IActionResult GetPublisher()
-        //{
-        //    //var studioDropdownData = await _bookService.GetBookDropdownsValues();
-
-        //    //fk_id_studio_developer = new SelectList(studioDropdownData.StudioDeveloper, "Id_Studio_Developer", "Studio_Name");
-        //}
 
     }
 }
