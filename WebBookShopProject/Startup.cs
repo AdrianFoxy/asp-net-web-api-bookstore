@@ -1,22 +1,27 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using WebBookShopProject.Data;
 using WebBookShopProject.Data.Cart;
 using WebBookShopProject.Data.Services;
+using WebBookShopProject.Models;
 
 namespace WebBookShopProject
 {
@@ -36,7 +41,58 @@ namespace WebBookShopProject
             // DbContext Config
             services.AddDbContext<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("Default"), new MySqlServerVersion(new Version(8, 0, 22))));
 
+
+            //Identity and JWT services
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 5;
+            }).AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+
+
+
+            services.AddAuthentication(auth => 
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options => {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidAudience = Configuration["AuthSettings:Audience"],
+                    ValidIssuer = Configuration["AuthSettings:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:Key"]))
+                };
+            });
+                
+                
+                
+            //    .AddJwtBearer(options =>
+            //{
+            //    options.SaveToken = true;
+
+            //    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            //    {
+            //        // настройки токета собсна
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidAudience = Configuration["AuthSettings:Audience"], // тут мб будут проблемы
+            //        ValidIssuer = Configuration["AuthSettings:Issuer"],
+            //        RequireExpirationTime = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is the key that we will use in encryption")),
+            //        ValidateIssuerSigningKey = true
+            //    };
+            //});
+
             // Configure the services
+            // ЗАМЕТОЧКА!!! Попробовать потом все заменить на AddScoped
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IPublihserService, PublisherService>();
@@ -44,8 +100,9 @@ namespace WebBookShopProject
             services.AddTransient<ITypeGenreService, TypeGenreService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IDeliveryService, DeliveryService>();
+            services.AddTransient<IUserService, UserService>();
 
-            
+
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
@@ -66,10 +123,39 @@ namespace WebBookShopProject
 
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
+
+            services.AddSwaggerGen(c => {
+
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebBookShopProject", Version = "v1" });
+
+                OpenApiSecurityScheme securityDefinition = new OpenApiSecurityScheme()
+                {
+                    Name = "Bearer",
+                    BearerFormat = "JWT",
+                    Scheme = "bearer",
+                    Description = "Specify the authorization token.",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                };
+                c.AddSecurityDefinition("jwt_auth", securityDefinition);
+
+                // Make sure swagger UI requires a Bearer token specified
+                OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference()
+                    {
+                        Id = "jwt_auth",
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+                OpenApiSecurityRequirement securityRequirements = new OpenApiSecurityRequirement()
+                {
+                    {securityScheme, new string[] { }},
+                };
+                c.AddSecurityRequirement(securityRequirements);
+
             });
+
 
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -102,8 +188,11 @@ namespace WebBookShopProject
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+
             app.UseSession();
             app.UseCors();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
@@ -113,6 +202,7 @@ namespace WebBookShopProject
             });
 
             AppDbInitialer.Seed(app);
+            AppDbInitialer.SeedUsersAndRolesAsync(app);
         }
 
     }
