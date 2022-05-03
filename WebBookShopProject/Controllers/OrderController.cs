@@ -121,20 +121,20 @@ namespace WebBookShopProject.Controllers
             return Ok("OrderCompleted");
         }
 
-        [HttpPost("complete-order-with-authorise")]
-        public async Task<IActionResult> WithAutCompleOrder([FromForm] OrderWithAutVM order)
-        {
-            var items = _shoppingCart.GetShoppingCartItems();
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            double sum = _shoppingCart.GetShoppingCartTotal();
+        //[HttpPost("complete-order-with-authorise")]
+        //public async Task<IActionResult> WithAutCompleOrder([FromForm] OrderWithAutVM order)
+        //{
+        //    var items = _shoppingCart.GetShoppingCartItems();
+        //    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    double sum = _shoppingCart.GetShoppingCartTotal();
 
-            var userinfo = await _userService.GetUserById(userId);          
+        //    var userinfo = await _userService.GetUserById(userId);          
 
-            await _orderService.StoreOrderWithAuthorizeAsync(items, userId, sum, order, userinfo.Email, userinfo.Phone, userinfo.FullName);
-            await _shoppingCart.ClearShoppingCartAsync();
+        //    await _orderService.StoreOrderWithAuthorizeAsync(items, userId, sum, order, userinfo.Email, userinfo.Phone, userinfo.FullName);
+        //    await _shoppingCart.ClearShoppingCartAsync();
 
-            return Ok("OrderCompleted");
-        }
+        //    return Ok("OrderCompleted");
+        //}
         
     }
 }

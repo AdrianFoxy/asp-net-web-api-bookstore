@@ -105,6 +105,7 @@ namespace WebBookShopProject.Data.Services
 
             if (result.Succeeded)
             {
+                // Сюда добавить выдачу токена
                 // Тут можно будет добавить отпраку потдверждающего Email'а
                 return new UserManagerResponse
                 {
