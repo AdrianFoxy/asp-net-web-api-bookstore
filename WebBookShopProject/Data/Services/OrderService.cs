@@ -23,7 +23,19 @@ namespace WebBookShopProject.Data.Services
         }
         public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
         {
-            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Where(n => n.UserID == userId).ToListAsync();
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).Where(n => n.UserID == userId).ToListAsync();
+            return orders;
+        }
+
+        public async Task<List<Order>> GetAllOrders()
+        {
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).ToListAsync();
+            return orders;
+        }
+
+        public async Task<Order> GetByIdAsync(int id)
+        {
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).FirstOrDefaultAsync();
             return orders;
         }
 
@@ -40,6 +52,11 @@ namespace WebBookShopProject.Data.Services
                 Fk_OrderStatusId = 1,
                 Fk_DeliveryId = orderInfo.DeliveryId
             };
+
+            if (order.Fk_DeliveryId == 1)
+            {
+                order.Address = "проспект Людвіга Свободи, 33, Харків, Харківська область, 61000";
+            }
 
             await _context.Order.AddAsync(order);
             await _context.SaveChangesAsync();
@@ -66,6 +83,58 @@ namespace WebBookShopProject.Data.Services
                 {
                     await _bookservice.UpdateBookAmountAsync(responce, item.Book.Id);
                 }                  
+
+                //await _bookservice.UpdateBookAmountAsync(responce, item.Book.Id);
+                await _context.SaveChangesAsync();
+
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task StoreOrderWithAuthorizeAsync(List<ShoppingCartItem> items, string userId, double sum, OrderWithAutVM orderInfo, string Email, string Phone, string FullName)
+        {
+            var order = new Order()
+            {
+                UserID = userId,
+                ContactEmail = Email,
+                ContactPhone = Phone,
+                ContactName = FullName,
+                Sum = sum,
+                Address = orderInfo.Adress,
+                Fk_OrderStatusId = 1,
+                Fk_DeliveryId = orderInfo.DeliveryId,
+            };
+
+            if(order.Fk_DeliveryId == 1)
+            {
+                order.Address = "проспект Людвіга Свободи, 33, Харків, Харківська область, 61000";
+            }
+
+            await _context.Order.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            foreach (var item in items)
+            {
+                var orderItem = new OrderItem()
+                {
+                    Amount = item.Amount,
+                    Fk_BookId = item.Book.Id,
+                    Fk_OrderId = order.Id,
+
+                };
+                await _context.OrderItem.AddAsync(orderItem);
+
+                var bookDetails = await _bookservice.GetUpdateAmountId(item.Book.Id);
+
+                var responce = new UpdateCountBookVM()
+                {
+                    Amount = bookDetails.Amount - item.Amount
+                };
+
+                if (responce.Amount >= 0)
+                {
+                    await _bookservice.UpdateBookAmountAsync(responce, item.Book.Id);
+                }
 
                 //await _bookservice.UpdateBookAmountAsync(responce, item.Book.Id);
                 await _context.SaveChangesAsync();

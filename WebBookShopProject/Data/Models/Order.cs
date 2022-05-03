@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using WebBookShopProject.Models;
 
 namespace WebBookShopProject.Data.Models
 {
@@ -12,11 +13,13 @@ namespace WebBookShopProject.Data.Models
         [Key]
         public int Id { get; set; }
         public string ContactEmail { get; set; }
-        public int ContactPhone { get; set; }
+        public string ContactPhone { get; set; }
         public string ContactName { get; set; }
         public string Address { get; set; }
         public double Sum { get; set; }
         public string UserID { get; set; }
+        [ForeignKey("UserID")]
+        public ApplicationUser ApplicationUser { get; set; }
         public int Fk_OrderStatusId { get; set; }
         [ForeignKey("Fk_OrderStatusId")]
         public OrderStatus OrderStatus { get; set; }

@@ -96,6 +96,18 @@ namespace WebBookShopProject.Data.Cart
             _context.SaveChanges();
         }
 
+        public void RemoveAllChoosenItemsFromCart(Book book)
+        {
+            var shoppingCartItem = _context.ShoppingCartItem.FirstOrDefault(n => n.Book.Id == book.Id &&
+            n.ShoppingCartId == ShoppingCartId);
+
+            if (shoppingCartItem != null)
+            {
+               _context.ShoppingCartItem.Remove(shoppingCartItem);
+            }
+            _context.SaveChanges();
+        }
+
         public async Task ClearShoppingCartAsync()
         {
             var items = await _context.ShoppingCartItem.Where(n => n.ShoppingCartId ==

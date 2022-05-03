@@ -1,5 +1,6 @@
 ﻿using AnotherTestProject.Data.Static;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,11 +20,13 @@ namespace WebBookShopProject.Data.Services
     {
         private UserManager<ApplicationUser> _userManager;
         private IConfiguration _configuration;
+        private AppDbContext _context;
 
-        public UserService(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public UserService(UserManager<ApplicationUser> userManager, IConfiguration configuration, AppDbContext context)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _context = context;
         }
 
         public async Task<UserManagerResponse> LoginUserAsync(LoginVM model)
@@ -117,6 +120,41 @@ namespace WebBookShopProject.Data.Services
                 Errors = result.Errors.Select(e => e.Description)
             };
 
+        }
+
+        public async Task<UserVM> GetUserById(string userId)
+        {
+            var result = await _context.Users.Where(n => n.Id == userId).Select(user => new UserVM()
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                UserName = user.UserName,
+                Phone = user.PhoneNumber,
+                Email = user.Email
+                
+            }).FirstOrDefaultAsync();
+
+            return result;
+        }
+
+        public async Task<ApplicationUser> UpdateAsync(string userId, UserUpdateVM model)
+        {
+
+            var result = await _context.Users.FirstOrDefaultAsync(n => n.Id == userId);
+            if (result != null)
+            {
+                result.FullName = model.FullName;
+                result.UserName = model.UserName;
+                result.NormalizedUserName = model.UserName.ToUpper();
+                result.PhoneNumber = model.Phone;
+                result.Email = model.Email;
+                result.NormalizedEmail = model.Email.ToUpper();
+
+
+                await _context.SaveChangesAsync();
+            };
+
+            return result;
         }
     }
 }

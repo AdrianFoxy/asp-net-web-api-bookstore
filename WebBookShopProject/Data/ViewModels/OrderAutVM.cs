@@ -10,7 +10,8 @@ namespace WebBookShopProject.Data.ViewModels
     {
 
         [Required(ErrorMessage = "Укажите свой контактный номер")]
-        public int Phone { get; set; }
+        [Phone]
+        public string Phone { get; set; }
 
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         [Required(ErrorMessage = "Укажите вашу почту")]
@@ -19,10 +20,20 @@ namespace WebBookShopProject.Data.ViewModels
         [StringLength(90, MinimumLength = 2, ErrorMessage = "От 2 до 90 символов")]
         [Required(ErrorMessage = "Необходимо указать как к вам обращаться")]
         public string Name { get; set; }
-        [StringLength(90, MinimumLength = 2, ErrorMessage = "От 2 до 90 символов")]
-        [Required(ErrorMessage = "Укажите адресс доставки")]
         public string Adress { get; set; }
         [Required(ErrorMessage = "Выберите Самовывоз или доставку")]
         public int DeliveryId { get; set; }
+    }
+
+    public class OrderWithAutVM
+    {
+        public string Adress { get; set; }
+        [Required(ErrorMessage = "Выберите Самовывоз или доставку")]
+        public int DeliveryId { get; set; }
+    }
+
+    public class UpdateStatus
+    {
+        public int StatusId { get; set; }
     }
 }

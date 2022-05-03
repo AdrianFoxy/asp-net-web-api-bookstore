@@ -1095,6 +1095,7 @@ namespace WebBookShopProject.Data
                         FullName = "Admin User",
                         UserName = "admin-user",
                         Email = adminUserEmail,
+                        PhoneNumber = "380444618061",
                         EmailConfirmed = true
 
                     };
@@ -1112,6 +1113,7 @@ namespace WebBookShopProject.Data
                         FullName = "App User",
                         UserName = "app-user",
                         Email = appUserEmail,
+                        PhoneNumber = "380444618061",
                         EmailConfirmed = true
 
                     };
