@@ -36,7 +36,8 @@ namespace WebBookShopProject.Data
                         new OrderStatus() {Name = "Отменно"},
                         new OrderStatus() {Name = "Выполнено"},
                         new OrderStatus() {Name = "Ожидает в пункте выдачи"},
-                        new OrderStatus() {Name = "В пути"}
+                        new OrderStatus() {Name = "В пути"},
+                        new OrderStatus() {Name = "Одобрено"}
                     });
                 }
 

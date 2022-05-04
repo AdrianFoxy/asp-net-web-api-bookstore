@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace WebBookShopProject.Data.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+
+        [JsonIgnore]
         public List<Order> Order { get; set; }
     }
 }

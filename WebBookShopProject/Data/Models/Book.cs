@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,8 @@ namespace WebBookShopProject.Data.Models
         public int Fk_PublisherId { get; set; }
         [ForeignKey("Fk_PublisherId")]
         public Publisher Publisher { get; set; }
+
+        [JsonIgnore]
         public List<OrderItem> OrderItem { get; set; }
         public List<Book_Author> Book_Author { get; set; }
         public List<Book_Genre> Book_Genre { get; set; }

@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WebBookShopProject.Data.Cart;
+using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Services;
 using WebBookShopProject.Data.ViewModels;
 
@@ -30,22 +32,43 @@ namespace WebBookShopProject.Controllers
 
 
         [HttpGet("get-orders-of-user")]
-        public async Task<IActionResult> GetOrdersOfUser()
+        public async Task<IActionResult> GetOrdersOfUser([FromQuery] PaginationParams @params)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var orders = await _orderService.GetOrdersByUserIdAsync(userId);
+            var orders = await _orderService.GetOrdersByUserIdAsync(userId, @params);
+            var counter = await _orderService.GetOrdersByUserIdCountAsync(userId);
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
             return Ok(orders);
         }
 
         [HttpGet("get-all-orders-for-admin")]
-        public async Task<IActionResult> GetAllOrders()
+        public async Task<IActionResult> GetAllOrders([FromQuery] PaginationParams @params)
         {
-            var orders = await _orderService.GetAllOrders();
+            var orders = await _orderService.GetAllOrders(@params);
+            var counter = await _orderService.GetAllOrdersCount();
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+            return Ok(orders);
+        }
+
+        [HttpGet("get-orders-by-status")]
+        public async Task<IActionResult> GetOrdersByStatus([FromQuery] PaginationParams @params, int statusId)
+        {
+            var orders = await _orderService.GetAllOrdersByStatus(statusId, @params);
+            var counter = await _orderService.GetAllOrdersByStatusCount(statusId);
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
             return Ok(orders);
         }
 
 
-       [HttpGet("get-shopping-cart")]
+        [HttpGet("get-shopping-cart")]
         public IActionResult GetShoppingCart()
         {
             var items = _shoppingCart.GetShoppingCartItems();
@@ -60,6 +83,41 @@ namespace WebBookShopProject.Controllers
 
 
             return Ok(responce);
+        }
+
+        [HttpPut("change-order-status-to-canceled")]
+        public async Task<IActionResult> ChangeStatusToCanceled(int orderId)
+        {
+            var response = await _orderService.ChangeOrderStatusToСanceled(orderId);
+            return Ok(response);
+        }
+
+        [HttpPut("change-order-status-to-approved")]
+        public async Task<IActionResult> ChangeStatusToApproved(int orderId)
+        {
+            var response = await _orderService.ChangeOrderStatusToApproved(orderId);
+            return Ok(response);
+        }
+
+        [HttpPut("change-order-status-to-done")]
+        public async Task<IActionResult> ChangeStatusToDone(int orderId)
+        {
+            var response = await _orderService.ChangeOrderStatusToDone(orderId);
+            return Ok(response);
+        }
+
+        [HttpPut("change-order-status-on-my-way")]
+        public async Task<IActionResult> ChangeStatusOnMyWay(int orderId)
+        {
+            var response = await _orderService.ChangeOrderStatusToOnMyWay(orderId);
+            return Ok(response);
+        }
+
+        [HttpPut("change-order-status-waiting-at-the-point")]
+        public async Task<IActionResult> ChangeStatusToWaitingAtThePoint(int orderId)
+        {
+            var response = await _orderService.ChangeOrderStatusToWaitingAtThePoint(orderId);
+            return Ok(response);
         }
 
         [HttpPost("add-item-to-cart")]
@@ -107,11 +165,11 @@ namespace WebBookShopProject.Controllers
             return RedirectToAction(nameof(GetShoppingCart));
         }
 
-        [HttpPost("complete-order-without-authorise")]
+        [HttpPost("complete-order")]
         public async Task<IActionResult> AutCompleOrder([FromForm] OrderWithoutAutVM order)
         {
             var items = _shoppingCart.GetShoppingCartItems();
-            string userId = null;
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             double sum = _shoppingCart.GetShoppingCartTotal();
            
 
@@ -120,21 +178,6 @@ namespace WebBookShopProject.Controllers
 
             return Ok("OrderCompleted");
         }
-
-        //[HttpPost("complete-order-with-authorise")]
-        //public async Task<IActionResult> WithAutCompleOrder([FromForm] OrderWithAutVM order)
-        //{
-        //    var items = _shoppingCart.GetShoppingCartItems();
-        //    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    double sum = _shoppingCart.GetShoppingCartTotal();
-
-        //    var userinfo = await _userService.GetUserById(userId);          
-
-        //    await _orderService.StoreOrderWithAuthorizeAsync(items, userId, sum, order, userinfo.Email, userinfo.Phone, userinfo.FullName);
-        //    await _shoppingCart.ClearShoppingCartAsync();
-
-        //    return Ok("OrderCompleted");
-        //}
         
     }
 }

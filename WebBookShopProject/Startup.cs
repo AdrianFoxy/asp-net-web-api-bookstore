@@ -45,9 +45,12 @@ namespace WebBookShopProject
             //Identity and JWT services
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                //options.Password.RequireDigit = true;
-                //options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 5;
+
             }).AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
@@ -101,6 +104,7 @@ namespace WebBookShopProject
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IDeliveryService, DeliveryService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IOrderStatusService, OrderStatusService>();
 
 
 

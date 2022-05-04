@@ -96,7 +96,7 @@ namespace WebBookShopProject.Data.Services
                 FullName = model.FullName,
                 PhoneNumber = model.Phone,
                 Email = model.Email,
-                UserName = model.UserName,
+                UserName = model.Email,
                 EmailConfirmed = true
             };
 
@@ -105,13 +105,44 @@ namespace WebBookShopProject.Data.Services
 
             if (result.Succeeded)
             {
-                // Сюда добавить выдачу токена
-                // Тут можно будет добавить отпраку потдверждающего Email'а
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                var claims = new[]
+                {
+                    new Claim("Email", model.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                };
+
+                var roles = await _userManager.GetRolesAsync(user); // note: you have a typo in "_userManger"
+
+                var claimsWithRoles = roles.Select(role => new Claim(ClaimTypes.Role, role));
+                var allClaims = claims.Concat(claimsWithRoles);
+
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
+                var token = new JwtSecurityToken(
+                    issuer: _configuration["AuthSettings:Issuer"],
+                    audience: _configuration["AuthSettings:Audience"],
+                    claims: allClaims,
+                    expires: DateTime.Now.AddDays(30),
+                    signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
+
+                string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
+
                 return new UserManagerResponse
                 {
-                    Message = "User created successfully",
-                    IsSuccess = true
+                    Message = tokenAsString,
+                    IsSuccess = true,
+                    ExpireDate = token.ValidTo
                 };
+
+                // Сюда добавить выдачу токена
+                // Тут можно будет добавить отпраку потдверждающего Email'а
+                //return new UserManagerResponse
+                //{
+                //    Message = "User created successfully",
+                //    IsSuccess = true
+                //};
             }
 
             return new UserManagerResponse
@@ -129,7 +160,6 @@ namespace WebBookShopProject.Data.Services
             {
                 Id = user.Id,
                 FullName = user.FullName,
-                UserName = user.UserName,
                 Phone = user.PhoneNumber,
                 Email = user.Email
                 
@@ -145,8 +175,8 @@ namespace WebBookShopProject.Data.Services
             if (result != null)
             {
                 result.FullName = model.FullName;
-                result.UserName = model.UserName;
-                result.NormalizedUserName = model.UserName.ToUpper();
+                result.UserName = model.Email;
+                result.NormalizedUserName = model.Email.ToUpper();
                 result.PhoneNumber = model.Phone;
                 result.Email = model.Email;
                 result.NormalizedEmail = model.Email.ToUpper();
