@@ -41,11 +41,19 @@ code {
 body {
     line-height: 1;
     font-size: 14px;
+
+    overflow-x:hidden; /* 2 ? */
+    overflow-y:hidden;
+
     /*font-family: 'Roboto';*/
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
+
+/*#root {*/
+/*    height: 100vh;*/
+/*}*/
 
 input, button, textarea {
     font-family: '';

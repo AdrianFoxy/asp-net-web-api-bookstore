@@ -69,3 +69,4 @@ export const createProduct = (product: Object) => async (dispatch: AppDispatch) 
 
     }
 }
+

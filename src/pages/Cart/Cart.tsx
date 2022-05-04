@@ -29,34 +29,38 @@ const Cart: FC = () => {
             </div>
             <div className={styles.cart__wrapper}>
                 <Card className={styles.cart__items}>
-                    {products.map((product) =>
-                        <div className={styles.cart__item}>
-                            <img className={styles.cart__img}
-                                 src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.imageUrl}`}
-                                 alt="product-img"/>
-                            <div style={{width: "100%"}}>
-                                <div className={styles.cart__item_info}>
-                                    <div className={styles.cart__item_w}>
-                                        {product.name}
+                    {products.length <= 0 ? <div style={{padding: "20px"}}> В корзине ничего нет </div> :
+                        products.map((product) =>
+                            <div className={styles.cart__item}>
+                                <img className={styles.cart__img}
+                                     src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.imageUrl}`}
+                                     alt="product-img"/>
+                                <div style={{width: "100%"}}>
+                                    <div className={styles.cart__item_info}>
+                                        <div className={styles.cart__item_w}>
+                                            {product.name}
+                                        </div>
+                                        <div className={`${styles.cart__item_w} ${styles.cart__item_sw}`}>
+                                            <RemoveOutlinedIcon onClick={() => removeCart(product.id)}
+                                                                style={{cursor: "pointer"}}/>
+                                            {product.quantity}
+                                            <AddOutlinedIcon onClick={() => addProduct(product.id)}
+                                                             style={{cursor: "pointer"}}/>
+                                        </div>
+                                        <div className={styles.cart__item_w}>
+                                            {product.price * product.quantity} грн.
+                                        </div>
+                                        <div className={styles.cart__item_w}>
+                                            <DeleteForeverOutlinedIcon style={{cursor: "pointer"}}/>
+                                        </div>
                                     </div>
-                                    <div className={`${styles.cart__item_w} ${styles.cart__item_sw}`}>
-                                        <RemoveOutlinedIcon onClick={() => removeCart(product.id)} style={{cursor: "pointer"}}/>
-                                        {product.quantity}
-                                        <AddOutlinedIcon onClick={() => addProduct(product.id)} style={{cursor: "pointer"}}/>
+                                    <div>
+                                        {product.price} грн./шт
                                     </div>
-                                    <div className={styles.cart__item_w}>
-                                        {product.price * product.quantity} грн.
-                                    </div>
-                                    <div className={styles.cart__item_w}>
-                                        <DeleteForeverOutlinedIcon style={{cursor: "pointer"}}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    {product.price} грн./шт
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )
+                    }
                 </Card>
                 <div className={styles.cart__total_wrapper}>
                     <Card className={styles.cart__total}>

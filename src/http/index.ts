@@ -1,18 +1,15 @@
 import axios from "axios"
-import Cookies from 'js-cookie'
 
 const $api = axios.create({
     withCredentials: true,
     baseURL: "https://localhost:44307/api"
 })
 
-// $api.interceptors.request.use((config) => {
-//     //config.headers?[".AspNetCore.Session"] = ``
-//
-//     if (Cookies.get(".AspNetCore.Session")) {
-//         // @ts-ignore
-//         config.headers['.AspNetCore.Session']= `${Cookies.get('token')}`
-//     }
-// })
+$api.interceptors.request.use((config) => {
+    if (config.headers) {
+        config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
+        return config
+    }
+})
 
 export default $api

@@ -40,15 +40,14 @@ export default function KeepMountedModal({type = "primary", children}: { type?: 
             >
                 <Box sx={style}  style={{display: "flex"}}>
                     {genres.map((genre) =>
-                        <div>
+                        <div style={{marginRight: "20px"}}>
                             <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
                                 <Link to={`/products/${genre.nameEng}`} onClick={handleClose}>
                                     {genre.name}
                                 </Link>
                             </Typography>
                             {genre.genreNames.map((name) =>
-                                <Typography id="keep-mounted-modal-description" sx={{mt: 2}}
-                                            style={{marginLeft: "10px"}}>
+                                <Typography id="keep-mounted-modal-description" sx={{mt: 2}}>
                                     <Link to={`/products/${name.nameForUrl}`} onClick={handleClose}>
                                         {name.name}
                                     </Link>

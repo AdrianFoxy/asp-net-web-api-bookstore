@@ -1,0 +1,51 @@
+.reg {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__wrapper {
+        display: flex;
+        align-items: center;
+    }
+    &__textWrapper {
+        margin-right: 60px;
+    }
+    &__title {
+        font-size: 60px;
+    }
+    &__text {
+        font-size: 40px;
+    }
+    &__regForm {
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        padding: 25px;
+        position: relative;
+    }
+    &__reg_password {
+        display: flex;
+    }
+    &__input {
+        display: block !important;
+        margin-bottom: 10px !important;
+        &:not(:last-child) {
+            margin-right: 10px !important;
+        }
+    }
+    &__password_error {
+        top: 90px;
+    }
+    &__username_error {
+        top: 148px;
+    }
+    &__buttonCreateAccount {
+        border-radius: 10px;
+        font-size: 20px;
+        border: 1px solid #000;
+        background-color: transparent;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}

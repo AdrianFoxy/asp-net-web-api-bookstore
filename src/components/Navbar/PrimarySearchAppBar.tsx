@@ -185,22 +185,14 @@ function PrimarySearchAppBar() {
                     </Search>
                     <Box sx={{flexGrow: 1}}/>
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Link to="/cart">
+                        <Link to="/cart">
+                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+
                                 <Badge badgeContent={totalCount} color="error">
                                     <ShoppingCartOutlinedIcon/>
                                 </Badge>
-                            </Link>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon/>
-                            </Badge>
-                        </IconButton>
+                            </IconButton>
+                        </Link>
                         <IconButton
                             size="large"
                             edge="end"
