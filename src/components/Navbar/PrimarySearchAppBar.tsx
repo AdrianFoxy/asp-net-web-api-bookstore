@@ -23,6 +23,7 @@ import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {Button} from "@mui/material";
 import {useActions} from "../../hooks/useAppDispatch";
 import ShowAuth from "../../auth/ShowAuth";
+import ShowAdmin from "../../auth/ShowAdmin";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -112,7 +113,9 @@ function PrimarySearchAppBar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link to="/admin"> Admin </Link></MenuItem>
+            <ShowAdmin>
+                <MenuItem onClick={handleMenuClose}><Link to="/admin"> Admin </Link></MenuItem>
+            </ShowAdmin>
         </Menu>
     );
 
