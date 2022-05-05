@@ -14,14 +14,15 @@ import Registration from "./pages/Registration/Registration";
 import {useTypedSelector} from "./hooks/useTypedSelector";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import {RequireAuth} from "./auth/RequireAuth";
 
 function App() {
 
     const {fetchCart, checkRole, checkInfo} = useActions()
 
-    const {user, role, isInitialized} = useTypedSelector(state => state.userReducer)
+    const {user, role, isInitialized, isAuth} = useTypedSelector(state => state.userReducer)
 
-    console.log(user, role, isInitialized)
+    console.log(user, role, isInitialized, isAuth)
 
     useEffect(() => {
         fetchCart()
@@ -51,7 +52,8 @@ function App() {
                         <Route path="/admin/products" element={<AdminProducts/>}/>
                         <Route path="admin/authors" element={<AdminAuthors/>}/>
                     </Route>
-                    <Route path="/login" element={<Login/>}/>
+
+                    <Route path="/login" element={<RequireAuth><Login/></RequireAuth>}/>
                     <Route path="/registration" element={<Registration/>}/>
                 </Routes>
             </BrowserRouter>

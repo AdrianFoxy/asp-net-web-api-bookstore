@@ -3,12 +3,14 @@ import {IUser} from "../../types/IUser";
 
 interface UserState {
     isInitialized: boolean
+    isAuth: boolean
     role: string
     user: IUser
 }
 
 const initialState: UserState = {
-    isInitialized: true,
+    isInitialized: false,
+    isAuth: false,
     role: "guest",
     user: {}
 }
@@ -28,6 +30,9 @@ export const userSlice = createSlice({
         },
         setIsInitialized(state, action: PayloadAction<boolean>) {
             state.isInitialized = action.payload
+        },
+        setIsAuth(state, action: PayloadAction<boolean>) {
+            state.isAuth = action.payload
         }
     }
 })

@@ -41,6 +41,7 @@ code {
 body {
     line-height: 1;
     font-size: 14px;
+    padding: 0 !important;
 
     overflow-x:hidden; /* 2 ? */
     overflow-y:hidden;

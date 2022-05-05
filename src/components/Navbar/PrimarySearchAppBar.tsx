@@ -20,6 +20,9 @@ import KeepMountedModal from "../Modal";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {Button} from "@mui/material";
+import {useActions} from "../../hooks/useAppDispatch";
+import ShowAuth from "../../auth/ShowAuth";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -64,6 +67,8 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 function PrimarySearchAppBar() {
 
     const {totalCount} = useTypedSelector(state => state.cartReducer)
+    const {logout} = useActions()
+
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -193,30 +198,27 @@ function PrimarySearchAppBar() {
                                 </Badge>
                             </IconButton>
                         </Link>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle/>
-                        </IconButton>
+                        <ShowAuth>
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle/>
+                            </IconButton>
+                        </ShowAuth>
                     </Box>
-                    <Box sx={{display: {xs: 'flex', md: 'none'}}}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon/>
-                        </IconButton>
-                    </Box>
+                    <ShowAuth>
+                        <MenuItem>
+                            <Button variant="contained" onClick={() => logout()}>
+                                Выйти
+                            </Button>
+                        </MenuItem>
+                    </ShowAuth>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
