@@ -14,7 +14,6 @@ namespace WebBookShopProject.Data.Services
         Task StoreOrderWithAuthorizeAsync(List<ShoppingCartItem> items, string userId, double sum, OrderWithAutVM orderInfo, string Email, string Phone, string FullName);
         Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId, PaginationParams @params);
 
-        Task<IEnumerable<Order>> GetOrdersByEnteredUserIdAsync(string userId, PaginationParams @params);
         Task<IEnumerable<Order>> GetOrdersByUserIdCountAsync(string userId);
         Task<IEnumerable<Order>> GetAllOrders(PaginationParams @params);
         Task<IEnumerable<Order>> GetAllOrdersCount();

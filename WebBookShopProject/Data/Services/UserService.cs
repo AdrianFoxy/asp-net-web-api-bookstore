@@ -222,7 +222,7 @@ namespace WebBookShopProject.Data.Services
             if (result != null)
             {
                 result.FullName = model.FullName;
-                result.UserName = model.Email;
+                result.UserName = model.UserName;
                 result.NormalizedUserName = model.Email.ToUpper();
                 result.PhoneNumber = model.Phone;
                 result.Email = model.Email;
