@@ -43,6 +43,17 @@ namespace WebBookShopProject.Controllers
             return Ok(orders);
         }
 
+        [HttpGet("get-orders-of-user/{userId}")]
+        public async Task<IActionResult> GetOrdersOfUser([FromQuery] PaginationParams @params, string userId)
+        {
+            var orders = await _orderService.GetOrdersByUserIdAsync(userId, @params);
+            var counter = await _orderService.GetOrdersByUserIdCountAsync(userId);
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+            return Ok(orders);
+        }
+
         [HttpGet("get-all-orders-for-admin")]
         public async Task<IActionResult> GetAllOrders([FromQuery] PaginationParams @params)
         {
@@ -171,6 +182,11 @@ namespace WebBookShopProject.Controllers
             var items = _shoppingCart.GetShoppingCartItems();
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             double sum = _shoppingCart.GetShoppingCartTotal();
+
+            if(items.Count() == 0)
+            {
+                return BadRequest("ShoppingCart is empty");
+            }
            
 
             await _orderService.StoreOrderAsync(items, userId, sum, order);

@@ -33,6 +33,16 @@ namespace WebBookShopProject.Data.Services
             return items;
         }
 
+        public async Task<IEnumerable<Order>> GetOrdersByEnteredUserIdAsync(string userId, PaginationParams @params)
+        {
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).Include(n => n.Delivery).Where(n => n.UserID == userId).ToListAsync();
+
+            var items = orders.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
+        }        
+
         public async Task<IEnumerable<Order>> GetOrdersByUserIdCountAsync(string userId)
         {
             var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).Include(n => n.Delivery).Where(n => n.UserID == userId).ToListAsync();
@@ -137,6 +147,7 @@ namespace WebBookShopProject.Data.Services
 
         public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, double sum, OrderWithoutAutVM orderInfo)
         {
+
             var order = new Order()
             {
                 UserID = userId,

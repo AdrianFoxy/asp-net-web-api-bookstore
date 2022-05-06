@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Models;
 using WebBookShopProject.Data.ViewModels;
 using WebBookShopProject.Models;
@@ -91,12 +92,24 @@ namespace WebBookShopProject.Data.Services
                     IsSuccess = false
                 };
 
+            var userCheck = await _userManager.FindByEmailAsync(model.Email);
+
+            //if (userCheck != null)
+            //{
+            //    return new UserManagerResponse
+            //    {
+            //        Message = "This Email is already exists",
+            //        IsSuccess = false,
+            //        Errors = result.Errors.Select(e => e.Description)
+            //    };
+            //}
+
             var identityUser = new ApplicationUser()
             {
                 FullName = model.FullName,
                 PhoneNumber = model.Phone,
                 Email = model.Email,
-                UserName = model.Email,
+                UserName = model.UserName,
                 EmailConfirmed = true
             };
 
@@ -154,12 +167,46 @@ namespace WebBookShopProject.Data.Services
 
         }
 
+        public async Task<IEnumerable<UserVM>> GetAllUsers(PaginationParams @params)
+        {
+            var result = await _context.Users.Select(user => new UserVM()
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                UserName = user.UserName,
+                Phone = user.PhoneNumber,
+                Email = user.Email
+            }).OrderBy(p => p.Id)
+            .ToListAsync();
+
+            var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
+        }
+
+        public async Task<IEnumerable<UserVM>> GetAllUsersCount()
+        {
+            var result = await _context.Users.Select(user => new UserVM()
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                UserName = user.UserName,
+                Phone = user.PhoneNumber,
+                Email = user.Email
+            }).OrderBy(p => p.Id)
+            .ToListAsync();
+
+            return result;
+        }
+
         public async Task<UserVM> GetUserById(string userId)
         {
             var result = await _context.Users.Where(n => n.Id == userId).Select(user => new UserVM()
             {
                 Id = user.Id,
                 FullName = user.FullName,
+                UserName = user.UserName,
                 Phone = user.PhoneNumber,
                 Email = user.Email
                 

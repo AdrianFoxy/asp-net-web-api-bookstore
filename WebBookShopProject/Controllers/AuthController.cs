@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
+using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Services;
 using WebBookShopProject.Data.ViewModels;
 
@@ -27,7 +29,7 @@ namespace WebBookShopProject.Controllers
             var CurRole = User.FindFirstValue(ClaimTypes.Role);
 
             if (CurRole == null)
-                return Ok("NotAuthorized");
+                return Ok("Guest");
 
             return Ok(CurRole);
         }
@@ -38,11 +40,23 @@ namespace WebBookShopProject.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
-                return Ok("NotAuthorized");
+                return Ok("Guest");
 
             var userinfo = await _userService.GetUserById(userId);
 
             return Ok(userinfo);
+        }
+
+        [HttpGet("get-all-users-for-admin")]
+        public async Task<IActionResult> GetAllUsers([FromQuery] PaginationParams @params)
+        {
+            var users = await _userService.GetAllUsers(@params);
+            var counter = await _userService.GetAllUsersCount();
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+            return Ok(users);
         }
 
         [HttpPut("update-user-by-id/{userId}")]
