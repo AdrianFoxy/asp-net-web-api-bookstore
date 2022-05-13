@@ -28,7 +28,7 @@ namespace WebBookShopProject.Data.ViewModels
         public float Price { get; set; }
         //public string ImageUrl { get; set; }
         public bool IsFavor { get; set; }
-        public DateTime? ResealeDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         [Required(ErrorMessage = "У Книги должен быть издатель")]
         public int Fk_PublisherId { get; set; }
         [Required(ErrorMessage = "У Книги должен быть один или несколько авторов, в случае отсутвия таковых выберите вариант Неизвестно")]
@@ -55,7 +55,7 @@ namespace WebBookShopProject.Data.ViewModels
     //    public float Price { get; set; }
     //    //public string ImageUrl { get; set; }
     //    public bool IsFavor { get; set; }
-    //    public DateTime? ResealeDate { get; set; }
+    //    public DateTime? ReleaseDate { get; set; }
     //    public int Fk_PublisherId { get; set; }
     //    public List<int> AuthorsId { get; set; }
     //    public List<int> GenresId { get; set; }
@@ -72,7 +72,7 @@ namespace WebBookShopProject.Data.ViewModels
         public float Price { get; set; }
         public string ImageUrl { get; set; }
         public bool IsFavor { get; set; }
-        public DateTime? ResealeDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         public int PublisherId { get; set; }
         public List<int> AuthorId { get; set; }
         public List<int> GenreId { get; set; }
@@ -89,7 +89,7 @@ namespace WebBookShopProject.Data.ViewModels
         public float Price { get; set; }
         public string ImageUrl { get; set; }
         public bool IsFavor { get; set; }
-        public DateTime? ResealeDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         public string PublisherName { get; set; }
         public List<string> AuthorNames { get; set; }
         public List<string> GenreNames { get; set; }
@@ -107,7 +107,7 @@ namespace WebBookShopProject.Data.ViewModels
         public float Price { get; set; }
         public string ImageUrl { get; set; }
         public bool IsFavor { get; set; }
-        public DateTime? ResealeDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         public string PublisherName { get; set; }
         public List<string> AuthorNames { get; set; }
         public List<string> GenreNames { get; set; }

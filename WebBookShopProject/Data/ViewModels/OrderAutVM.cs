@@ -21,14 +21,14 @@ namespace WebBookShopProject.Data.ViewModels
         [StringLength(90, MinimumLength = 2, ErrorMessage = "От 2 до 90 символов")]
         [Required(ErrorMessage = "Необходимо указать как к вам обращаться")]
         public string Name { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
         [Required(ErrorMessage = "Выберите Самовывоз или доставку")]
         public int DeliveryId { get; set; }
     }
 
     public class OrderWithAutVM
     {
-        public string Adress { get; set; }
+        public string Address { get; set; }
         [Required(ErrorMessage = "Выберите Самовывоз или доставку")]
         public int DeliveryId { get; set; }
     }

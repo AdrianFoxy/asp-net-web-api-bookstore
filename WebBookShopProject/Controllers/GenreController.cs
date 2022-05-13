@@ -93,7 +93,7 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> DeleteGenreById(int id)
         {
             await _genreService.DeleteAsync(id);
-            return Ok();
+            return Ok("Deleted");
         }
     }
 }

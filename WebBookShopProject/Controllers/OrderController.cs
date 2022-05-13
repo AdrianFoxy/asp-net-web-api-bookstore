@@ -31,6 +31,18 @@ namespace WebBookShopProject.Controllers
         }
 
 
+        [HttpGet("get-order-by-id/{id}")]
+        public async Task<IActionResult> GetOrdersOfUser(int id)
+        {
+            var order = await _orderService.GetByIdAsync(id);
+            if(order == null)
+            {
+                return BadRequest("No order with this Id");
+            }
+
+            return Ok(order);
+        }
+
         [HttpGet("get-orders-of-user")]
         public async Task<IActionResult> GetOrdersOfUser([FromQuery] PaginationParams @params)
         {
@@ -189,10 +201,10 @@ namespace WebBookShopProject.Controllers
             }
            
 
-            await _orderService.StoreOrderAsync(items, userId, sum, order);
+            var responce = await _orderService.StoreOrderAsync(items, userId, sum, order);
             await _shoppingCart.ClearShoppingCartAsync();
 
-            return Ok("OrderCompleted");
+            return Ok(responce.Id);
         }
         
     }

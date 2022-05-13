@@ -21,7 +21,7 @@ namespace WebBookShopProject.Data.Models
         public float Price { get; set; }
         public string ImageUrl { get; set; }
         public bool IsFavor { get; set; }
-        public DateTime? ResealeDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         public int Fk_PublisherId { get; set; }
         [ForeignKey("Fk_PublisherId")]

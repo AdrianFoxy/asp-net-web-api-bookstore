@@ -10,6 +10,9 @@ namespace WebBookShopProject.Data.Services
 {
     public interface ITypeGenreService : IEntityBaseRepository<TypeGenre>
     {
+
+        Task AddTypeGenreAsync(TypeGenreAddVM typegenre);
+        Task<TypeGenre> UpdateAsync(int id, TypeGenreAddVM typegenre);
         Task<IEnumerable<TypeGenreVM>> GetTypesAndGenres();
         Task<TypeGenreDescVM> GetTypeGenreDescByName(string name);
         Task<IEnumerable<TypeGenreTestVM>> GetTypesAndGenresEng();

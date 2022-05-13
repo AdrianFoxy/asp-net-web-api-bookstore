@@ -95,6 +95,14 @@ namespace WebBookShopProject.Controllers
             return Ok(allBook);
         }
 
+        [HttpGet("get-what-to-read")]
+        public async Task<IActionResult> GetWhatToRead()
+        {
+            var allBook = await _bookService.GetWhatToReadsync();
+
+            return Ok(allBook);
+        }
+
         // List of all books + info about genres and authors
         // I used there my own terrible method, so it can be broken)))
         [HttpGet("get-all-books-info")]
@@ -166,7 +174,7 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> DeleteBookById(int id)
         {
             await _bookService.DeleteAsync(id);
-            return Ok();
+            return Ok("Deleted");
         }
 
         // All API's for ADD BOOK

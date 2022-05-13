@@ -78,7 +78,7 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> DeletePublisherById(int id)
         {
             await _publihserService.DeleteAsync(id);
-            return Ok();
+            return Ok("Deleted");
         }
     }
 }

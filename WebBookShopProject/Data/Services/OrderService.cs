@@ -132,11 +132,11 @@ namespace WebBookShopProject.Data.Services
 
         public async Task<Order> GetByIdAsync(int id)
         {
-            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).FirstOrDefaultAsync();
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).Include(n => n.Delivery).Where(n => n.Id == id).FirstOrDefaultAsync();
             return orders;
         }
 
-        public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, double sum, OrderWithoutAutVM orderInfo)
+        public async Task<Order> StoreOrderAsync(List<ShoppingCartItem> items, string userId, double sum, OrderWithoutAutVM orderInfo)
         {
 
             var order = new Order()
@@ -146,7 +146,7 @@ namespace WebBookShopProject.Data.Services
                 ContactPhone = orderInfo.Phone,
                 ContactName = orderInfo.Name,
                 Sum = sum,
-                Address = orderInfo.Adress,
+                Address = orderInfo.Address,
                 Fk_OrderStatusId = 1,
                 Fk_DeliveryId = orderInfo.DeliveryId
             };
@@ -187,6 +187,8 @@ namespace WebBookShopProject.Data.Services
 
             }
             await _context.SaveChangesAsync();
+
+            return order;
         }
 
         public async Task StoreOrderWithAuthorizeAsync(List<ShoppingCartItem> items, string userId, double sum, OrderWithAutVM orderInfo, string Email, string Phone, string FullName)
@@ -198,7 +200,7 @@ namespace WebBookShopProject.Data.Services
                 ContactPhone = Phone,
                 ContactName = FullName,
                 Sum = sum,
-                Address = orderInfo.Adress,
+                Address = orderInfo.Address,
                 Fk_OrderStatusId = 1,
                 Fk_DeliveryId = orderInfo.DeliveryId,
             };
@@ -239,6 +241,7 @@ namespace WebBookShopProject.Data.Services
 
             }
             await _context.SaveChangesAsync();
+
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebBookShopProject.Data.Services;
+using WebBookShopProject.Data.ViewModels;
 
 namespace WebBookShopProject.Controllers
 {
@@ -56,5 +57,36 @@ namespace WebBookShopProject.Controllers
             var result = await _typeGenreService.GetTypeGenresForDropList();
             return Ok(result);
         }
+
+        [HttpGet("get-typegenre-by-id/{id}")]
+        public async Task<IActionResult> GetTypeGenreById(int id)
+        {
+            var typegenre = await _typeGenreService.GetByIdAsync(id);
+            return Ok(typegenre);
+        }
+
+        // Add New Publishers
+        [HttpPost("add-typegenre")]
+        public async Task<IActionResult> AddTypeGenre([FromBody] TypeGenreAddVM typegenre)
+        {
+            await _typeGenreService.AddTypeGenreAsync(typegenre);
+            return Ok(typegenre);
+        }
+
+        [HttpPut("update-typegenre-by-id/{id}")]
+        public async Task<IActionResult> UpdateTypeGenreById(int id, [FromBody] TypeGenreAddVM typegenre)
+        {
+
+            var updated = await _typeGenreService.UpdateAsync(id, typegenre);
+            return Ok(updated);
+        }
+
+        [HttpDelete("delete-typegenre-by-id/{id}")]
+        public async Task<IActionResult> DeleteTypeGenreById(int id)
+        {
+            await _typeGenreService.DeleteAsync(id);
+            return Ok("Deleted");
+        }
+
     }
 }

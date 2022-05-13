@@ -72,5 +72,32 @@ namespace WebBookShopProject.Data.Services
 
             return _genre_desc;
         }
+
+        public async Task AddTypeGenreAsync(TypeGenreAddVM typegenre)
+        {
+            var _typegenre = new TypeGenre()
+            {
+                Name = typegenre.Name,
+                NameForUrl = typegenre.NameForUrl,
+                Description = typegenre.Description
+            };
+            await _context.TypeGenre.AddAsync(_typegenre);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<TypeGenre> UpdateAsync(int id, TypeGenreAddVM typegenre)
+        {
+            var _typegenre = await _context.TypeGenre.FirstOrDefaultAsync(n => n.Id == id);
+            if (_typegenre != null)
+            {
+                _typegenre.Name = typegenre.Name;
+                _typegenre.NameForUrl = typegenre.NameForUrl;
+                _typegenre.Description = typegenre.Description;
+
+                await _context.SaveChangesAsync();
+            };
+
+            return _typegenre;
+        }
     }
 }

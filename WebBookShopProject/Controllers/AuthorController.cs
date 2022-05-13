@@ -101,7 +101,7 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> DeleteAuthorById(int id)
         {
             await _authorService.DeleteAsync(id);
-            return Ok();
+            return Ok("Deleted");
         }
     }
 }

@@ -19,6 +19,7 @@ namespace WebBookShopProject.Data.Services
         Task<IEnumerable<Book>> GetAllAsync();
 
         Task<IEnumerable<Book>> GetAllFavoriteAsync();
+        Task<IEnumerable<BookWithAuthorsVM>> GetWhatToReadsync();
         Task<IEnumerable<Book>> GetGenreCountAsync(string genre);
         Task<IEnumerable<Book>> GetTypeGenreCountAsync(string genre);
         Task<IEnumerable<Book>> GetAuthorCountAsync(string author);

@@ -35,7 +35,47 @@ namespace WebBookShopProject.Data.Services
             return result;
         }
 
-        
+        public async Task<IEnumerable<BookWithAuthorsVM>> GetWhatToReadsync()
+        {
+            var books = await _context.Book.Select(book => new BookWithAuthorsVM()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Pages = book.Pages,
+                Format = book.Format,
+                LongDescription = book.LongDescription,
+                ShortDescription = book.ShortDescription,
+                Amount = book.Amount,
+                Price = book.Price,
+                ImageUrl = book.ImageUrl,
+                IsFavor = book.IsFavor,
+                ReleaseDate = book.ReleaseDate,
+                PublisherName = book.Publisher.Name,
+                AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
+                GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
+            }).OrderBy(p => p.Id)
+              .ToListAsync();
+
+            var count = books.Count();
+
+            List<BookWithAuthorsVM> list = new List<BookWithAuthorsVM>();
+
+            Random rnd = new Random();
+
+            while(list.Count() != 4)
+            {
+                int value = rnd.Next(0, count);
+
+                var result = books.ElementAt(value);
+
+                if (!list.Contains(books.ElementAt(value)))
+                    list.Add(result);
+            }
+
+            return list;
+        }
+
+
         public async Task<IEnumerable<Book>> GetSeachedCountAsync(string searchedString)
         {
             var result = await _context.Book.Where(n => n.Title.Contains(searchedString) || n.LongDescription.Contains(searchedString) || n.ShortDescription.Contains(searchedString)).ToListAsync();
@@ -77,7 +117,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = book.ImageUrl,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
@@ -105,7 +145,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = book.ImageUrl,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
@@ -138,7 +178,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = book.ImageUrl,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
@@ -165,7 +205,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = book.ImageUrl,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
@@ -192,7 +232,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = book.ImageUrl,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
@@ -223,7 +263,7 @@ namespace WebBookShopProject.Data.Services
                     Price = b.Price,
                     ImageUrl = b.ImageUrl,
                     IsFavor = b.IsFavor,
-                    ResealeDate = b.ResealeDate,
+                    ReleaseDate = b.ReleaseDate,
                     PublisherName = b.Publisher.Name,
                     AuthorNames = b.Book_Author.Select(n => n.Author.FullName).ToList(),
                     GenreNames = b.Book_Genre.Select(g => g.Genre.Name).ToList()
@@ -233,7 +273,7 @@ namespace WebBookShopProject.Data.Services
             var items = result.Skip((@params.Page - 1) * @params.ItemsPerPage)
             .Take(@params.ItemsPerPage);
 
-            return result;
+            return items;
         }
 
         public async Task<BookFullInfoVM> GetByIdAsync(int id)
@@ -249,7 +289,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = book.ImageUrl,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 PublisherName = book.Publisher.Name,
                 AuthorNames = book.Book_Author.Select(n => n.Author.FullName).ToList(),
                 GenreNames = book.Book_Genre.Select(g => g.Genre.Name).ToList()
@@ -270,7 +310,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = book.ImageUrl,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 PublisherId = book.Publisher.Id,
                 AuthorId = book.Book_Author.Select(n => n.Author.Id).ToList(),
                 GenreId = book.Book_Genre.Select(g => g.Genre.Id).ToList()
@@ -303,7 +343,7 @@ namespace WebBookShopProject.Data.Services
                 Price = book.Price,
                 ImageUrl = pathImg,
                 IsFavor = book.IsFavor,
-                ResealeDate = book.ResealeDate,
+                ReleaseDate = book.ReleaseDate,
                 Fk_PublisherId = book.Fk_PublisherId
             };
             await _context.Book.AddAsync(_book);
@@ -347,7 +387,7 @@ namespace WebBookShopProject.Data.Services
                 _book.Amount = book.Amount;
                 _book.Price = book.Price;
                 _book.IsFavor = book.IsFavor;
-                _book.ResealeDate = book.ResealeDate;
+                _book.ReleaseDate = book.ReleaseDate;
 
                 await _context.SaveChangesAsync();
             };
