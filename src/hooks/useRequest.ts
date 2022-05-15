@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export const useRequest = (callback: Function) => {
+export const useRequest = (callback: Function, dependencies: any[] = []) => {
     const [data, setData] = useState<any>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<any>("");
@@ -18,7 +18,7 @@ export const useRequest = (callback: Function) => {
             }
         }
         loadData()
-    }, [])
+    }, dependencies)
 
     return [data, isLoading, error]
 }

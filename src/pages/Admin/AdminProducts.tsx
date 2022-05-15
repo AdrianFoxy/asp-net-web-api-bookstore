@@ -6,6 +6,22 @@ import {fetchAllProduct} from "../../redux/actions/product";
 import {useActions} from "../../hooks/useAppDispatch";
 import ProductForm from "../../components/Admin/ProductForm";
 
+const actionColumn: GridColDef[] = [
+    {
+        field: "action",
+        headerName: "action",
+        width: 200,
+        renderCell: () => {
+            return (
+                <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
+                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #1976D2", cursor: "pointer"}}>View</div>
+                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}>Delete</div>
+                </div>
+            )
+        }
+    }
+]
+
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 70},
     {field: 'title', headerName: 'title', width: 130},
@@ -15,6 +31,16 @@ const columns: GridColDef[] = [
     {field: 'shortDescription', headerName: 'shortDescription', width: 130},
     {field: 'amount', headerName: 'amount', type: 'number', width: 130},
     {field: 'price', headerName: 'price', type: 'number', width: 130},
+    {
+        field: 'image', headerName: 'image', width: 200, renderCell: (params) => {
+            return (
+                <div style={{width: "100%"}}>
+                    <img src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${params.row.imageUrl}`} alt={"product-image"}
+                         style={{width: "50px", height: "50px", borderRadius: "0px", objectFit: "cover", display: "block", margin: "0 auto"}}/>
+                </div>
+            )
+        }
+    },
     {
         field: 'imageUrl',
         headerName: 'imageUrl',
@@ -74,7 +100,7 @@ const AdminProducts: FC = () => {
     return (
         <>
             <ProductForm/>
-            <DataTable columns={columns} items={products} count={count} page={page} setPage={setPage}
+            <DataTable columns={columns.concat(actionColumn)} items={products} count={count} page={page} setPage={setPage}
                        fetchItems={fetchAllProduct}/>
         </>
     );

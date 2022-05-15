@@ -148,8 +148,9 @@ const MenuBurger = () => {
             color="inherit"
             aria-label="open drawer"
             sx={{mr: 2}}
+            style={{marginLeft: "12px", marginRight: "24px"}}
         >
-            <Button onClick={toggleDrawer("left", true)}><MenuIcon style={{color: "#fff"}}/></Button>
+            <MenuIcon style={{color: "#fff"}} onClick={toggleDrawer("left", true)}/>
             <Drawer
                 anchor={"left"}
                 open={state["left"]}

@@ -1,0 +1,40 @@
+@import "./src/utils/adaptiv-value";
+
+.product {
+    &__container {
+        width: 100%;
+    }
+    &__block {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__counters {
+        display: flex;
+        align-items: center;
+    }
+    &__img {
+        width: 700px;
+        height: 600px;
+        object-fit: contain;
+        padding: 30px;
+    }
+    &__title {
+        @include adaptiv-value("font-size", 30, 15, 1);
+        margin-bottom: 20px;
+    }
+    &__price {
+        @include adaptiv-value("font-size", 24, 12, 1);
+        margin-bottom: 20px;
+    }
+    &__property {
+        margin-bottom: 20px;
+    }
+    &__property_name {
+        margin-bottom: 10px;
+    }
+    &__border {
+        border-bottom: 1px solid rgba(25, 118, 210, 0.5);
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+}

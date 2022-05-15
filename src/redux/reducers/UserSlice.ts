@@ -9,10 +9,10 @@ interface UserState {
 }
 
 const initialState: UserState = {
-    isInitialized: false,
+    isInitialized: true,
     isAuth: false,
     role: "guest",
-    user: {}
+    user: {phone: "", email: "", fullName: "", id: ""}
 }
 
 export const userSlice = createSlice({

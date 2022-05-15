@@ -15,6 +15,10 @@ import {useTypedSelector} from "./hooks/useTypedSelector";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import {RequireAuth} from "./auth/RequireAuth";
+import {RequireAdmin} from "./auth/RequireAdmin";
+import Order from "./pages/Order/Order";
+import Success from "./pages/Success/Success";
+import Product from "./pages/Product/Product";
 
 function App() {
 
@@ -32,10 +36,10 @@ function App() {
 
     if (!isInitialized) {
         return <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
             open={!isInitialized}
         >
-            <CircularProgress color="inherit" />
+            <CircularProgress color="inherit"/>
         </Backdrop>
     } else {
         return (
@@ -44,17 +48,19 @@ function App() {
                     <Route element={<MainLayout/>}>
                         <Route path="/products" element={<Products/>}/>
                         <Route path="/products/:genre" element={<Products/>}/>
+                        <Route path="/product/:productId" element={<Product/>}/>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/cart" element={<Cart/>}/>
+                        <Route path="/order" element={<Order/>}/>
                     </Route>
-                    <Route element={<AdminLayout/>}>
+                    <Route element={<RequireAdmin><AdminLayout/></RequireAdmin>}>
                         <Route path="/admin" element={<AdminHome/>}/>
                         <Route path="/admin/products" element={<AdminProducts/>}/>
                         <Route path="admin/authors" element={<AdminAuthors/>}/>
                     </Route>
-
                     <Route path="/login" element={<RequireAuth><Login/></RequireAuth>}/>
                     <Route path="/registration" element={<Registration/>}/>
+                    <Route path="/success" element={<Success/>}/>
                 </Routes>
             </BrowserRouter>
         );

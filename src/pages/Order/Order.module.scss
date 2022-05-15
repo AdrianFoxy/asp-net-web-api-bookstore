@@ -1,0 +1,59 @@
+.order {
+    &__title {
+        margin-bottom: 20px;
+    }
+    &__block_title {
+        margin-bottom: 20px;
+        span {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #E9E9E9;
+            border-radius: 9999px;
+            margin-right: 10px;
+            text-align: center;
+            line-height: 40px;
+        }
+    }
+    &__wrapper {
+        display: flex;
+    }
+    &__form_wrapper {
+        width: 70%;
+        margin-right: 30px;
+    }
+    &__form_contact {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    &__total_wrapper {
+        width: 30%;
+    }
+    &__total {
+        padding: 20px;
+    }
+    &__input {
+        margin-right: 10px !important;
+        margin-bottom: 10px !important;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+    }
+    &__img {
+        width: 20%;
+        height: 150px;
+        object-fit: contain;
+        padding: 10px;
+    }
+    &__item_w {
+        width: 20%;
+    }
+    &__total_row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+}

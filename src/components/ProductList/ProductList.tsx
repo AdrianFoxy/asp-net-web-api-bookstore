@@ -43,7 +43,7 @@ const ProductList: FC<ProductListProps> = ({products}) => {
                             <DeleteForeverOutlinedIcon className={styles.products__delete_btn}/>
                             <EditOutlinedIcon className={styles.products__change_btn}/>
                         </div>
-                        <Link to={"/product"} className={styles.products__link}> Подробнее </Link>
+                        <Link to={`/product/${product.id}`} className={styles.products__link}> Подробнее </Link>
                         <Button onClick={() => addProduct(
                             product.id
                         )} className={styles.products__btn}> В

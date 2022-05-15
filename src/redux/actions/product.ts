@@ -22,7 +22,6 @@ export const fetchProducts = (genre: string, type: string) => async (dispatch: A
             })
             dispatch(productSlice.actions.productsFetching(response.data))
         }
-
     } catch (err) {
 
     }

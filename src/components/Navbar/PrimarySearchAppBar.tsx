@@ -174,15 +174,24 @@ function PrimarySearchAppBar() {
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar style={{padding: "0"}}>
                     <MenuBurger/>
-                    <Link to="/">
-                        <img src={logo} style={{width: "40px"}}/>
+                    <Link to="/" style={{marginRight: "36px"}}>
+                        <img src={logo} style={{width: "40px"}} alt="logo"/>
                     </Link>
                     <KeepMountedModal>
-                        <WidgetsOutlinedIcon style={{color: "#fff", cursor: "pointer", marginLeft: "10px"}}/>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            sx={{mr: 2}}
+                            style={{marginRight: "36px"}}
+                        >
+                            <WidgetsOutlinedIcon style={{color: "#fff", cursor: "pointer"}}/>
+                        </IconButton>
                     </KeepMountedModal>
-                    <Search>
+                    <Search style={{marginLeft: "0", marginRight: "36px"}}>
                         <SearchIconWrapper>
                             <SearchIcon/>
                         </SearchIconWrapper>
@@ -193,9 +202,8 @@ function PrimarySearchAppBar() {
                     </Search>
                     <Box sx={{flexGrow: 1}}/>
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                        <Link to="/cart">
+                        <Link to="/cart" style={{marginRight: "12px"}}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-
                                 <Badge badgeContent={totalCount} color="error">
                                     <ShoppingCartOutlinedIcon/>
                                 </Badge>
@@ -211,15 +219,13 @@ function PrimarySearchAppBar() {
                                 onClick={handleProfileMenuOpen}
                                 color="inherit"
                             >
-                                <AccountCircle/>
+                                <AccountCircle style={{marginRight: "12px"}}/>
                             </IconButton>
                         </ShowAuth>
                     </Box>
                     <ShowAuth>
-                        <MenuItem>
-                            <Button variant="contained" onClick={() => logout()}>
-                                Выйти
-                            </Button>
+                        <MenuItem onClick={() => logout()} style={{marginRight: "12px", marginLeft: "12px"}}>
+                            Выйти
                         </MenuItem>
                     </ShowAuth>
                 </Toolbar>

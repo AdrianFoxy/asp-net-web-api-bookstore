@@ -6,8 +6,8 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import {useActions} from "../../hooks/useAppDispatch";
-import {addProduct} from "../../redux/actions/cart";
 import {Button, Card, TextField} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const Cart: FC = () => {
 
@@ -15,7 +15,9 @@ const Cart: FC = () => {
     const totalPrice = useTypedSelector(state => state.cartReducer.totalPrice)
     const totalCount = useTypedSelector(state => state.cartReducer.totalCount)
 
-    const {removeCart, addProduct} = useActions()
+    const {removeCart, addProduct, removeItemCart} = useActions()
+
+    const navigate = useNavigate()
 
     return (
         <div>
@@ -37,13 +39,14 @@ const Cart: FC = () => {
                                      alt="product-img"/>
                                 <div style={{width: "100%"}}>
                                     <div className={styles.cart__item_info}>
-                                        <div className={styles.cart__item_w}>
+                                        <div className={`${styles.cart__item_w} ${styles.cart__item_name}`}
+                                             onClick={() => navigate(`/product/${product.id}`)}>
                                             {product.name}
                                         </div>
                                         <div className={`${styles.cart__item_w} ${styles.cart__item_sw}`}>
                                             <RemoveOutlinedIcon onClick={() => removeCart(product.id)}
-                                                                style={{cursor: "pointer"}}/>
-                                            {product.quantity}
+                                                                style={{cursor: "pointer", marginRight: "5px"}}/>
+                                            <div style={{marginRight: "5px"}}>{product.quantity}</div>
                                             <AddOutlinedIcon onClick={() => addProduct(product.id)}
                                                              style={{cursor: "pointer"}}/>
                                         </div>
@@ -51,7 +54,7 @@ const Cart: FC = () => {
                                             {product.price * product.quantity} грн.
                                         </div>
                                         <div className={styles.cart__item_w}>
-                                            <DeleteForeverOutlinedIcon style={{cursor: "pointer"}}/>
+                                            <DeleteForeverOutlinedIcon style={{cursor: "pointer"}} onClick={() => removeItemCart(product.id)}/>
                                         </div>
                                     </div>
                                     <div>
@@ -78,7 +81,7 @@ const Cart: FC = () => {
                                 {totalPrice} грн.
                             </div>
                         </div>
-                        <Button variant="outlined">Оформить заказ</Button>
+                        <Button variant="outlined" onClick={() => navigate("/order")}>Оформить заказ</Button>
                     </Card>
                 </div>
             </div>

@@ -24,6 +24,14 @@ const DataTable = ({
                         page: page + 1
                     }
                 }}
+                sx={{
+                    '& .MuiDataGrid-columnHeaderDraggableContainer': {
+                        flexDirection: "row !important"
+                    },
+                    '& .MuiDataGrid-columnHeaderTitleContainer': {
+                        flexDirection: "row !important"
+                    }
+                }}
                 page={page}
                 onPageChange={(newPage) => setPage(newPage)}
                 rowCount={count}
