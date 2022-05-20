@@ -15,13 +15,15 @@ const DataTable = ({
         fetchItems(page)
     }, [page])
 
+    console.log(page)
+
     return (
         <div style={{height: 650, width: '100%'}}>
             <DataGrid
                 {...items}
                 initialState={{
                     pagination: {
-                        page: page + 1
+                        page: page
                     }
                 }}
                 sx={{

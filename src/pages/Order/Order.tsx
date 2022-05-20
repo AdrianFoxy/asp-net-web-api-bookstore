@@ -68,13 +68,14 @@ const Order: FC = () => {
         formData.append("Phone", user.phone)
         formData.append("Email", user.email)
         formData.append("Name", user.fullName)
-        formData.append("Adress", deliveryAddress.value)
+        formData.append("Address", deliveryAddress.value)
         formData.append("DeliveryId", deliveryId)
         const data = async () => {
             return await $api.post(`/Order/complete-order`, formData).then((response) => {
                 if (response.status === 200) {
+                    console.log(response)
                     fetchCart()
-                    navigate("/success")
+                    navigate("/success",{state: response.data})
                 }
             })
         }

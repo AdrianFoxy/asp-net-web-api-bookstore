@@ -5,12 +5,16 @@ interface ProductState {
     products: IProduct[]
     page: number
     count: number
+    pageSize: number
+    pageDataGrid: number
 }
 
 const initialState: ProductState = {
     products: [],
-    page: 0,
-    count: 0
+    page: 1,
+    count: 0,
+    pageSize: 10,
+    pageDataGrid: 0
 }
 
 export const productSlice = createSlice({
@@ -25,6 +29,9 @@ export const productSlice = createSlice({
         },
         setPage(state, action: PayloadAction<number>) {
             state.page = action.payload
+        },
+        setPageDataGrid(state, action: PayloadAction<number>) {
+            state.pageDataGrid = action.payload
         },
         createProduct() {
 

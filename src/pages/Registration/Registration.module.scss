@@ -4,6 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url("https://media.discordapp.net/attachments/502148795279081484/975412643361849394/unknown.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
     &__wrapper {
         display: flex;
         align-items: center;
@@ -13,6 +16,9 @@
     }
     &__title {
         font-size: 60px;
+        //color: #ffffff;
+        //text-shadow: red 0 0 2px;
+        margin-bottom: 20px;
     }
     &__text {
         font-size: 40px;
@@ -23,6 +29,7 @@
         border-radius: 10px;
         padding: 25px;
         position: relative;
+        background-color: #E9E9E9;
     }
     &__reg_password {
         display: flex;

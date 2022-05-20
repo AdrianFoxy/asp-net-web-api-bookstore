@@ -9,7 +9,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-    isInitialized: true,
+    isInitialized: false,
     isAuth: false,
     role: "guest",
     user: {phone: "", email: "", fullName: "", id: ""}

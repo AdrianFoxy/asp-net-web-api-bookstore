@@ -1,0 +1,73 @@
+.profile {
+    &__title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    &__container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        @media (max-width: 768px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        margin-bottom: 10px;
+    }
+
+    &__item {
+        label {
+            display: block;
+            color: #797878;
+            margin-bottom: 8px;
+        }
+        margin-bottom: 10px;
+    }
+
+    &__items_wrapper {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    &__items {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+
+    &__orderItem_img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        object-position: left;
+    }
+
+    &__products {
+        width: 50%;
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+    }
+
+    &__books {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        div, img {
+            width: 20%;
+        }
+    }
+
+    &__label {
+        display: block;
+        color: #797878;
+        margin-bottom: 8px;
+    }
+}

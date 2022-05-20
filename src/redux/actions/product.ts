@@ -3,15 +3,17 @@ import $api from "../../http";
 import {IProduct} from "../../types/IProduct";
 import {productSlice} from "../reducers/ProductSlice";
 
-export const fetchProducts = (genre: string, type: string) => async (dispatch: AppDispatch) => {
+export const fetchProducts = (genre: string, type: string, page: number = 1, count: number = 10) => async (dispatch: AppDispatch) => {
     try {
         if (type === "type-genre") {
             const response = await $api.get<IProduct[]>(`/Book/get-all-books-by-typegenre/${genre}`, {
                 params: {
-                    Page: 1,
-                    ItemsPerPage: 10
+                    Page: page,
+                    ItemsPerPage: count
                 }
             })
+            const x = JSON.parse(response.headers["x-pagination"])
+            dispatch(productSlice.actions.setCount(x.TotalCount))
             dispatch(productSlice.actions.productsFetching(response.data))
         } else if (type === "genre") {
             const response = await $api.get<IProduct[]>(`/Book/get-all-books-by-genre/${genre}`, {
@@ -20,6 +22,8 @@ export const fetchProducts = (genre: string, type: string) => async (dispatch: A
                     ItemsPerPage: 10
                 }
             })
+            const x = JSON.parse(response.headers["x-pagination"])
+            dispatch(productSlice.actions.setCount(x.TotalCount))
             dispatch(productSlice.actions.productsFetching(response.data))
         }
     } catch (err) {
@@ -59,6 +63,10 @@ export const fetchAllProduct = (page: number = 0) => async (dispatch: AppDispatc
 
 export const setPage = (newPage: number) => async (dispatch: AppDispatch) => {
     dispatch(productSlice.actions.setPage(newPage))
+}
+
+export const setPageDataGrid = (newPage: number) => async (dispatch: AppDispatch) => {
+    dispatch(productSlice.actions.setPageDataGrid(newPage))
 }
 
 export const createProduct = (product: Object) => async (dispatch: AppDispatch) => {

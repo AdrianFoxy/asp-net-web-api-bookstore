@@ -87,7 +87,7 @@ const Registration = () => {
             return false
         }
 
-        registration(newUser)
+        registration({...newUser, userName: newUser.email})
     }
 
     const [values, setValues] = React.useState({
@@ -121,11 +121,12 @@ const Registration = () => {
         <div className={styles.reg}>
             <div className={styles.reg__wrapper}>
                 <div className={styles.reg__textWrapper}>
+                    <img src={"https://media.discordapp.net/attachments/502148795279081484/975410512877723747/unknown.png?width=609&height=609"} alt="logo"/>
+                </div>
+                <div className={styles.reg__regForm}>
                     <div className={styles.reg__title}>
                         Регистрация
                     </div>
-                </div>
-                <div className={styles.reg__regForm}>
                     <TextField name="fullName"
                                placeholder="fullName"
                                error={Boolean(errors?.fullName)}

@@ -2,7 +2,7 @@ import React, {FC, useEffect} from 'react';
 import DataTable from "../../components/Admin/DataTable";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {GridColDef, GridValueGetterParams} from "@mui/x-data-grid";
-import {fetchAllProduct} from "../../redux/actions/product";
+import {fetchAllProduct, setPageDataGrid} from "../../redux/actions/product";
 import {useActions} from "../../hooks/useAppDispatch";
 import ProductForm from "../../components/Admin/ProductForm";
 
@@ -94,13 +94,14 @@ const AdminProducts: FC = () => {
     const products = useTypedSelector(state => state.productReducer.products)
     const count = useTypedSelector(state => state.productReducer.count)
     const page = useTypedSelector(state => state.productReducer.page)
+    const pageDataGrid = useTypedSelector(state => state.productReducer.pageDataGrid)
 
-    const {setPage, fetchAllProduct} = useActions()
+    const {setPageDataGrid, fetchAllProduct} = useActions()
 
     return (
         <>
             <ProductForm/>
-            <DataTable columns={columns.concat(actionColumn)} items={products} count={count} page={page} setPage={setPage}
+            <DataTable columns={columns.concat(actionColumn)} items={products} count={count} page={pageDataGrid} setPage={setPageDataGrid}
                        fetchItems={fetchAllProduct}/>
         </>
     );

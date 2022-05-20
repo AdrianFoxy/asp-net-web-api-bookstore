@@ -16,7 +16,7 @@ const SimpleAccordion: FC<SimpleAccordionProps> = ({genres}) => {
     return (
         <div>
             {genres?.map((genre) =>
-                <Accordion style={{marginBottom: "1px", marginTop: "1px"}}>
+                <Accordion style={{marginBottom: "1px", marginTop: "1px"}} defaultExpanded={true}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon/>}
                         aria-controls="panel1a-content"

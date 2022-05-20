@@ -5,6 +5,8 @@ export const RequireAdmin = ({children}: { children: JSX.Element }) => {
     const {role} = useTypedSelector(state => state.userReducer)
     const location = useLocation()
 
+    console.log(role)
+
     if (role === "Admin") {
         return children
     } else {

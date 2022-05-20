@@ -19,6 +19,8 @@ const Cart: FC = () => {
 
     const navigate = useNavigate()
 
+    console.log(products)
+
     return (
         <div>
             <Link to={"/"} className={styles.cart__back}>

@@ -19,6 +19,7 @@ import {RequireAdmin} from "./auth/RequireAdmin";
 import Order from "./pages/Order/Order";
 import Success from "./pages/Success/Success";
 import Product from "./pages/Product/Product";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
 
@@ -26,12 +27,10 @@ function App() {
 
     const {user, role, isInitialized, isAuth} = useTypedSelector(state => state.userReducer)
 
-    console.log(user, role, isInitialized, isAuth)
-
     useEffect(() => {
-        fetchCart()
         checkRole()
         checkInfo()
+        fetchCart()
     }, [])
 
     if (!isInitialized) {
@@ -52,6 +51,10 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/cart" element={<Cart/>}/>
                         <Route path="/order" element={<Order/>}/>
+                        <Route path="/profile" element={<Profile/>}/>
+                    </Route>
+                    <Route element={<RequireAuth><MainLayout/></RequireAuth>}>
+                        <Route path="/profile" element={<Profile/>}/>
                     </Route>
                     <Route element={<RequireAdmin><AdminLayout/></RequireAdmin>}>
                         <Route path="/admin" element={<AdminHome/>}/>

@@ -9,7 +9,7 @@ export interface IProduct {
     price: number
     imageUrl: string
     isFavor: boolean
-    resealeDate: Date
+    releaseDate: Date
     authorNames: string[]
     genreNames: string[]
     publisherName: string

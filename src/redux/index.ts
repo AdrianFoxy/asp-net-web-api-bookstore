@@ -4,6 +4,7 @@ import productReducer from "./reducers/ProductSlice";
 import cartReducer from "./reducers/CartSlice";
 import authorReducer from "./reducers/AuthorSlise"
 import userReducer from "./reducers/UserSlice"
+import orderReducer from "./reducers/OrderSlice"
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     productReducer,
     cartReducer,
     authorReducer,
-    userReducer
+    userReducer,
+    orderReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

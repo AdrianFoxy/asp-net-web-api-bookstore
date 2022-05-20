@@ -112,9 +112,9 @@ function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <Link to="/profile"><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
             <ShowAdmin>
-                <MenuItem onClick={handleMenuClose}><Link to="/admin"> Admin </Link></MenuItem>
+                <Link to="/admin"><MenuItem onClick={handleMenuClose}> Admin </MenuItem> </Link>
             </ShowAdmin>
         </Menu>
     );
@@ -210,17 +210,19 @@ function PrimarySearchAppBar() {
                             </IconButton>
                         </Link>
                         <ShowAuth>
-                            <IconButton
-                                size="large"
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                onClick={handleProfileMenuOpen}
-                                color="inherit"
-                            >
-                                <AccountCircle style={{marginRight: "12px"}}/>
-                            </IconButton>
+                            <div style={{marginRight: "12px"}}>
+                                <IconButton
+                                    size="large"
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    aria-controls={menuId}
+                                    aria-haspopup="true"
+                                    onClick={handleProfileMenuOpen}
+                                    color="inherit"
+                                >
+                                    <AccountCircle/>
+                                </IconButton>
+                            </div>
                         </ShowAuth>
                     </Box>
                     <ShowAuth>

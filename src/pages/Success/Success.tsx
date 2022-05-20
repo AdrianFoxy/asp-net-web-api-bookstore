@@ -1,16 +1,31 @@
 import React from 'react';
 import styles from "./Success.module.scss"
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const Success = () => {
+
+    const {state} = useLocation()
+
+    console.log(state)
+
     return (
         <div className={styles.success}>
-            <div>
-                Заказ успешно оформлен
-            </div>
-            <Link to={"/"}>
-                Вернуться на главную
-            </Link>
+            {state ?
+                <>
+                    <div>
+                        Заказ успешно оформлен
+                    </div>
+                    <div>
+                        Номер вашего заказа {state}
+                    </div>
+                    <Link to={"/"}>
+                        Вернуться на главную
+                    </Link>
+                </> :
+                <div>
+                    Successfull. Your order is being prepared...
+                </div>
+            }
         </div>
     );
 };

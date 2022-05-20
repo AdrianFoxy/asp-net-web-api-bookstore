@@ -31,6 +31,8 @@ const Product = () => {
 
     const indexCurrentProduct = products.findIndex(product => product.id.toString() === productId)
 
+
+
     if (!product) {
         return <div> Загрузка... </div>
     } else {
@@ -91,7 +93,7 @@ const Product = () => {
                                     Дата выпуска
                                 </div>
                                 <div className={styles.product__property}>
-                                    {new Date(product.resealeDate).toLocaleString("ru", {
+                                    {new Date(product.releaseDate).toLocaleString("ru", {
                                         year: "numeric",
                                         month: "numeric",
                                         day: "numeric",
