@@ -6,8 +6,13 @@ interface IProduct {
 
 export interface ICart {
     id: number
-    name: string
-    imageUrl: string
-    price: number
-    quantity: number
+    amount: number
+    book: {
+        id: number
+        title: string
+        amount: number
+        price: number
+        imageUrl: string
+    }
+
 }

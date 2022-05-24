@@ -123,19 +123,19 @@ const Order: FC = () => {
                             {products.map((product) =>
                                 <Grid item xs={12} className={styles.order__item}>
                                     <img className={styles.order__img}
-                                         src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.imageUrl}`}
+                                         src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.book.imageUrl}`}
                                          alt="product-img"/>
                                     <div className={styles.order__item_w}>
-                                        {product.name}
+                                        {product.book.title}
                                     </div>
                                     <div className={styles.order__item_w}>
-                                        Цена {product.price} грн.
+                                        Цена {product.book.price} грн.
                                     </div>
                                     <div className={styles.order__item_w}>
-                                        Количество {product.quantity}
+                                        Количество {product.amount}
                                     </div>
                                     <div className={styles.order__item_w}>
-                                        Сумма {product.price * product.quantity} грн.
+                                        Сумма {product.book.price * product.amount} грн.
                                     </div>
                                 </Grid>
                             )}

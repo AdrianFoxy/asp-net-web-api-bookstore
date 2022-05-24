@@ -13,14 +13,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import logo from "../../assets/img/logo.png"
 import MenuBurger from "../UI/MenuBurger/MenuBurger";
 import KeepMountedModal from "../Modal";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {Button} from "@mui/material";
 import {useActions} from "../../hooks/useAppDispatch";
 import ShowAuth from "../../auth/ShowAuth";
 import ShowAdmin from "../../auth/ShowAdmin";
@@ -205,7 +203,7 @@ function PrimarySearchAppBar() {
                         <Link to="/cart" style={{marginRight: "12px"}}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                                 <Badge badgeContent={totalCount} color="error">
-                                    <ShoppingCartOutlinedIcon/>
+                                    <ShoppingCartOutlinedIcon style={{color: "#fff"}}/>
                                 </Badge>
                             </IconButton>
                         </Link>
@@ -220,7 +218,7 @@ function PrimarySearchAppBar() {
                                     onClick={handleProfileMenuOpen}
                                     color="inherit"
                                 >
-                                    <AccountCircle/>
+                                    <AccountCircle style={{color: "#fff"}}/>
                                 </IconButton>
                             </div>
                         </ShowAuth>

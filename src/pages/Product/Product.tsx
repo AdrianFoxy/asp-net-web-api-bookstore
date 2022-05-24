@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useRequest} from "../../hooks/useRequest";
 import $api from "../../http";
@@ -28,23 +28,27 @@ const Product = () => {
     const products = useTypedSelector(state => state.cartReducer.products)
 
     console.log(products)
+    console.log(productId)
 
-    const indexCurrentProduct = products.findIndex(product => product.id.toString() === productId)
+    const indexCurrentProduct = products.findIndex(product => product.book.id.toString() === productId)
 
+    useEffect(() => {
+
+    }, [])
 
 
     if (!product) {
         return <div> Загрузка... </div>
     } else {
         return (
-            <Grid sx={{flexGrow: 1}} container spacing={2} width={"100%"} style={{marginRight: "20px"}}>
-                <Grid item xs={6}>
+            <Grid sx={{flexGrow: 1}} container spacing={"20px"} style={{marginRight: "20px"}}>
+                <Grid item xs={6} height={"100%"}>
                     <Card>
                         <img src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.imageUrl}`} alt="book"
                              className={styles.product__img}/>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} height={"100%"}>
                     <Card style={{padding: "20px"}}>
                         <div className={styles.product__border}>
                             <div className={styles.product__title}>
@@ -53,28 +57,33 @@ const Product = () => {
                             <div className={styles.product__price}>
                                 {product.price} грн.
                             </div>
-                            {products.some(product => product.id.toString() === productId) ?
+                            {products.some(product => product.book.id.toString() === productId) ?
                                 <div className={styles.product__counters}>
                                     <RemoveOutlinedIcon onClick={() => removeCart(id)}
                                                         style={{cursor: "pointer", marginRight: "5px"}}/>
-                                    <div style={{marginRight: "5px"}}>{products[indexCurrentProduct].quantity}</div>
-                                    <AddOutlinedIcon onClick={() => addProduct(id)}
+                                    <div style={{marginRight: "5px"}}>{products[indexCurrentProduct].amount}</div>
+                                    <AddOutlinedIcon onClick={() => {
+                                        addProduct(id, products)
+                                    }}
                                                      style={{cursor: "pointer"}}/>
                                 </div> :
-                                <Button variant="outlined" onClick={() => addProduct(id)}> <ShoppingCartOutlinedIcon/> В
+                                product.amount <= 0 ? "Нет в наличии" :
+                                <Button variant="outlined" onClick={() => addProduct(id, products)}> <ShoppingCartOutlinedIcon/> В
                                     корзину </Button>
                             }
                         </div>
-                        {product.authorNames.map((author: string) =>
-                            <>
-                                <div className={styles.product__property_name}>
-                                    {product.authorNames.length <= 1 ? "Автор" : "Авторы"}
-                                </div>
-                                <div className={styles.product__property}>
-                                    {author}
-                                </div>
-                            </>
-                        )}
+                        {
+                            product.authorNames.map((author: string) =>
+                                <>
+                                    <div className={styles.product__property_name}>
+                                        {product.authorNames.length <= 1 ? "Автор" : "Авторы"}
+                                    </div>
+                                    <div className={styles.product__property}>
+                                        {author}
+                                    </div>
+                                </>
+                            )
+                        }
                         <div className={styles.product__property_name}>
                             Описание
                         </div>

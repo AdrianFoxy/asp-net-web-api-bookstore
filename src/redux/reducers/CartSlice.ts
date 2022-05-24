@@ -17,19 +17,19 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addProduct(state, action: PayloadAction<ICart>) {
-            const index = state.products.findIndex(product => product.id === action.payload.id)
-            if (index !== -1) {
-                const product = state.products.find(product => product.id === action.payload.id)
-                if (product) {
-                    product.quantity++
-                }
-            } else {
-                state.products = [...state.products, action.payload]
-            }
-            state.totalPrice = state.totalPrice + action.payload.price
-            state.totalCount = state.totalCount + action.payload.quantity
-        },
+        // addProduct(state, action: PayloadAction<ICart>) {
+        //     const index = state.products.findIndex(product => product.id === action.payload.id)
+        //     if (index !== -1) {
+        //         const product = state.products.find(product => product.id === action.payload.id)
+        //         if (product) {
+        //             product.quantity++
+        //         }
+        //     } else {
+        //         state.products = [...state.products, action.payload]
+        //     }
+        //     state.totalPrice = state.totalPrice + action.payload.price
+        //     state.totalCount = state.totalCount + action.payload.quantity
+        // },
         setCart(state, action: PayloadAction<ICart[]>) {
             state.products = action.payload
         },

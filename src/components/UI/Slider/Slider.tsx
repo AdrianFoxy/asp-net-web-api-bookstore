@@ -1,8 +1,9 @@
 import slide1 from "../../../assets/img/slide1.png";
 import slide2 from "../../../assets/img/slide2.jpg";
 import slide3 from "../../../assets/img/slide3.jpg";
+import slide4 from "../../../assets/img/slide4.jpg";
 import styles from "./Slider.module.scss"
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -27,6 +28,10 @@ const Slider = () => {
             id: 3,
             img: slide3,
         },
+        {
+            id: 4,
+            img: slide4,
+        }
     ]
 
     const [slideIndex, setSlideIndex] = useState(1)
@@ -47,6 +52,13 @@ const Slider = () => {
         }
     }
 
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            sliderClick("right")
+        }, 5000)
+        return () => clearInterval(intervalId)
+    }, [slideIndex]);
+    
     return (
         <div>
             <div className={styles.slider__wrapper}>
@@ -61,9 +73,8 @@ const Slider = () => {
                     </div>
                 )}
                 <div className={`${styles.slider__arrow_wrapper} ${styles.slider__arrow_wrapper_next}`}
-                     onClick={() => sliderClick("left")}>
-                    <ArrowForwardIosIcon className={styles.slider__arrow}
-                                         onClick={() => sliderClick("right")}/>
+                     onClick={() => sliderClick("right")}>
+                    <ArrowForwardIosIcon className={styles.slider__arrow}/>
                 </div>
             </div>
         </div>

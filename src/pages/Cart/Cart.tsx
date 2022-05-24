@@ -37,30 +37,30 @@ const Cart: FC = () => {
                         products.map((product) =>
                             <div className={styles.cart__item}>
                                 <img className={styles.cart__img}
-                                     src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.imageUrl}`}
+                                     src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.book.imageUrl}`}
                                      alt="product-img"/>
                                 <div style={{width: "100%"}}>
                                     <div className={styles.cart__item_info}>
                                         <div className={`${styles.cart__item_w} ${styles.cart__item_name}`}
                                              onClick={() => navigate(`/product/${product.id}`)}>
-                                            {product.name}
+                                            {product.book.title}
                                         </div>
                                         <div className={`${styles.cart__item_w} ${styles.cart__item_sw}`}>
-                                            <RemoveOutlinedIcon onClick={() => removeCart(product.id)}
+                                            <RemoveOutlinedIcon onClick={() => removeCart(product.book.id)}
                                                                 style={{cursor: "pointer", marginRight: "5px"}}/>
-                                            <div style={{marginRight: "5px"}}>{product.quantity}</div>
-                                            <AddOutlinedIcon onClick={() => addProduct(product.id)}
+                                            <div style={{marginRight: "5px"}}>{product.amount}</div>
+                                            <AddOutlinedIcon onClick={() => addProduct(product.book.id, products)}
                                                              style={{cursor: "pointer"}}/>
                                         </div>
                                         <div className={styles.cart__item_w}>
-                                            {product.price * product.quantity} грн.
+                                            {product.book.price * product.amount} грн.
                                         </div>
                                         <div className={styles.cart__item_w}>
-                                            <DeleteForeverOutlinedIcon style={{cursor: "pointer"}} onClick={() => removeItemCart(product.id)}/>
+                                            <DeleteForeverOutlinedIcon style={{cursor: "pointer"}} onClick={() => removeItemCart(product.book.id)}/>
                                         </div>
                                     </div>
                                     <div>
-                                        {product.price} грн./шт
+                                        {product.book.price} грн./шт
                                     </div>
                                 </div>
                             </div>

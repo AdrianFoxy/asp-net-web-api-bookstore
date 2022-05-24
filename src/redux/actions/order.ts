@@ -7,7 +7,7 @@ export const getOrders = () => async (dispatch: AppDispatch) => {
         const response = await $api.get(`/Order/get-orders-of-user`, {
             params: {
                 Page: 1,
-                ItemsPerPage: 10
+                ItemsPerPage: 20
             }
         })
         dispatch(orderSlice.actions.ordersFetching(response.data))
