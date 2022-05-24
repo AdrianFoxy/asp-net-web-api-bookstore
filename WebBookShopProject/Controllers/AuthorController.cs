@@ -54,6 +54,15 @@ namespace WebBookShopProject.Controllers
             return Ok(responce);
         }
 
+        [HttpGet("get-authors-for-filter")]
+        public async Task<IActionResult> GetAuthorsForFilter()
+        {
+            var responce = await _authorService.GetAuthorsForFilter();
+            return Ok(responce);
+        }
+
+        
+
         // Get Author By Id
 
         [HttpGet("get-author-with-books-title/{id}")]

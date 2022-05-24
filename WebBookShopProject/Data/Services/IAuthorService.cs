@@ -18,6 +18,9 @@ namespace WebBookShopProject.Data.Services
 
         Task<IEnumerable<AuthorDPVM>> GetAuthorsForDropList();
 
+        Task<IEnumerable<AuthorForFilterVM>> GetAuthorsForFilter();
+        
+
         //Task<IEnumerable<Author>> GetAllAsync();
         //Task<Author> GetByIdAsync(int id);
         //Task DeleteAsync(int id);

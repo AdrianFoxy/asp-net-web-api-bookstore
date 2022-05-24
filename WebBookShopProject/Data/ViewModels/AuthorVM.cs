@@ -38,4 +38,11 @@ namespace WebBookShopProject.Data.ViewModels
         public int Id { get; set; }
         public string FullName { get; set; }
     }
+
+    public class AuthorForFilterVM
+    {
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string NameForUrl { get; set; }
+    }
 }

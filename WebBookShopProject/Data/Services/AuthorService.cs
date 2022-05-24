@@ -76,6 +76,21 @@ namespace WebBookShopProject.Data.Services
             return authors;
         }
 
+        public async Task<IEnumerable<AuthorForFilterVM>> GetAuthorsForFilter()
+        {
+
+            var authors = await _context.Author.Select(item => new AuthorForFilterVM()
+            {
+                Id = item.Id,
+                FullName = item.FullName,
+                NameForUrl = item.NameForUrl
+
+            }).ToListAsync();
+
+            return authors;
+        }
+
+
         public async Task<Author> UpdateAsync(int id, AuthorVM author, string imagePath)
         {
             var _author = await _context.Author.FirstOrDefaultAsync(n => n.Id == id);
