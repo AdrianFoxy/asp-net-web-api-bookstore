@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -80,6 +81,7 @@ namespace WebBookShopProject.Controllers
         }
 
         // Add new Author
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-author")]
         public async Task<IActionResult> AddAuthor([FromForm] AuthorVM author, IFormFile image)
         {
@@ -93,6 +95,7 @@ namespace WebBookShopProject.Controllers
             return Ok(author);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-author-by-id/{id}")]
         public async Task<IActionResult> UpdateAuthorById(int id, [FromForm] AuthorVM author, IFormFile image)
         {
@@ -106,6 +109,7 @@ namespace WebBookShopProject.Controllers
         }
 
         // Delete Choosen Publisher
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-author-by-id/{id}")]
         public async Task<IActionResult> DeleteAuthorById(int id)
         {

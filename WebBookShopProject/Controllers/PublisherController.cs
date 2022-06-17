@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,7 @@ namespace WebBookShopProject.Controllers
         }
 
         // Add New Publishers
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-publisher")]
         public async Task<IActionResult> AddPublisher([FromBody] PublisherVM publisher)
         {
@@ -65,6 +67,7 @@ namespace WebBookShopProject.Controllers
             return Ok(publisher);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-publisher-by-id/{id}")]
         public async Task<IActionResult> UpdatePublisherById(int id, [FromBody] PublisherVM publisher)
         {
@@ -74,6 +77,7 @@ namespace WebBookShopProject.Controllers
         }
 
         // Delete Choosen Publisher
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-publisher-by-id/{id}")]
         public async Task<IActionResult> DeletePublisherById(int id)
         {

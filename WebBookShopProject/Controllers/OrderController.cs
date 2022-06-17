@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -66,6 +67,7 @@ namespace WebBookShopProject.Controllers
             return Ok(orders);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("get-all-orders-for-admin")]
         public async Task<IActionResult> GetAllOrders([FromQuery] PaginationParams @params)
         {
@@ -108,6 +110,7 @@ namespace WebBookShopProject.Controllers
             return Ok(responce);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("change-order-status-to-canceled")]
         public async Task<IActionResult> ChangeStatusToCanceled(int orderId)
         {
@@ -115,6 +118,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("change-order-status-to-approved")]
         public async Task<IActionResult> ChangeStatusToApproved(int orderId)
         {
@@ -122,6 +126,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("change-order-status-to-done")]
         public async Task<IActionResult> ChangeStatusToDone(int orderId)
         {
@@ -129,6 +134,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("change-order-status-on-my-way")]
         public async Task<IActionResult> ChangeStatusOnMyWay(int orderId)
         {
@@ -136,6 +142,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("change-order-status-waiting-at-the-point")]
         public async Task<IActionResult> ChangeStatusToWaitingAtThePoint(int orderId)
         {

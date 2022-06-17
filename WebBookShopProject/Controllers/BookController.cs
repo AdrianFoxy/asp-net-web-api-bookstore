@@ -11,6 +11,7 @@ using WebBookShopProject.Data.Services;
 using WebBookShopProject.Data.ViewModels;
 using WebBookShopProject.Data.Dtos;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebBookShopProject.Controllers
 {
@@ -156,6 +157,7 @@ namespace WebBookShopProject.Controllers
 
 
         // Update choosed Book
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-book-by-id/{id}")]
         public async Task<IActionResult> UpdateBookById(int id, [FromForm] BookVM book, IFormFile image)
         {
@@ -170,6 +172,7 @@ namespace WebBookShopProject.Controllers
 
 
         // Delete choosed Book
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-book-by-id/{id}")]
         public async Task<IActionResult> DeleteBookById(int id)
         {
@@ -180,6 +183,7 @@ namespace WebBookShopProject.Controllers
         // All API's for ADD BOOK
 
         // Add New Book with Image
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-book")]
         public async Task<IActionResult> AddBookImage([FromForm] BookVM book, IFormFile image)
         {

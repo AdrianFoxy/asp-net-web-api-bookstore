@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,7 @@ namespace WebBookShopProject.Controllers
 
 
         // Add New Genre
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-genre")]
         public async Task<IActionResult> AddGenre([FromBody] GenreVM genre)
         {
@@ -80,6 +82,7 @@ namespace WebBookShopProject.Controllers
             return Ok(genre);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-genre-by-id/{id}")]
         public async Task<IActionResult> UpdateGenreById(int id, [FromBody] GenreVM genre)
         {
@@ -89,6 +92,7 @@ namespace WebBookShopProject.Controllers
         }
 
         // DeletePublisher
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-genre-by-id/{id}")]
         public async Task<IActionResult> DeleteGenreById(int id)
         {

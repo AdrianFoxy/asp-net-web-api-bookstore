@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -66,6 +67,7 @@ namespace WebBookShopProject.Controllers
         }
 
         // Add New Publishers
+        [Authorize(Roles = "Admin")]
         [HttpPost("add-typegenre")]
         public async Task<IActionResult> AddTypeGenre([FromBody] TypeGenreAddVM typegenre)
         {
@@ -73,6 +75,7 @@ namespace WebBookShopProject.Controllers
             return Ok(typegenre);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update-typegenre-by-id/{id}")]
         public async Task<IActionResult> UpdateTypeGenreById(int id, [FromBody] TypeGenreAddVM typegenre)
         {
@@ -81,6 +84,7 @@ namespace WebBookShopProject.Controllers
             return Ok(updated);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete-typegenre-by-id/{id}")]
         public async Task<IActionResult> DeleteTypeGenreById(int id)
         {

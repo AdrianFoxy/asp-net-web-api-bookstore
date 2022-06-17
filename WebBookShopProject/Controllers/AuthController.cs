@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ namespace WebBookShopProject.Controllers
             return Ok(userinfo);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("get-all-users-for-admin")]
         public async Task<IActionResult> GetAllUsers([FromQuery] PaginationParams @params)
         {
