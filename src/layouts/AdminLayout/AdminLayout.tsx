@@ -1,9 +1,6 @@
 import React, {FC} from 'react';
-import ClippedDrawer from "../../components/UI/BurgerAdmin";
 import styles from "./AdminLayout.module.scss";
 import {Outlet} from "react-router-dom";
-import PrimarySearchAppBar from "../../components/Navbar/PrimarySearchAppBar";
-import Navbar from '../../components/Navbar/Navbar';
 import MiniDrawer from "../../components/UI/Admin/Menu";
 
 const AdminLayout: FC = () => {

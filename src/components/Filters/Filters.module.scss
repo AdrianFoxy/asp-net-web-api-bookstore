@@ -1,0 +1,23 @@
+.price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__title {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    &__input {
+        width: 40%;
+        border: 1px solid #000;
+        border-radius: 4px;
+        padding: 5px;
+        font-size: 16px;
+    }
+}
+
+.author {
+    &__title {
+        margin-top: 35px;
+        margin-bottom: 10px;
+    }
+}

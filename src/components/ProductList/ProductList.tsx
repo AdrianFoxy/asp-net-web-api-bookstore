@@ -20,8 +20,6 @@ const ProductList: FC<ProductListProps> = ({products}) => {
 
     const products2 = useTypedSelector(state => state.cartReducer.products)
 
-    console.log(products)
-
     return (
         <div className={styles.products__container}>
             {products.map((product) =>

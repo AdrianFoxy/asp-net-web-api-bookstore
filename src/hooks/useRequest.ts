@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
+import {AxiosResponse} from "axios";
 
-export const useRequest = (callback: Function, dependencies: any[] = []) => {
-    const [data, setData] = useState<any>(null)
+export function useRequest<T> (callback: Function, dependencies: any[] = []) {
+    const [data, setData] = useState<T>()
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<any>("");
 

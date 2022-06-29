@@ -58,7 +58,7 @@ const Slider = () => {
         }, 5000)
         return () => clearInterval(intervalId)
     }, [slideIndex]);
-    
+
     return (
         <div>
             <div className={styles.slider__wrapper}>

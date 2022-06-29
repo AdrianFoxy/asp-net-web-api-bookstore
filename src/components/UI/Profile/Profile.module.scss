@@ -1,7 +1,15 @@
 .profile {
+    &__title2 {
+        margin-bottom: 10px;
+    }
     &__title {
+        &_wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
         font-size: 18px;
-        margin-bottom: 20px;
     }
 
     &__container {

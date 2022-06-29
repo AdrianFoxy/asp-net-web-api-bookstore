@@ -23,11 +23,11 @@ const Cart: FC = () => {
 
     return (
         <div>
-            <Link to={"/"} className={styles.cart__back}>
-                <span>
-                    На главную
-                </span>
-            </Link>
+            {/*<Link to={"/"} className={styles.cart__back}>*/}
+            {/*    <span>*/}
+            {/*        На главную*/}
+            {/*    </span>*/}
+            {/*</Link>*/}
             <div className={styles.cart__title}>
                 Корзина ({totalCount})
             </div>

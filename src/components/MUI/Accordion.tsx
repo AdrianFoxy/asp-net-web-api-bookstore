@@ -4,9 +4,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {IGenre} from "../types/IGenre";
+import {IGenre} from "../../types/IGenre";
 import {FC} from "react";
 import {Link} from "react-router-dom";
+import styles from "./SimpleAccordion.module.scss"
 
 interface SimpleAccordionProps {
     genres: IGenre[]
@@ -23,7 +24,7 @@ const SimpleAccordion: FC<SimpleAccordionProps> = ({genres}) => {
                         id="panel1a-header"
                     >
                         <Typography onClick={(e) => e.stopPropagation()}>
-                            <Link to={`/products/${genre.nameEng}`}>
+                            <Link to={`/products/${genre.nameEng}`} className={styles.link}>
                                 {genre.name}
                             </Link>
                         </Typography>
@@ -32,7 +33,7 @@ const SimpleAccordion: FC<SimpleAccordionProps> = ({genres}) => {
                         <Typography style={{}}>
                             {genre.genreNames?.map((name) =>
                                 <div>
-                                    <Link to={`/products/${name.nameForUrl}`}>
+                                    <Link to={`/products/${name.nameForUrl}`} className={styles.link}>
                                         {name.name}
                                     </Link>
                                 </div>

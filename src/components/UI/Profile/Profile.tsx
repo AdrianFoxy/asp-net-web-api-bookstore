@@ -1,25 +1,29 @@
-import React, {FC, useEffect} from 'react';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
+import React, {FC} from 'react';
 import styles from "./Profile.module.scss"
-import {useActions} from "../../hooks/useAppDispatch";
-import {Card} from "@mui/material";
+import {Card, Pagination} from "@mui/material";
+import {IUser} from "../../../types/IUser";
+import {IOrder} from "../../../types/IOrder";
 
-const Profile: FC = () => {
+interface ProfileProps {
+    user: IUser
+    page: number
+    pages: number
+    handleChange: (event: React.ChangeEvent<unknown>, page: number) => void
+    orders: IOrder[]
+}
 
-    const {user} = useTypedSelector(state => state.userReducer)
-
-    const {orders} = useTypedSelector(state => state.orderReducer)
-    console.log(orders)
-
-    const {getOrders} = useActions()
-
-    useEffect(() => {
-        getOrders()
-    }, [])
-
+const Profile: FC<ProfileProps> = (
+    {
+        user,
+        page,
+        pages,
+        handleChange,
+        orders,
+    }
+) => {
     return (
         <div>
-            <div className={styles.profile__title}>Личные данные</div>
+            <div className={styles.profile__title2}>Личные данные</div>
             <ul className={styles.profile__container}>
                 <li className={styles.profile__item}>
                     <label>Фио </label>
@@ -34,7 +38,10 @@ const Profile: FC = () => {
                     <p> {user.phone}</p>
                 </li>
             </ul>
-            <div className={styles.profile__title}>Список заказов</div>
+            <div className={styles.profile__title_wrapper}>
+                <div className={styles.profile__title}>Список заказов</div>
+                <Pagination page={page} count={pages} color="primary" onChange={handleChange}/>
+            </div>
             <div>
                 {orders.map((order) =>
                     <Card className={styles.profile__items_wrapper}>
@@ -81,6 +88,7 @@ const Profile: FC = () => {
                     </Card>
                 )}
             </div>
+            <Pagination page={page} count={pages} color="primary" onChange={handleChange}/>
         </div>
     );
 };

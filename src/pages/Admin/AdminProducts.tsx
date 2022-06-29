@@ -5,17 +5,25 @@ import {GridColDef, GridValueGetterParams} from "@mui/x-data-grid";
 import {fetchAllProduct, setPageDataGrid} from "../../redux/actions/product";
 import {useActions} from "../../hooks/useAppDispatch";
 import ProductForm from "../../components/Admin/ProductForm";
+import { Link } from 'react-router-dom';
 
 const actionColumn: GridColDef[] = [
     {
         field: "action",
         headerName: "action",
         width: 200,
-        renderCell: () => {
+        renderCell: (params) => {
             return (
                 <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
-                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #1976D2", cursor: "pointer"}}>View</div>
-                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}>Delete</div>
+                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #1976D2", cursor: "pointer"}}>
+                        <Link to={`/admin/product/${params.row.id}`}>
+                            View
+                        </Link>
+                    </div>
+                    <div onClick={(e) => {
+                        e.stopPropagation()
+                        console.log(params.row.id)
+                    }} style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}>Delete</div>
                 </div>
             )
         }
@@ -57,8 +65,8 @@ const columns: GridColDef[] = [
         sortable: false
     },
     {
-        field: 'resealeDate',
-        headerName: 'resealeDate',
+        field: 'releaseDate',
+        headerName: 'releaseDate',
         type: 'Date',
         width: 130,
         description: 'This column has a value getter and is not sortable.',

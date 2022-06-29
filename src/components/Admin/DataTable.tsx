@@ -32,6 +32,9 @@ const DataTable = ({
                     },
                     '& .MuiDataGrid-columnHeaderTitleContainer': {
                         flexDirection: "row !important"
+                    },
+                    '& .MuiDataGrid-cell--textRight': {
+                        justifyContent: "flex-start"
                     }
                 }}
                 page={page}

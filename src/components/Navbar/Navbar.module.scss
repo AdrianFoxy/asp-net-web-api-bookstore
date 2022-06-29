@@ -2,8 +2,15 @@
 
 .header {
     &__list {
-        color: #1976d2;
+        //color: #1976d2;
         padding: 30px;
+        @media (max-width: 1700px) {
+            padding-right: 0;
+            padding-left: 15px;
+        }
+        @media (max-width: 768px) {
+            display: none;
+        }
         li {
             &:not(:last-child) {
                 //@include adaptiv-value("margin-right", 20, 14, 1)

@@ -1,0 +1,5 @@
+@import "./src/utils/adaptiv-value";
+
+.link {
+    @include adaptiv-value("font-size", 16, 12, 1);
+}

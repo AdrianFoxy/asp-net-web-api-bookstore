@@ -5,26 +5,31 @@ import {useInput} from "../../hooks/useInput";
 import {Button, IconButton, InputAdornment, TextField} from "@mui/material";
 import {validateEmail} from "../../utils/validateEmail";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import LoginForm from "../../components/UI/LoginForm/LoginForm";
+
+export interface ErrorsLogin {
+    email?: string,
+    password?: string,
+}
+
+export interface User {
+    [key: string]: any
+
+    email: string
+    password: string
+}
+
+export interface Values {
+    showPassword: boolean
+}
 
 const Login: FC = () => {
 
     const {login} = useActions()
 
-    interface IStringIndex {
-        [key: string]: any
-        email: string
-        password: string
-    }
+    const [user, setUser] = useState<User>({email: "", password: ""})
 
-    const [user, setUser] = useState<IStringIndex>({
-        email: "",
-        password: ""
-    })
-
-    const [errors, setErrors] = useState<{
-        email?: string,
-        password?: string,
-    }>({email: "", password: ""})
+    const [errors, setErrors] = useState<ErrorsLogin>({email: "", password: ""})
 
     const handleChangeField = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
         setErrors((prevState) => ({...prevState, [field]: ""}))
@@ -75,55 +80,10 @@ const Login: FC = () => {
     };
 
     return (
-        <div className={styles.login}>
-            <div className={styles.login__wrapper}>
-                <div className={styles.login__textWrapper}>
-                    <div className={styles.login__title}>
-                        Логин
-                    </div>
-                </div>
-                <div className={styles.login__loginForm}>
-                    <TextField name="email"
-                               placeholder="email"
-                               error={Boolean(errors?.email)}
-                               helperText={errors?.email}
-                               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeField(e, "email")}
-                               value={user.fullName}
-                               className={styles.login__input}
-                               inputProps={{maxLength: 100}}
-                               fullWidth
-                    />
-                    <TextField name="password"
-                               placeholder="password"
-                               type={values.showPassword ? 'text' : 'password'}
-                               error={Boolean(errors?.password)}
-                               helperText={errors?.password}
-                               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeField(e, "password")}
-                               value={user.password}
-                               className={styles.login__input}
-                               inputProps={{maxLength: 50, autoComplete: "off"}}
-                               fullWidth
-                               InputProps={{
-                                   endAdornment: (
-                                       <InputAdornment position="end">
-                                           <IconButton
-                                               aria-label="toggle password visibility"
-                                               onClick={handleClickShowPassword}
-                                               onMouseDown={handleMouseDownPassword}
-                                               edge="end"
-                                           >
-                                               {values.showPassword ? <VisibilityOff/> : <Visibility/>}
-                                           </IconButton>
-                                       </InputAdornment>
-                                   )
-                               }}
-                    />
-                    <Button variant="outlined" onClick={handleClick} fullWidth className={styles.login__input}>
-                        Log in
-                    </Button>
-                </div>
-            </div>
-        </div>
+        <LoginForm errors={errors} user={user} handleChangeField={handleChangeField} values={values}
+                   handleClickShowPassword={handleClickShowPassword}
+                   handleMouseDownPassword={handleMouseDownPassword} handleClick={handleClick}
+        />
     )
 }
 

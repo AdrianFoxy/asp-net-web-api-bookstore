@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home/Home";
@@ -19,7 +19,9 @@ import {RequireAdmin} from "./auth/RequireAdmin";
 import Order from "./pages/Order/Order";
 import Success from "./pages/Success/Success";
 import Product from "./pages/Product/Product";
-import Profile from "./pages/Profile/Profile";
+import ProfileContainer from "./pages/Profile/ProfileContainer";
+import AdminProduct from "./pages/Admin/AdminProduct";
+import Search from "./pages/Search/Search";
 
 function App() {
 
@@ -48,18 +50,20 @@ function App() {
                         <Route path="/products" element={<Products/>}/>
                         <Route path="/products/:genre" element={<Products/>}/>
                         <Route path="/product/:productId" element={<Product/>}/>
+                        <Route path="/search" element={<Search/>}/>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/cart" element={<Cart/>}/>
                         <Route path="/order" element={<Order/>}/>
-                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/profile" element={<ProfileContainer/>}/>
                     </Route>
                     <Route element={<RequireAuth><MainLayout/></RequireAuth>}>
-                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/profile" element={<ProfileContainer/>}/>
                     </Route>
                     <Route element={<RequireAdmin><AdminLayout/></RequireAdmin>}>
                         <Route path="/admin" element={<AdminHome/>}/>
                         <Route path="/admin/products" element={<AdminProducts/>}/>
-                        <Route path="admin/authors" element={<AdminAuthors/>}/>
+                        <Route path="/admin/authors" element={<AdminAuthors/>}/>
+                        <Route path="/admin/product/:productId" element={<AdminProduct/>}/>
                     </Route>
                     <Route path="/login" element={<RequireAuth><Login/></RequireAuth>}/>
                     <Route path="/registration" element={<Registration/>}/>

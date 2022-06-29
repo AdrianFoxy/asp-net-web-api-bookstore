@@ -15,27 +15,27 @@ const Product = () => {
 
     const {productId} = useParams();
 
-    const [product] = useRequest(async () => {
-        return await $api.get<IProduct>(`/Book/get-book-by-id/${productId}`)
+    // const [product] = useRequest(async () => {
+    //     return await $api.get<IProduct>(`/Book/get-book-by-id/${productId}`)
+    // }, [productId])
+
+    const {fetchProduct} = useActions()
+
+    useEffect(() => {
+        fetchProduct(productId)
     }, [productId])
 
-    const {removeCart, addProduct} = useActions()
+    const {product} = useTypedSelector(state => state.productReducer)
 
     console.log(product)
+
+    const {removeCart, addProduct} = useActions()
 
     const id: string = productId !== undefined ? productId : '';
 
     const products = useTypedSelector(state => state.cartReducer.products)
 
-    console.log(products)
-    console.log(productId)
-
     const indexCurrentProduct = products.findIndex(product => product.book.id.toString() === productId)
-
-    useEffect(() => {
-
-    }, [])
-
 
     if (!product) {
         return <div> Загрузка... </div>

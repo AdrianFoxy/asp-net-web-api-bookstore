@@ -1,3 +1,5 @@
+@import "../../../utils/adaptiv-value";
+
 .reg {
     //width: 100vw;
     height: 100vh;
@@ -6,16 +8,25 @@
     justify-content: center;
     background-image: url("https://media.discordapp.net/attachments/502148795279081484/975412643361849394/unknown.png");
     background-repeat: no-repeat;
-    background-size: 100%;
+    //background-size: 100% 100%;
+    background-size: cover;
     &__wrapper {
         display: flex;
         align-items: center;
     }
     &__textWrapper {
         margin-right: 60px;
+        @media (max-width: 1278px) {
+            display: none;
+        }
+    }
+    &__redirect {
+        @include adaptiv-value("font-size", 20, 14, 1);
+        @include adaptiv-value("margin-bottom", 10, 5, 1);
+        color: #1976d2 !important;
     }
     &__title {
-        font-size: 60px;
+        @include adaptiv-value("font-size", 60, 30, 1);
         //color: #ffffff;
         //text-shadow: red 0 0 2px;
         margin-bottom: 20px;
@@ -30,15 +41,24 @@
         padding: 25px;
         position: relative;
         background-color: #E9E9E9;
+        @media (max-width: 768px) {
+            margin: 0 15px;
+        }
     }
     &__reg_password {
         display: flex;
+        @media (max-width: 768px) {
+            display: block;
+        }
     }
     &__input {
         display: block !important;
         margin-bottom: 10px !important;
         &:not(:last-child) {
             margin-right: 10px !important;
+        }
+        & input::placeholder {
+            @include adaptiv-value("font-size", 20, 12, 1);
         }
     }
     &__password_error {
