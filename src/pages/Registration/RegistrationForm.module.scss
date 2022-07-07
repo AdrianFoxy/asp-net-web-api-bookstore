@@ -1,7 +1,9 @@
-@import "../../../utils/adaptiv-value";
+@import "../../utils/adaptiv-value";
 
 .reg {
     //width: 100vw;
+    //height: 100vh;
+    margin: 0;
     height: 100vh;
     display: flex;
     align-items: center;

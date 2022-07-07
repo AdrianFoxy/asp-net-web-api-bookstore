@@ -215,12 +215,11 @@ const ProductForm: FC = () => {
                 </Grid>
                 <Grid item xs={4}>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                        <InputLabel id="demo-simple-select-label">Publisher</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-
-                            label="Age"
+                            label="Publisher"
                             onChange={handleChange}
                         >
                             {publisherList?.map((publisher: any) =>

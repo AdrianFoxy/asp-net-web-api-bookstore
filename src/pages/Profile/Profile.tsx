@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import styles from "./Profile.module.scss"
 import {Card, Pagination} from "@mui/material";
-import {IUser} from "../../../types/IUser";
-import {IOrder} from "../../../types/IOrder";
+import {IUser} from "../../types/IUser";
+import {IOrder} from "../../types/IOrder";
 
 interface ProfileProps {
     user: IUser
@@ -48,8 +48,16 @@ const Profile: FC<ProfileProps> = (
                         <ul className={styles.profile__items}>
                             <div className={styles.profile__info}>
                                 <li className={styles.profile__item}>
-                                    <label>Номер заказа</label>
-                                    <p>{order.id}</p>
+                                    <div className={styles.profile__statusWrapper}>
+                                        <div>
+                                            <label>Номер заказа</label>
+                                            <p>{order.id}</p>
+                                        </div>
+                                        <div>
+                                            <label>Статус заказа</label>
+                                            <p>{order.orderStatus.name}</p>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li className={styles.profile__item}>
                                     <label>Сумма заказа </label>
@@ -75,7 +83,7 @@ const Profile: FC<ProfileProps> = (
                                                 Цена {orderItem.book.price}
                                             </div>
                                             <div>
-                                                Количество{orderItem.amount}
+                                                Количество {orderItem.amount}
                                             </div>
                                             <div>
                                                 Сумма {orderItem.amount * orderItem.book.price}

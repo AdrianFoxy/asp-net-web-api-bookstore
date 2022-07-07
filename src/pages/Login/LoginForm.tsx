@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import styles from "./LoginForm.module.scss"
 import {Button, IconButton, InputAdornment, TextField} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {ErrorsLogin, User, Values} from "../../../pages/Login/Login";
+import {ErrorsLogin, User, Values} from "./LoginContainer";
 
 interface LoginFormProps {
     errors: ErrorsLogin

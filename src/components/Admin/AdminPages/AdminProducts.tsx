@@ -1,34 +1,10 @@
-import React, {FC, useEffect} from 'react';
-import DataTable from "../../components/Admin/DataTable";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {GridColDef, GridValueGetterParams} from "@mui/x-data-grid";
-import {fetchAllProduct, setPageDataGrid} from "../../redux/actions/product";
-import {useActions} from "../../hooks/useAppDispatch";
-import ProductForm from "../../components/Admin/ProductForm";
+import React, {FC} from 'react';
+import DataTable from "../DataTable";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
+import {GridColDef} from "@mui/x-data-grid";
+import {useActions} from "../../../hooks/useAppDispatch";
+import ProductForm from "../ProductForm";
 import { Link } from 'react-router-dom';
-
-const actionColumn: GridColDef[] = [
-    {
-        field: "action",
-        headerName: "action",
-        width: 200,
-        renderCell: (params) => {
-            return (
-                <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
-                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #1976D2", cursor: "pointer"}}>
-                        <Link to={`/admin/product/${params.row.id}`}>
-                            View
-                        </Link>
-                    </div>
-                    <div onClick={(e) => {
-                        e.stopPropagation()
-                        console.log(params.row.id)
-                    }} style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}>Delete</div>
-                </div>
-            )
-        }
-    }
-]
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 70},
@@ -104,7 +80,35 @@ const AdminProducts: FC = () => {
     const page = useTypedSelector(state => state.productReducer.page)
     const pageDataGrid = useTypedSelector(state => state.productReducer.pageDataGrid)
 
-    const {setPageDataGrid, fetchAllProduct} = useActions()
+    const {deleteProduct, setPageDataGrid, fetchAllProduct} = useActions()
+
+    const actionColumn: GridColDef[] = [
+        {
+            field: "action",
+            headerName: "action",
+            width: 200,
+            renderCell: (params) => {
+                return (
+                    <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
+                        <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #1976D2", cursor: "pointer"}}>
+                            <Link to={`/admin/product/${params.row.id}`}>
+                                View
+                            </Link>
+                        </div>
+                        <div onClick={(e) => {
+                            e.stopPropagation()
+                            // @ts-ignore
+                            deleteProduct(params.row.id).then((r: any) => {
+                                if (r) {
+                                    fetchAllProduct(page)
+                                }
+                            })
+                        }} style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}>Delete</div>
+                    </div>
+                )
+            }
+        }
+    ]
 
     return (
         <>

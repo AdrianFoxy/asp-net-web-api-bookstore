@@ -21,13 +21,13 @@ const Products = () => {
         if (genre) {
             if (genres.genres.length >= 1) {
                 if (genres.genres.some(genre2 => genre2.nameEng === genre)) {
-                    fetchProducts(genre, "type-genre", page)
+                    fetchProducts(genre, "type-genre", page, pageSize)
                 } else {
-                    fetchProducts(genre, "genre", page)
+                    fetchProducts(genre, "genre", page, pageSize)
                 }
             }
         } else {
-            fetchAllProduct(page)
+            fetchAllProduct(page, pageSize)
         }
     }, [genre, genres, page])
 

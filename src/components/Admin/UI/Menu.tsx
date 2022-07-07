@@ -177,9 +177,8 @@ export default function MiniDrawer() {
                 </List>
                 <Divider/>
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <Link to={"/admin/orders"}>
                         <ListItemButton
-                            key={text}
                             sx={{
                                 minHeight: 48,
                                 justifyContent: open ? 'initial' : 'center',
@@ -193,11 +192,11 @@ export default function MiniDrawer() {
                                     justifyContent: 'center',
                                 }}
                             >
-                                {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                                <InboxIcon/>
                             </ListItemIcon>
-                            <ListItemText primary={text} sx={{opacity: open ? 1 : 0}}/>
+                            <ListItemText primary={"Orders"} sx={{opacity: open ? 1 : 0}}/>
                         </ListItemButton>
-                    ))}
+                    </Link>
                 </List>
             </Drawer>
         </Box>

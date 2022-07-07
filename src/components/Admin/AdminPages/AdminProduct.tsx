@@ -1,41 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useParams} from "react-router-dom";
-import {useRequest} from "../../hooks/useRequest";
-import $api from "../../http";
-import {IProduct} from "../../types/IProduct";
-import {Button, Card, Grid} from "@mui/material";
-import styles from "./Product.module.scss"
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {useActions} from "../../hooks/useAppDispatch";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import {useRequest} from "../../../hooks/useRequest";
+import $api from "../../../http";
+import {IProduct} from "../../../types/IProduct";
+import {Card, Grid} from "@mui/material";
+import styles from "../../../pages/Product/Product.module.scss";
 
-const Product = () => {
+const AdminProduct = () => {
 
     const {productId} = useParams();
 
-    // const [product] = useRequest(async () => {
-    //     return await $api.get<IProduct>(`/Book/get-book-by-id/${productId}`)
-    // }, [productId])
+    console.log(productId)
 
-    const {fetchProduct} = useActions()
-
-    useEffect(() => {
-        fetchProduct(productId)
+    const [product] = useRequest(async () => {
+        return await $api.get<IProduct>(`/Book/get-book-by-id/${productId}`)
     }, [productId])
 
-    const {product} = useTypedSelector(state => state.productReducer)
-
     console.log(product)
-
-    const {removeCart, addProduct} = useActions()
-
-    const id: string = productId !== undefined ? productId : '';
-
-    const products = useTypedSelector(state => state.cartReducer.products)
-
-    const indexCurrentProduct = products.findIndex(product => product.book.id.toString() === productId)
 
     if (!product) {
         return <div> Загрузка... </div>
@@ -57,20 +38,6 @@ const Product = () => {
                             <div className={styles.product__price}>
                                 {product.price} грн.
                             </div>
-                            {products.some(product => product.book.id.toString() === productId) ?
-                                <div className={styles.product__counters}>
-                                    <RemoveOutlinedIcon onClick={() => removeCart(id)}
-                                                        style={{cursor: "pointer", marginRight: "5px"}}/>
-                                    <div style={{marginRight: "5px"}}>{products[indexCurrentProduct].amount}</div>
-                                    <AddOutlinedIcon onClick={() => {
-                                        addProduct(id, products)
-                                    }}
-                                                     style={{cursor: "pointer"}}/>
-                                </div> :
-                                product.amount <= 0 ? "Нет в наличии" :
-                                <Button variant="outlined" onClick={() => addProduct(id, products)}> <ShoppingCartOutlinedIcon/> В
-                                    корзину </Button>
-                            }
                         </div>
                         {
                             product.authorNames.map((author: string) =>
@@ -132,4 +99,4 @@ const Product = () => {
     }
 };
 
-export default Product;
+export default AdminProduct;

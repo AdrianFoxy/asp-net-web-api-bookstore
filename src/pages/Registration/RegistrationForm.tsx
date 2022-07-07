@@ -3,7 +3,7 @@ import styles from "./RegistrationForm.module.scss"
 import {Link} from "react-router-dom";
 import {Button, IconButton, InputAdornment, TextField} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {ErrorsRegistration, NewUser, Values} from "../../../pages/Registration/Registration";
+import {ErrorsRegistration, NewUser, Values} from "./RegistrationContainer";
 
 interface RegistrationFormProps {
     errors: ErrorsRegistration

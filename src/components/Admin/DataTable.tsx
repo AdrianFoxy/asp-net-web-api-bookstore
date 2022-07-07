@@ -15,8 +15,6 @@ const DataTable = ({
         fetchItems(page)
     }, [page])
 
-    console.log(page)
-
     return (
         <div style={{height: 650, width: '100%'}}>
             <DataGrid
@@ -45,7 +43,7 @@ const DataTable = ({
                 paginationMode="server"
                 pageSize={10}
                 rowsPerPageOptions={[10]}
-                checkboxSelection
+                // checkboxSelection
             />
         </div>
     );

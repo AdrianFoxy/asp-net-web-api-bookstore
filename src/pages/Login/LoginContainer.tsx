@@ -1,11 +1,7 @@
 import React, {FC, useState} from 'react'
-import styles from "./Login.module.scss"
 import {useActions} from "../../hooks/useAppDispatch";
-import {useInput} from "../../hooks/useInput";
-import {Button, IconButton, InputAdornment, TextField} from "@mui/material";
 import {validateEmail} from "../../utils/validateEmail";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
-import LoginForm from "../../components/UI/LoginForm/LoginForm";
+import LoginForm from "./LoginForm";
 
 export interface ErrorsLogin {
     email?: string,
@@ -23,7 +19,7 @@ export interface Values {
     showPassword: boolean
 }
 
-const Login: FC = () => {
+const LoginContainer: FC = () => {
 
     const {login} = useActions()
 
@@ -87,4 +83,4 @@ const Login: FC = () => {
     )
 }
 
-export default Login
+export default LoginContainer

@@ -10,6 +10,15 @@
     @media (max-width: 768px) {
         width: 0;
     }
+    padding: 30px;
+    padding-right: 0;
+    @media (max-width: 1700px) {
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
 .route {
@@ -17,6 +26,7 @@
     padding: 30px;
     @media (max-width: 1700px) {
         padding-left: 15px;
+        padding-right: 15px;
     }
     @media (max-width: 768px) {
         width: 100%;

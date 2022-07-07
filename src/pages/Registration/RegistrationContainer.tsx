@@ -4,7 +4,7 @@ import {validateEmail} from "../../utils/validateEmail";
 import {validatePhone} from "../../utils/validatePhone";
 import {validatePassword} from "../../utils/validatePassword";
 import {validateEqualPassword} from "../../utils/validateEqualPasswords";
-import RegistrationForm from "../../components/UI/RegistrationForm/RegistrationForm";
+import RegistrationForm from "./RegistrationForm";
 
 export interface ErrorsRegistration {
     fullName?: string,
@@ -29,7 +29,7 @@ export interface Values {
     showConfirmPassword: boolean
 }
 
-const Registration = () => {
+const RegistrationContainer = () => {
 
     const {registration} = useActions()
 
@@ -142,4 +142,4 @@ const Registration = () => {
     )
 }
 
-export default Registration
+export default RegistrationContainer

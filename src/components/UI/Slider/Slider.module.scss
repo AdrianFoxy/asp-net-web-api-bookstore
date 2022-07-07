@@ -10,7 +10,7 @@
         height: 100%;
         position: absolute;
         opacity: 0;
-        right: 15px;
+        //right: 15px;
         transition: opacity ease-in-out 0.4s;
         &.active_anim {
             opacity: 1;

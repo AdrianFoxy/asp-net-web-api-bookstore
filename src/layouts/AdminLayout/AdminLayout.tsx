@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from "./AdminLayout.module.scss";
 import {Outlet} from "react-router-dom";
-import MiniDrawer from "../../components/UI/Admin/Menu";
+import MiniDrawer from "../../components/Admin/UI/Menu";
 
 const AdminLayout: FC = () => {
     return (

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AppBarAdmin = () => {
+const ProductContainer = () => {
     return (
         <div>
-            Search
+
         </div>
     );
 };
 
-export default AppBarAdmin;
+export default ProductContainer;

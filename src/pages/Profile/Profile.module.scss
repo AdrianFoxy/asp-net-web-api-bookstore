@@ -35,6 +35,14 @@
         margin-bottom: 30px;
     }
 
+    &__statusWrapper {
+        display: flex;
+        justify-content: space-between;
+        &:last-child {
+            margin-right: 20px;
+        }
+    }
+
     &__items {
         display: flex;
         align-items: flex-start;

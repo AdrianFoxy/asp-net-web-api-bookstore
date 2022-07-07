@@ -38,6 +38,10 @@ const Order: FC = () => {
         email: user.email,
     })
 
+    const handleChangeField = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
+        setContactInfo((prevState) => ({...prevState, [field]: event.target.value}))
+    }
+
     const [errors, setErrors] = useState<{
         fullName?: string,
         phone?: string,
@@ -75,18 +79,18 @@ const Order: FC = () => {
                 if (response.status === 200) {
                     console.log(response)
                     fetchCart()
-                    navigate("/success",{state: response.data})
+                    navigate("/success", {state: response.data})
                 }
             })
         }
         data()
     }
 
-    useEffect(() => {
-        setContactInfo((prevState) => ({...prevState, fullName: user.fullName}))
-        setContactInfo((prevState) => ({...prevState, phone: user.phone}))
-        setContactInfo((prevState) => ({...prevState, email: user.email}))
-    }, [user])
+    // useEffect(() => {
+    //     setContactInfo((prevState) => ({...prevState, fullName: user.fullName}))
+    //     setContactInfo((prevState) => ({...prevState, phone: user.phone}))
+    //     setContactInfo((prevState) => ({...prevState, email: user.email}))
+    // }, [user])
 
     return (
         <div>
@@ -102,15 +106,18 @@ const Order: FC = () => {
                             <Grid item xs={6}>
                                 <TextField id="outlined-basic" label="Фио" variant="outlined" fullWidth
                                            inputProps={{maxLength: 50, autoComplete: "off"}}
-                                           value={contactInfo.fullName}/>
+                                           value={contactInfo.fullName}
+                                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeField(e, "fullName")}/>
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField id="outlined-basic" label="Мобильный телефон" variant="outlined" fullWidth
-                                           inputProps={{maxLength: 50, autoComplete: "off"}} value={contactInfo.phone}/>
+                                           inputProps={{maxLength: 50, autoComplete: "off"}} value={contactInfo.phone}
+                                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeField(e, "phone")}/>
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField id="outlined-basic" label="Электронная почта" variant="outlined" fullWidth
-                                           inputProps={{maxLength: 50, autoComplete: "off"}} value={contactInfo.email}/>
+                                           inputProps={{maxLength: 50, autoComplete: "off"}} value={contactInfo.email}
+                                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeField(e, "email")}/>
                             </Grid>
                         </Grid>
                     </Card>

@@ -54,12 +54,12 @@ export const fetchWhatToReadBooks = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const fetchAllProduct = (page: number = 0) => async (dispatch: AppDispatch) => {
+export const fetchAllProduct = (page: number = 0, count: number = 10) => async (dispatch: AppDispatch) => {
     try {
         const response = await $api.get<IProduct[]>(`/Book/get-all-books-info`, {
             params: {
                 Page: page, //?
-                ItemsPerPage: 10
+                ItemsPerPage: count
             }
         })
         const x = JSON.parse(response.headers["x-pagination"])
@@ -108,7 +108,7 @@ export const fetchProduct = (productId: string | undefined) => async (dispatch: 
 
 }
 
-export const searchBooks = (text: string, page: number = 1) => async (dispatch: AppDispatch) =>{
+export const searchBooks = (text: string, page: number = 1) => async (dispatch: AppDispatch) => {
     try {
         const response = await $api.get(`/Book/get-searched-books`, {
             params: {
@@ -132,3 +132,18 @@ export const setTextSearch = (text: string) => async (dispatch: AppDispatch) => 
 export const setPageSearch = (page: number) => async (dispatch: AppDispatch) => {
     dispatch(productSlice.actions.setPageS(page))
 }
+
+export const deleteProduct = (id: number) => async (dispatch: AppDispatch): Promise<any> => {
+    try {
+        const response = await $api.delete(`/Book/delete-book-by-id/${id}`)
+        if (response.status === 200) {
+            return new Promise((resolve, reject) => {
+                resolve(true)
+            })
+        }
+    } catch (err) {
+
+    }
+}
+
+//const wrapDispatchWithLog = (fn: any) => (dispatch: AppDispatch) => fn(dispatch).then((r: any) => console.log(r))

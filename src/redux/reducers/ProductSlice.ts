@@ -37,7 +37,7 @@ const initialState: ProductState = {
     //
     page: 1,
     count: 0,
-    pageSize: 10,
+    pageSize: 20,
     pageDataGrid: 0,
     minPrice: 0,
     maxPrice: 1000,

@@ -19,6 +19,9 @@ export interface IOrder {
             },
         }
     ]
-    status: string
+    orderStatus: {
+        id: number
+        name: string
+    }
     sum: number
 }

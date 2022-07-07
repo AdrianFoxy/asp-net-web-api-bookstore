@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useActions} from "../../hooks/useAppDispatch";
-import Profile from "../../components/UI/Profile/Profile";
+import Profile from "./Profile";
 
 const ProfileContainer: FC = () => {
 

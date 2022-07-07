@@ -28,6 +28,11 @@ export const orderSlice = createSlice({
         setOrderPage(state, action: PayloadAction<number>) {
             state.page = action.payload
         },
+        changeOrderStatus(state, action: PayloadAction<IOrder>) {
+            const index = state.orders.findIndex(order => order.id === action.payload.id)
+            state.orders.splice(index, 1, action.payload)
+            //state.orders.splice(state.orders.findIndex((el) => el.id === action.payload.id), 1, action.payload)
+        }
     }
 })
 
