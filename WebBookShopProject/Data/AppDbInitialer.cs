@@ -313,8 +313,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 600,
+                            ImageUrl = "/img/example1.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -327,8 +327,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 499,
+                            ImageUrl = "/img/example2.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -341,8 +341,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 432,
+                            ImageUrl = "/img/example3.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -355,8 +355,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 999,
+                            ImageUrl = "/img/example4.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -369,8 +369,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 60,
+                            ImageUrl = "/img/example5.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -383,8 +383,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 90,
+                            ImageUrl = "/img/example6.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -397,8 +397,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 199,
+                            ImageUrl = "/img/example7.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -411,8 +411,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 67,
+                            ImageUrl = "/img/example8.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -425,8 +425,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 133,
+                            ImageUrl = "/img/example9.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -439,8 +439,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 650,
+                            ImageUrl = "/img/example10.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -453,8 +453,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 150,
+                            ImageUrl = "/img/example11.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -467,8 +467,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 399,
+                            ImageUrl = "/img/example12.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -481,8 +481,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 299,
+                            ImageUrl = "/img/example13.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -495,8 +495,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 499,
+                            ImageUrl = "/img/example14.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -509,8 +509,8 @@ namespace WebBookShopProject.Data
                             ShortDescription = "Коротное описание книги",
                             LongDescription = "Основное описание книги",
                             Amount = 20,
-                            Price = 120,
-                            ImageUrl = "/img/book_template.jpg",
+                            Price = 200,
+                            ImageUrl = "/img/example15.jpg",
                             IsFavor = false,
                             ReleaseDate = new DateTime(10, 4, 18),
                             Fk_PublisherId = 2
@@ -1920,7 +1920,77 @@ namespace WebBookShopProject.Data
                     {
                         Fk_AuthorId = 5,
                         Fk_BookId = 7
-                    }
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 5,
+                        Fk_BookId = 8
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 4,
+                        Fk_BookId = 9
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 2,
+                        Fk_BookId = 10
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 1,
+                        Fk_BookId = 11
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 2,
+                        Fk_BookId = 12
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 4,
+                        Fk_BookId = 13
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 2,
+                        Fk_BookId = 14
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 1,
+                        Fk_BookId = 15
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 2,
+                        Fk_BookId = 16
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 4,
+                        Fk_BookId = 17
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 2,
+                        Fk_BookId = 18
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 1,
+                        Fk_BookId = 19
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 2,
+                        Fk_BookId = 20
+                    },
+                    new Book_Author()
+                    {
+                        Fk_AuthorId = 4,
+                        Fk_BookId = 21
+                    },
                 });
                     context.SaveChanges();
                 }

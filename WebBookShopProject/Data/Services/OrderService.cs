@@ -98,7 +98,7 @@ namespace WebBookShopProject.Data.Services
 
         public async Task<IEnumerable<Order>> GetAllOrders(PaginationParams @params)
         {
-            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).ToListAsync();
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.Delivery).Include(n => n.OrderStatus).ToListAsync();
 
             var items = orders.Skip((@params.Page - 1) * @params.ItemsPerPage)
             .Take(@params.ItemsPerPage);
