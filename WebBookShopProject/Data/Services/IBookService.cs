@@ -12,6 +12,12 @@ namespace WebBookShopProject.Data.Services
 {
     public interface IBookService
     {
+
+        Task<IEnumerable<BookForRecomendVM>> GetBookForAgeGroup(int age);
+        Task<IEnumerable<BookForRecomendVM>> GetPurchasedBooks(string userid);
+
+        Task<IEnumerable<BookForRecomendVM>> GetRecomentByDif(string userid, int age);
+
         Task AddBookAsync(BookVM book, string pathImg);
         Task<Book> UpdateAsync(int id, BookVM book, string imagePath);
 

@@ -30,6 +30,19 @@ namespace WebBookShopProject.Data.Services
             _context = context;
         }
 
+
+        public object GetAge(DateTime? dateOfBirth)
+        {
+            // Save today's date.
+            var today = DateTime.Today;
+            // Calculate the age.
+            var age = today.Year - dateOfBirth?.Year;
+            // Go back to the year in which the person was born in case of a leap year
+            if (dateOfBirth?.Date > today.AddYears((int)-age)) age--;
+            return age;
+        }
+
+
         public async Task<UserManagerResponse> LoginUserAsync(LoginVM model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -110,7 +123,8 @@ namespace WebBookShopProject.Data.Services
                 PhoneNumber = model.Phone,
                 Email = model.Email,
                 UserName = model.UserName,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                DateofBirth = model.DateofBirth
             };
 
             var result = await _userManager.CreateAsync(identityUser, model.Password);
@@ -175,7 +189,9 @@ namespace WebBookShopProject.Data.Services
                 FullName = user.FullName,
                 UserName = user.UserName,
                 Phone = user.PhoneNumber,
-                Email = user.Email
+                Email = user.Email,
+                DateofBirth = user.DateofBirth
+
             }).OrderBy(p => p.Id)
             .ToListAsync();
 
@@ -193,7 +209,8 @@ namespace WebBookShopProject.Data.Services
                 FullName = user.FullName,
                 UserName = user.UserName,
                 Phone = user.PhoneNumber,
-                Email = user.Email
+                Email = user.Email,
+                DateofBirth = user.DateofBirth
             }).OrderBy(p => p.Id)
             .ToListAsync();
 
@@ -208,7 +225,8 @@ namespace WebBookShopProject.Data.Services
                 FullName = user.FullName,
                 UserName = user.UserName,
                 Phone = user.PhoneNumber,
-                Email = user.Email
+                Email = user.Email,
+                DateofBirth = user.DateofBirth
                 
             }).FirstOrDefaultAsync();
 
@@ -227,6 +245,7 @@ namespace WebBookShopProject.Data.Services
                 result.PhoneNumber = model.Phone;
                 result.Email = model.Email;
                 result.NormalizedEmail = model.Email.ToUpper();
+                result.DateofBirth = model.DateofBirth;
 
 
                 await _context.SaveChangesAsync();

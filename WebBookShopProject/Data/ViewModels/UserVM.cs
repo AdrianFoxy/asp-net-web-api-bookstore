@@ -22,6 +22,9 @@ namespace WebBookShopProject.Data.ViewModels
         [StringLength(50)]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Введите дату рождения")]
+        public DateTime? DateofBirth { get; set; }
     }
 
     public class UserUpdateVM
@@ -39,5 +42,8 @@ namespace WebBookShopProject.Data.ViewModels
         [StringLength(50)]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Введите дату рождения")]
+        public DateTime? DateofBirth { get; set; }
     }
 }

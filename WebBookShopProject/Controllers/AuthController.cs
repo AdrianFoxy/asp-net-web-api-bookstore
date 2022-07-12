@@ -24,6 +24,20 @@ namespace WebBookShopProject.Controllers
             _userService = userService;
         }
 
+        [HttpGet("get-age-of-current-user")]
+        public async Task<IActionResult> GetAge()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+                return Ok("Guest");
+
+            var userinfo = await _userService.GetUserById(userId);
+            var age = _userService.GetAge(userinfo.DateofBirth);
+
+            return Ok(age);
+        }
+
         [HttpGet("get-gole-of-current-user")]
         public async Task<IActionResult> GetRole()
         {

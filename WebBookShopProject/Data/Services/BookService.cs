@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WebBookShopProject.Data.Dtos;
 using WebBookShopProject.Data.Models;
 using WebBookShopProject.Data.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+
 
 namespace WebBookShopProject.Data.Services
 {
@@ -18,11 +15,92 @@ namespace WebBookShopProject.Data.Services
     {
         private AppDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IUserService _userservice;
 
-        public BookService(AppDbContext context)
+
+
+        public BookService(AppDbContext context, IUserService userservice)
         {
             _context = context;
+            _userservice = userservice;
         }
+
+        public async Task<IEnumerable<BookForRecomendVM>> GetBookForAgeGroup(int age)
+        {
+            int Agefrom = 0;
+            int Ageto = 0;
+
+            if (age >= 0 && age <= 16) { Agefrom = 0; Ageto = 16; }
+            else if (age >= 17 && age <= 27) { Agefrom = 16; Ageto = 27; }
+            else if (age >= 28 && age <= 35) { Agefrom = 28; Ageto = 35; }
+            else if (age >= 36 && age <= 50) { Agefrom = 36; Ageto = 50; }
+            else { Agefrom = 51; Ageto = 10000; }
+
+
+            var query =
+                from b in _context.Book
+                from oi in b.OrderItem
+                where EF.Functions.DateDiffYear(oi.Order.ApplicationUser.DateofBirth, DateTime.Now) >= Agefrom
+                    && EF.Functions.DateDiffYear(oi.Order.ApplicationUser.DateofBirth, DateTime.Now) <= Ageto
+                group oi by new { Id = b.Id, Title = b.Title, Pages = b.Pages, Format = b.Format, LongDescription = b.LongDescription, ShortDescription = b.LongDescription,
+                Amount = b.Amount, Price = b.Price, ImageUrl = b.ImageUrl, IsFavor = b.IsFavor, PublisherName = b.Publisher.Name} into g
+                select new BookForRecomendVM()
+                {
+                    Id = g.Key.Id,
+                    Title = g.Key.Title,
+                    Pages = g.Key.Pages,
+                    Format = g.Key.Format,
+                    LongDescription = g.Key.LongDescription,
+                    ShortDescription = g.Key.ShortDescription,
+                    Amount = g.Key.Amount,
+                    Price = g.Key.Price,
+                    ImageUrl = g.Key.ImageUrl,
+                    IsFavor = g.Key.IsFavor,
+                    PublisherName = g.Key.PublisherName,
+                    NumOfSales = g.Sum(x => x.Amount)
+                };
+
+            query = query.OrderByDescending(x => x.NumOfSales);
+
+            return query;
+        }
+
+        public async Task<IEnumerable<BookForRecomendVM>> GetRecomentByDif(string userid, int age)
+        {
+            var list1 = GetPurchasedBooks(userid);
+            var list2 = GetBookForAgeGroup(age);
+
+            var resultedCol = (await list2).Except(await list1, new BookComparer()).Take(5);
+
+            return resultedCol;
+
+        }
+
+        public async Task<IEnumerable<BookForRecomendVM>> GetPurchasedBooks(string userid)
+        {
+            //var result = await _context.Book.Include(oi => oi.OrderItem.Where(o => o.Order.UserID == userid)).ToListAsync();
+            var result =
+                from b in _context.Book
+                where b.OrderItem.Any(bg => bg.Order.UserID == userid)
+                select new BookForRecomendVM()
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Pages = b.Pages,
+                    Format = b.Format,
+                    LongDescription = b.LongDescription,
+                    ShortDescription = b.ShortDescription,
+                    Amount = b.Amount,
+                    Price = b.Price,
+                    ImageUrl = b.ImageUrl,
+                    IsFavor = b.IsFavor,
+                    PublisherName = b.Publisher.Name,
+                    NumOfSales = 0
+                };
+            return result;
+        }
+
+
         public async Task<IEnumerable<Book>> GetAllAsync()
         {
             var result = await _context.Book.ToListAsync();
@@ -34,6 +112,12 @@ namespace WebBookShopProject.Data.Services
             var result = await _context.Book.Where(x => x.IsFavor == true).ToListAsync();
             return result;
         }
+
+
+        //public async Task<IEnumerable<BookWithAuthorsVM>> GetRecommendationForAgeGroup()
+        //{
+
+        //}
 
         public async Task<IEnumerable<BookWithAuthorsVM>> GetWhatToReadsync()
         {
@@ -62,7 +146,7 @@ namespace WebBookShopProject.Data.Services
 
             Random rnd = new Random();
 
-            while(list.Count() != 4)
+            while(list.Count() != 5)
             {
                 int value = rnd.Next(0, count);
 

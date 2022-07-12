@@ -113,6 +113,43 @@ namespace WebBookShopProject.Data.ViewModels
         public List<string> GenreNames { get; set; }
     }
 
+    public class BookForRecomendVM
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public int Pages { get; set; }
+        public string Format { get; set; }
+        public string LongDescription { get; set; }
+        public string ShortDescription { get; set; }
+        public int Amount { get; set; }
+        public float Price { get; set; }
+        public string ImageUrl { get; set; }
+        public bool IsFavor { get; set; }
+        public DateTime? ReleaseDate { get; set; }
+        public string PublisherName { get; set; }
+        public List<string> AuthorNames { get; set; }
+        public List<string> GenreNames { get; set; }
+        public int NumOfSales { get; set; }
+    }
+
+    class BookComparer : IEqualityComparer<BookForRecomendVM>
+    {
+        public bool Equals(BookForRecomendVM x, BookForRecomendVM y)
+        {
+            if (x.Id == y.Id)
+                return true;
+
+            return false;
+        }
+
+        public int GetHashCode(BookForRecomendVM obj)
+        {
+            return obj.Id.GetHashCode();
+        }
+    }
+
+
+
     public class UpdateCountBookVM
     {
         public int Id { get; set; }

@@ -12,6 +12,7 @@ using WebBookShopProject.Data.ViewModels;
 using WebBookShopProject.Data.Dtos;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace WebBookShopProject.Controllers
 {
@@ -20,29 +21,38 @@ namespace WebBookShopProject.Controllers
     public class BookController : ControllerBase
     {
         public IBookService _bookService;
+        private IUserService _userService;
         [Obsolete]
         private readonly IHostingEnvironment _hostingEnvironment;
 
         [Obsolete]
-        public BookController(IBookService bookService, IHostingEnvironment hostingEnvironment)
+        public BookController(IBookService bookService, IHostingEnvironment hostingEnvironment, IUserService userService)
         {
             _bookService = bookService;
             _hostingEnvironment = hostingEnvironment;
+            _userService = userService;
         }
 
-        //[HttpGet("set/{data}")]
-        //public IActionResult setsession(string data)
-        //{
-        //    HttpContext.Session.SetString("keyname", data);
-        //    return Ok("session data set");
-        //}
+        [Authorize]
+        [HttpGet("get-age-recommendations(authorizedOnly)")]
+        public async Task<IActionResult> GetExisted()
+        {
 
-        //[HttpGet("get")]
-        //public IActionResult getsessiondata()
-        //{
-        //    var sessionData = HttpContext.Session.GetString("keyname");
-        //    return Ok(sessionData);
-        //}
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+                return Ok("Guest");
+
+            var userinfo = await _userService.GetUserById(userId);
+            var age = _userService.GetAge(userinfo.DateofBirth);
+
+            int age2 = Convert.ToInt32(age);
+
+            //var res = await _bookService.GetBookForAgeGroup(21);
+
+            var res = await _bookService.GetRecomentByDif(userId, age2);
+            return Ok(res);
+        }
 
 
         // Get Books by Genre Name

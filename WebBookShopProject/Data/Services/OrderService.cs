@@ -32,6 +32,13 @@ namespace WebBookShopProject.Data.Services
 
             return items;
         }
+
+        public async Task<IEnumerable<Order>> GetLastOrders()
+        {
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).Include(n => n.Delivery).OrderByDescending(x => x.Id).Take(5).ToListAsync();
+
+            return orders;
+        }
   
 
         public async Task<IEnumerable<Order>> GetOrdersByUserIdCountAsync(string userId)

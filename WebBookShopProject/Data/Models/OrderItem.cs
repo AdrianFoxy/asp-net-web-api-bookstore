@@ -15,5 +15,6 @@ namespace WebBookShopProject.Data.Models
         public int Fk_OrderId { get; set; }
         [ForeignKey("Fk_OrderId")]
         public virtual Order Order { get; set; }
+
     }
 }

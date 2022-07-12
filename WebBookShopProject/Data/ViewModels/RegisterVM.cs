@@ -27,5 +27,8 @@ namespace WebBookShopProject.Data.ViewModels
         [Required]
         [StringLength(50, MinimumLength = 5)]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Введите дату рождения")]
+        public DateTime DateofBirth { get; set; }
     }
 }

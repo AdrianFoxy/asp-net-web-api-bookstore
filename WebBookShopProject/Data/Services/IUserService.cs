@@ -17,5 +17,6 @@ namespace WebBookShopProject.Data.Services
         Task<IEnumerable<UserVM>> GetAllUsers (PaginationParams @params);
         Task<IEnumerable<UserVM>> GetAllUsersCount ();
         Task<ApplicationUser> UpdateAsync(string userId, UserUpdateVM model);
+        object GetAge(DateTime? dateOfBirth);
     }
 }

@@ -2074,7 +2074,8 @@ namespace WebBookShopProject.Data
                         UserName = "admin-user",
                         Email = adminUserEmail,
                         PhoneNumber = "380444618061",
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        DateofBirth = new DateTime(2001, 12, 31)
 
                     };
                     await userManager.CreateAsync(newAdminUser, "Ak.123");
@@ -2092,7 +2093,8 @@ namespace WebBookShopProject.Data
                         UserName = "app-user",
                         Email = appUserEmail,
                         PhoneNumber = "380444618061",
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        DateofBirth = new DateTime(2001, 4, 18)
 
                     };
                     await userManager.CreateAsync(newAppUser, "Ak.123");

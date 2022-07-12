@@ -32,6 +32,15 @@ namespace WebBookShopProject.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet("get-last-orders-for-Admin")]
+        public async Task<IActionResult> GetLastOrders()
+        {
+            var order = await _orderService.GetLastOrders();
+
+            return Ok(order);
+        }
+
         [HttpGet("get-order-by-id/{id}")]
         public async Task<IActionResult> GetOrdersOfUser(int id)
         {

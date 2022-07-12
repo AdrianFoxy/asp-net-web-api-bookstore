@@ -7,7 +7,7 @@ namespace WebBookShopProject.Data.Dtos
 {
     public class PaginationParams
     {
-        private const int _maxItemsPerPage = 20;
+        private const int _maxItemsPerPage = 40;
         private int itemsPerPage;
         public int Page { get; set; } = 1;
         public int ItemsPerPage { 
