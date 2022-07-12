@@ -35,7 +35,7 @@ namespace WebBookShopProject.Controllers
 
         [Authorize]
         [HttpGet("get-age-recommendations(authorizedOnly)")]
-        public async Task<IActionResult> GetExisted()
+        public async Task<IActionResult> GetAgeRecomendForUser()
         {
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -52,6 +52,15 @@ namespace WebBookShopProject.Controllers
 
             var res = await _bookService.GetRecomentByDif(userId, age2);
             return Ok(res);
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("get-recommendations-for-input-age-group(Admin)")]
+        public async Task<IActionResult> GetAgeRecomendForAdmin(int age)
+        {
+            var res = await _bookService.GetBookForAgeGroup(age);
+            return Ok(res.Take(5));
         }
 
 
