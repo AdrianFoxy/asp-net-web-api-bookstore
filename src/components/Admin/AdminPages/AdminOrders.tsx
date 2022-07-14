@@ -73,6 +73,12 @@ const AdminOrders = () => {
                                                     Заказ отменен
                                                 </div>
                                             </div> :
+                                            order.orderStatus.id === 3 ?
+                                                <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
+                                                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #133337", cursor: "pointer"}}>
+                                                        Заказ выполнен
+                                                    </div>
+                                                </div> :
                                             <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
                                                 <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}
                                                      onClick={() => {

@@ -122,7 +122,7 @@ const ProductForm: FC = () => {
 
         formData.append("IsFavor", isFavor)
 
-        formData.append("ResealeDate", "2015.12.16")
+        formData.append("ReleaseDate", "2015.12.16")
         formData.append("Fk_PublisherId", publisherId)
 
         for (let i = 0; i < genresId.length; i++) {
@@ -144,7 +144,7 @@ const ProductForm: FC = () => {
                     <TextField {...title} style={{width: "100%"}} id="outlined-basic" label="title" variant="outlined"/>
                 </Grid>
                 <Grid item xs={4}>
-                    <TextField {...pages} style={{width: "100%"}} id="outlined-basic" label="pages" variant="outlined"/>
+                    <TextField {...pages} style={{width: "100%"}} type="number" id="outlined-basic" label="pages" variant="outlined"/>
                 </Grid>
                 <Grid item xs={4}>
                     <TextField {...format} style={{width: "100%"}} id="outlined-basic" label="format"
@@ -159,11 +159,11 @@ const ProductForm: FC = () => {
                                label="shortDescription" variant="outlined"/>
                 </Grid>
                 <Grid item xs={4}>
-                    <TextField {...amount} style={{width: "100%"}} id="outlined-basic" label="amount"
+                    <TextField {...amount} style={{width: "100%"}} type="number" id="outlined-basic" label="amount"
                                variant="outlined"/>
                 </Grid>
                 <Grid item xs={4}>
-                    <TextField {...price} style={{width: "100%"}} id="outlined-basic" label="price" variant="outlined"/>
+                    <TextField {...price} style={{width: "100%"}} type="number" id="outlined-basic" label="price" variant="outlined"/>
                 </Grid>
                 <Grid item xs={4}>
                     <FormControl fullWidth>
@@ -253,7 +253,9 @@ const ProductForm: FC = () => {
                 <Grid item xs={4}>
                     <Stack direction="row" alignItems="center" spacing={2}>
                         <label htmlFor="contained-button-file">
-                            <Input accept="image/*" id="contained-button-file" multiple type="file"/>
+                            <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={
+                                (e) => setImage(e.target.files && e.target.files[0])
+                            }/>
                             <Button variant="contained" component="span">
                                 Upload
                             </Button>

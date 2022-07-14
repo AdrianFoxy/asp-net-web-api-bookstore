@@ -129,6 +129,16 @@ const RegistrationForm: FC<RegistrationFormProps> = (
                                        fullWidth
                             />
                         </div>
+                        <TextField name="dateofBirth"
+                                   placeholder="dateofBirth"
+                                   error={Boolean(errors?.dateofBirth)}
+                                   helperText={errors?.dateofBirth}
+                                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChangeField(e, "dateofBirth")}
+                                   value={newUser.dateofBirth}
+                                   className={styles.reg__input}
+                                   inputProps={{maxLength: 50}}
+                                   fullWidth
+                        />
                         <Button variant="outlined" onClick={handleClick} fullWidth className={styles.reg__input}>
                             Reg
                         </Button>

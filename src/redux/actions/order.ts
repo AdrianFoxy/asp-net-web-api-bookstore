@@ -72,3 +72,12 @@ export const changeOrderStatusToDone = (orderId: number) => async (dispatch: App
 
     }
 }
+
+export const fetchLastOrders = () => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.get(`/Order/get-last-orders-for-Admin`)
+        dispatch(orderSlice.actions.lastOrdersFetching(response.data))
+    } catch (err) {
+
+    }
+}

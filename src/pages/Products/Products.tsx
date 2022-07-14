@@ -39,7 +39,7 @@ const Products = () => {
 
     return (
         <div className={styles.products}>
-            <h1 style={{margin: "20px 0"}}>{genre}</h1>
+            <h1 style={{marginBottom: "20px"}}>{genre}</h1>
             {count <= pageSize ?
                 ""
                 :

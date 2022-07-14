@@ -1,0 +1,46 @@
+.orders {
+    &__container{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        margin-bottom: 10px;
+    }
+    &__infoContainer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    &__items {
+        overflow-x: scroll;
+        display: flex;
+    }
+    &__img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+}
+
+.g {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.title {
+    margin-bottom: 10px;
+}
+
+.delivery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.border {
+    border-bottom: 1px solid #000000;
+    padding-bottom: 7px;
+    margin-bottom: 7px;
+}
+
+.m {
+    margin: 15px;
+}

@@ -7,14 +7,15 @@ import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const Home = () => {
 
-    const {fetchFavoriteProducts, fetchWhatToReadBooks} = useActions()
+    const {fetchFavoriteProducts, fetchWhatToReadBooks, fetchAgeRecomendations} = useActions()
 
     useEffect(() => {
         fetchFavoriteProducts()
         fetchWhatToReadBooks()
+        fetchAgeRecomendations()
     }, [])
 
-    const {booksHome, booksToRead} = useTypedSelector(state => state.productReducer)
+    const {booksHome, booksToRead, booksAgeRecomendations} = useTypedSelector(state => state.productReducer)
 
     return (
         <div className={styles.home__wrapper}>
@@ -25,6 +26,15 @@ const Home = () => {
             <div className={styles.home__indent}/>
             <div className={styles.home__title}><span>Рекомендуем </span></div>
             <ProductList products={booksToRead}/>
+            {booksAgeRecomendations.length === 0 ?
+                ""
+                :
+                <>
+                    <div className={styles.home__indent}/>
+                    <div className={styles.home__title}><span>Рекомендации по возрасту </span></div>
+                    <ProductList products={booksAgeRecomendations}/>
+                </>
+            }
         </div>
     );
 };

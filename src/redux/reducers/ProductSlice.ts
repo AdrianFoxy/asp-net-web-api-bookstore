@@ -6,6 +6,7 @@ interface ProductState {
     //
     booksHome: IProduct[]
     booksToRead: IProduct[]
+    booksAgeRecomendations: IProduct[]
     //
     searchedBooks: IProduct[]
     pageS: number
@@ -21,6 +22,12 @@ interface ProductState {
     maxPrice: number
     filteredProducts: IProduct[],
     product: IProduct | null
+    //
+    recomendations0_16: IProduct[]
+    recomendations17_27: IProduct[]
+    recomendations28_35: IProduct[]
+    recomendations36_50: IProduct[]
+    recomendations51_10000: IProduct[]
 }
 
 const initialState: ProductState = {
@@ -28,6 +35,7 @@ const initialState: ProductState = {
     //
     booksHome: [],
     booksToRead: [],
+    booksAgeRecomendations: [],
     //
     searchedBooks: [],
     pageS: 1,
@@ -37,12 +45,18 @@ const initialState: ProductState = {
     //
     page: 1,
     count: 0,
-    pageSize: 20,
+    pageSize: 40,
     pageDataGrid: 0,
     minPrice: 0,
     maxPrice: 1000,
     filteredProducts: [],
-    product: null
+    product: null,
+    //
+    recomendations0_16: [],
+    recomendations17_27: [],
+    recomendations28_35: [],
+    recomendations36_50: [],
+    recomendations51_10000: [],
 }
 
 export const productSlice = createSlice({
@@ -58,6 +72,9 @@ export const productSlice = createSlice({
         },
         setBooksToRead(state, action: PayloadAction<IProduct[]>) {
             state.booksToRead = action.payload
+        },
+        setBooksAgeRecomendations(state, action: PayloadAction<IProduct[]>) {
+            state.booksAgeRecomendations = action.payload
         },
         //
         setSearchedBooks(state, action: PayloadAction<IProduct[]>) {
@@ -96,7 +113,23 @@ export const productSlice = createSlice({
         },
         setProduct(state, action: PayloadAction<IProduct>) {
             state.product = action.payload
-        }
+        },
+        //
+        setRecomendations0_16(state, action: PayloadAction<IProduct[]>) {
+            state.recomendations0_16 = action.payload
+        },
+        setRecomendations17_27(state, action: PayloadAction<IProduct[]>) {
+            state.recomendations17_27 = action.payload
+        },
+        setRecomendations28_35(state, action: PayloadAction<IProduct[]>) {
+            state.recomendations28_35 = action.payload
+        },
+        setRecomendations36_50(state, action: PayloadAction<IProduct[]>) {
+            state.recomendations36_50 = action.payload
+        },
+        setRecomendations51_10000(state, action: PayloadAction<IProduct[]>) {
+            state.recomendations51_10000 = action.payload
+        },
     }
 })
 

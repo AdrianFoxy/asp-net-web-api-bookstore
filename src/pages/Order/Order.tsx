@@ -69,9 +69,9 @@ const Order: FC = () => {
 
     const sendOrder = () => {
         const formData = new FormData()
-        formData.append("Phone", user.phone)
-        formData.append("Email", user.email)
-        formData.append("Name", user.fullName)
+        formData.append("Phone", contactInfo.phone)
+        formData.append("Email", contactInfo.email)
+        formData.append("Name", contactInfo.fullName)
         formData.append("Address", deliveryAddress.value)
         formData.append("DeliveryId", deliveryId)
         const data = async () => {

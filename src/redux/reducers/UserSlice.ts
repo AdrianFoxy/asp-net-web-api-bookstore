@@ -12,7 +12,7 @@ const initialState: UserState = {
     isInitialized: false,
     isAuth: false,
     role: "guest",
-    user: {phone: "", email: "", fullName: "", id: ""}
+    user: {phone: "", email: "", fullName: "", id: "", dateofBirth: null}
 }
 
 export const userSlice = createSlice({

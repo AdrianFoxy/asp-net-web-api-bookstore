@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
-import KeepMountedModal from "../../Modal";
+import KeepMountedModal from "../../ModalMenu";
 import styles from "./MenuBurger.module.scss"
 import FilterFramesIcon from '@mui/icons-material/FilterFrames';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';

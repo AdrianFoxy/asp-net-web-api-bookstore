@@ -10,6 +10,8 @@ interface ProfileProps {
     pages: number
     handleChange: (event: React.ChangeEvent<unknown>, page: number) => void
     orders: IOrder[]
+    changeOrderStatusToCancelled: (orderId: number) => void
+    navigate: any
 }
 
 const Profile: FC<ProfileProps> = (
@@ -19,6 +21,8 @@ const Profile: FC<ProfileProps> = (
         pages,
         handleChange,
         orders,
+        changeOrderStatusToCancelled,
+        navigate
     }
 ) => {
     return (
@@ -36,6 +40,15 @@ const Profile: FC<ProfileProps> = (
                 <li className={styles.profile__item}>
                     <label>Телефон </label>
                     <p> {user.phone}</p>
+                </li>
+                <li className={styles.profile__item}>
+                    <label>Дата рождения </label>
+                    <p> {user.dateofBirth && new Date(user.dateofBirth).toLocaleString("ru", {
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric",
+                        timeZone: "UTC"
+                    })} </p>
                 </li>
             </ul>
             <div className={styles.profile__title_wrapper}>
@@ -60,8 +73,44 @@ const Profile: FC<ProfileProps> = (
                                     </div>
                                 </li>
                                 <li className={styles.profile__item}>
-                                    <label>Сумма заказа </label>
-                                    <p>{order.sum}</p>
+                                    <div className={styles.profile__statusWrapper}>
+                                        <div>
+                                            <label>Сумма заказа </label>
+                                            <p>{order.sum}</p>
+                                        </div>
+                                        <div>
+                                            {order.orderStatus.id === 1 ?
+                                                <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
+                                                    <div style={{
+                                                        padding: "5px 12px",
+                                                        borderRadius: "5px",
+                                                        border: "1px solid #EB4C42",
+                                                        cursor: "pointer"
+                                                    }}
+                                                         onClick={() => {
+                                                             changeOrderStatusToCancelled(order.id)
+                                                         }}
+                                                    >
+                                                        Отменить
+                                                    </div>
+                                                </div> :
+                                                order.orderStatus.id === 6 ?
+                                                    <div style={{
+                                                        padding: "5px 12px",
+                                                        borderRadius: "5px",
+                                                        border: "1px solid #EB4C42",
+                                                        cursor: "pointer"
+                                                    }}
+                                                         onClick={() => {
+                                                             changeOrderStatusToCancelled(order.id)
+                                                         }}
+                                                    >
+                                                        Отменить
+                                                    </div> :
+                                                    ""
+                                            }
+                                        </div>
+                                    </div>
                                 </li>
                                 <li className={styles.profile__item}>
                                     <label>{order.delivery.name}</label>
@@ -75,7 +124,10 @@ const Profile: FC<ProfileProps> = (
                                         <div className={styles.profile__books}>
                                             <img
                                                 src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${orderItem.book.imageUrl}`}
-                                                className={styles.profile__orderItem_img}/>
+                                                className={styles.profile__orderItem_img} alt={"logo-book"}
+                                                onClick={() => {
+                                                    navigate(`/product/${orderItem.book.id}`)
+                                                }}/>
                                             <div>
                                                 {orderItem.book.title}
                                             </div>

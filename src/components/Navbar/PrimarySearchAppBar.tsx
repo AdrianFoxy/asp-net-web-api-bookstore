@@ -12,7 +12,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import logo from "../../assets/img/logo.png"
 import MenuBurger from "../UI/MenuBurger/MenuBurger";
-import KeepMountedModal from "../Modal";
+import KeepMountedModal from "../ModalMenu";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {useTypedSelector} from "../../hooks/useTypedSelector";

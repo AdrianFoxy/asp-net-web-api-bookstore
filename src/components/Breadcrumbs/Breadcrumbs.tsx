@@ -59,7 +59,7 @@ const BasicBreadcrumbs = () => {
     const breadcrumbNameMap: { [key: string]: string | null } = generateNameMap(productId, ":productId", genre, ":genre", {
         "/products": "Каталог",
         "/products/:genre": nameGenre,
-        "/product": "Книга",
+        "/product": "",
         "/product/:productId": product ? product?.title : "Книга",
         "/search": "Поиск",
         "/cart": "Корзина",
@@ -74,7 +74,7 @@ const BasicBreadcrumbs = () => {
     const pathnames = location.pathname.split('/').filter((x) => x);
 
     return (
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs aria-label="breadcrumb" style={{marginBottom: "15px"}}>
             {pathnames.length > 0 ?
                 <Link onClick={() => navigate("/")}>Главная</Link>
                 :
@@ -85,11 +85,13 @@ const BasicBreadcrumbs = () => {
                 const isLast = index === pathnames.length - 1
                 // console.log(routeTo)
                 // console.log(breadcrumbNameMap)
-                // console.log(breadcrumbNameMap[routeTo])
-                return isLast ?
-                    <Typography key={name}> {/*{name}*/} {breadcrumbNameMap[routeTo]}</Typography>
-                    :
-                    <Link key={name} onClick={() => navigate(routeTo)}> {/*{name}*/} {breadcrumbNameMap[routeTo]}</Link>
+                //console.log(breadcrumbNameMap[routeTo])
+                return breadcrumbNameMap[routeTo] === "" ? "" :
+                    isLast ?
+                        <Typography key={name}> {/*{name}*/} {breadcrumbNameMap[routeTo]}</Typography>
+                        :
+                        <Link key={name} style={{cursor: "pointer"}}
+                              onClick={() => navigate(routeTo)}> {/*{name}*/} {breadcrumbNameMap[routeTo]}</Link>
             })}
             {/*<Link color="inherit">Core</Link>*/}
             {/*<Typography color="text.primary">Breadcrumbs</Typography>*/}

@@ -4,7 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home/Home";
 import Products from './pages/Products/Products';
 import Cart from "./pages/Cart/Cart";
-import AdminHome from "./components/Admin/AdminPages/AdminHome";
+import AdminHome from "./components/Admin/AdminPages/AdminHome/AdminHome";
 import {useActions} from "./hooks/useAppDispatch";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminProducts from "./components/Admin/AdminPages/AdminProducts";
@@ -23,6 +23,9 @@ import ProfileContainer from "./pages/Profile/ProfileContainer";
 import AdminProduct from "./components/Admin/AdminPages/AdminProduct";
 import Search from "./pages/Search/Search";
 import AdminOrders from "./components/Admin/AdminPages/AdminOrders";
+import AdminGenres from "./components/Admin/AdminPages/AdminGenres";
+import AdminTypeGenres from "./components/Admin/AdminPages/AdminTypeGenres";
+import AdminPublishers from "./components/Admin/AdminPages/AdminPublishers";
 
 function App() {
 
@@ -66,6 +69,9 @@ function App() {
                         <Route path="/admin/authors" element={<AdminAuthors/>}/>
                         <Route path="/admin/product/:productId" element={<AdminProduct/>}/>
                         <Route path="/admin/orders" element={<AdminOrders/>}/>
+                        <Route path="/admin/genres" element={<AdminGenres/>}/>
+                        <Route path="/admin/typeGenres" element={<AdminTypeGenres/>}/>
+                        <Route path="/admin/publishers" element={<AdminPublishers/>}/>
                     </Route>
                     <Route path="/login" element={<RequireAuth><LoginContainer/></RequireAuth>}/>
                     <Route path="/registration" element={<RequireAuth><RegistrationContainer/></RequireAuth>}/>

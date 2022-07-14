@@ -4,6 +4,7 @@ import * as CartActionCreators from "./cart"
 import * as AuthorActionCreators from "./author"
 import * as UserActionCreators from "./user"
 import * as OrderActionCreators from "./order"
+import * as PublisherActionCreators from "./publisher"
 
 export const allActionCreators = {
     ...GenreActionCreators,
@@ -11,5 +12,6 @@ export const allActionCreators = {
     ...CartActionCreators,
     ...AuthorActionCreators,
     ...UserActionCreators,
-    ...OrderActionCreators
+    ...OrderActionCreators,
+    ...PublisherActionCreators
 }

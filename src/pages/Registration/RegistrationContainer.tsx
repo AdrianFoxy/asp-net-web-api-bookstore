@@ -7,11 +7,12 @@ import {validateEqualPassword} from "../../utils/validateEqualPasswords";
 import RegistrationForm from "./RegistrationForm";
 
 export interface ErrorsRegistration {
-    fullName?: string,
-    phone?: string,
-    email?: string,
-    password?: string,
+    fullName?: string
+    phone?: string
+    email?: string
+    password?: string
     confirmPassword?: string
+    dateofBirth: Date | null
 }
 
 export interface NewUser {
@@ -22,6 +23,7 @@ export interface NewUser {
     email: string
     password: string
     confirmPassword: string
+    dateofBirth: Date | null
 }
 
 export interface Values {
@@ -38,7 +40,8 @@ const RegistrationContainer = () => {
         phone: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        dateofBirth: null
     })
 
     const [errors, setErrors] = useState<ErrorsRegistration>({
@@ -46,7 +49,8 @@ const RegistrationContainer = () => {
         phone: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        dateofBirth: null
     })
 
     const handleChangeField = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {

@@ -1,0 +1,24 @@
+.recomendations {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    &__container {
+        padding: 10px;
+        margin-right: 15px;
+    }
+    &__img {
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 15px;
+    }
+    &__title {
+        text-align: center;
+    }
+}
+
+.title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

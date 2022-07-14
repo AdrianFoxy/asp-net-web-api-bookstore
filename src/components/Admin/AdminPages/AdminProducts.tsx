@@ -5,14 +5,16 @@ import {GridColDef} from "@mui/x-data-grid";
 import {useActions} from "../../../hooks/useAppDispatch";
 import ProductForm from "../ProductForm";
 import { Link } from 'react-router-dom';
+import {editPublisher} from "../../../redux/actions/publisher";
+import {fetchAllProductAdmin} from "../../../redux/actions/product";
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 70},
     {field: 'title', headerName: 'title', width: 130},
     {field: 'pages', headerName: 'pages', type: 'number', width: 130},
     {field: 'format', headerName: 'format', width: 130},
-    {field: 'longDescription', headerName: 'longDescription', width: 130},
     {field: 'shortDescription', headerName: 'shortDescription', width: 130},
+    {field: 'longDescription', headerName: 'longDescription', width: 130},
     {field: 'amount', headerName: 'amount', type: 'number', width: 130},
     {field: 'price', headerName: 'price', type: 'number', width: 130},
     {
@@ -80,7 +82,7 @@ const AdminProducts: FC = () => {
     const page = useTypedSelector(state => state.productReducer.page)
     const pageDataGrid = useTypedSelector(state => state.productReducer.pageDataGrid)
 
-    const {deleteProduct, setPageDataGrid, fetchAllProduct} = useActions()
+    const {deleteProduct, setPageDataGrid, fetchAllProduct, fetchAllProductAdmin} = useActions()
 
     const actionColumn: GridColDef[] = [
         {
@@ -100,7 +102,7 @@ const AdminProducts: FC = () => {
                             // @ts-ignore
                             deleteProduct(params.row.id).then((r: any) => {
                                 if (r) {
-                                    fetchAllProduct(page)
+                                    fetchAllProductAdmin(page)
                                 }
                             })
                         }} style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}>Delete</div>
@@ -114,7 +116,7 @@ const AdminProducts: FC = () => {
         <>
             <ProductForm/>
             <DataTable columns={columns.concat(actionColumn)} items={products} count={count} page={pageDataGrid} setPage={setPageDataGrid}
-                       fetchItems={fetchAllProduct}/>
+                       fetchItems={fetchAllProductAdmin}/>
         </>
     );
 };

@@ -6,10 +6,10 @@ import {useActions} from "../../../hooks/useAppDispatch";
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 70},
-    {field: 'fullName', headerName: 'fullName', width: 130},
-    {field: 'nameForUrl', headerName: 'nameForUrl', width: 130},
+    {field: 'fullName', headerName: 'fullName', width: 230},
+    {field: 'nameForUrl', headerName: 'nameForUrl', width: 230},
     {field: 'imageUrl', headerName: 'imageUrl', width: 130},
-    {field: 'description', headerName: 'description', width: 130},
+    {field: 'description', headerName: 'description', width: 730},
     // {field: 'book_Author', headerName: 'book_Author', width: 130},
 ];
 

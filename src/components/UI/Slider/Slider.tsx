@@ -1,7 +1,8 @@
 import slide1 from "../../../assets/img/slide1.png";
-import slide2 from "../../../assets/img/slide2.jpg";
-import slide3 from "../../../assets/img/slide3.jpg";
+import slide2 from "../../../assets/img/slide2.png";
+import slide3 from "../../../assets/img/slide3.png";
 import slide4 from "../../../assets/img/slide4.jpg";
+import slide5 from "../../../assets/img/slide5.png";
 import styles from "./Slider.module.scss"
 import React, {useEffect, useState} from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -30,7 +31,7 @@ const Slider = () => {
         },
         {
             id: 4,
-            img: slide4,
+            img: slide5,
         }
     ]
 
@@ -62,20 +63,20 @@ const Slider = () => {
     return (
         <div>
             <div className={styles.slider__wrapper}>
-                <div className={`${styles.slider__arrow_wrapper} ${styles.slider__arrow_wrapper_prev}`}
-                     onClick={() => sliderClick("left")}>
-                    <ArrowBackIosNewIcon className={styles.slider__arrow}/>
-                </div>
+                {/*<div className={`${styles.slider__arrow_wrapper} ${styles.slider__arrow_wrapper_prev}`}*/}
+                {/*     onClick={() => sliderClick("left")}>*/}
+                {/*    <ArrowBackIosNewIcon className={styles.slider__arrow}/>*/}
+                {/*</div>*/}
                 {sliderItems.map((item, index) =>
                     <div key={item.id}
                          className={slideIndex === index + 1 ? `${styles.slider__slide} ${styles.active_anim}` : `${styles.slider__slide}`}>
                         <img src={item.img} className={styles.slider__img} alt={"slider"}/>
                     </div>
                 )}
-                <div className={`${styles.slider__arrow_wrapper} ${styles.slider__arrow_wrapper_next}`}
-                     onClick={() => sliderClick("right")}>
-                    <ArrowForwardIosIcon className={styles.slider__arrow}/>
-                </div>
+                {/*<div className={`${styles.slider__arrow_wrapper} ${styles.slider__arrow_wrapper_next}`}*/}
+                {/*     onClick={() => sliderClick("right")}>*/}
+                {/*    <ArrowForwardIosIcon className={styles.slider__arrow}/>*/}
+                {/*</div>*/}
             </div>
         </div>
     );

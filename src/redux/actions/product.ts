@@ -31,6 +31,15 @@ export const fetchProducts = (genre: string, type: string, page: number = 1, cou
     }
 }
 
+export const fetchAgeRecomendations = () => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.get(`/Book/get-age-recommendations(authorizedOnly)`)
+        dispatch(productSlice.actions.setBooksAgeRecomendations(response.data))
+    } catch (err) {
+
+    }
+}
+
 export const fetchFavoriteProducts = () => async (dispatch: AppDispatch) => {
     try {
         const response = await $api.get<IProduct[]>(`/Book/get-all-favorite-books`, {
@@ -59,6 +68,22 @@ export const fetchAllProduct = (page: number = 0, count: number = 10) => async (
         const response = await $api.get<IProduct[]>(`/Book/get-all-books-info`, {
             params: {
                 Page: page, //?
+                ItemsPerPage: count
+            }
+        })
+        const x = JSON.parse(response.headers["x-pagination"])
+        dispatch(productSlice.actions.productsFetching(response.data))
+        dispatch(productSlice.actions.setCount(x.TotalCount))
+    } catch (err) {
+
+    }
+}
+
+export const fetchAllProductAdmin = (page: number = 0, count: number = 10) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.get<IProduct[]>(`/Book/get-all-books-info`, {
+            params: {
+                Page: page + 1, //?
                 ItemsPerPage: count
             }
         })
@@ -147,3 +172,20 @@ export const deleteProduct = (id: number) => async (dispatch: AppDispatch): Prom
 }
 
 //const wrapDispatchWithLog = (fn: any) => (dispatch: AppDispatch) => fn(dispatch).then((r: any) => console.log(r))
+
+export const fetchAgeRecomendationsAdmin = () => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.get(`/Book/get-recommendations-for-input-age-group(Admin)?age=16`)
+        dispatch(productSlice.actions.setRecomendations0_16(response.data))
+        const response2 = await $api.get(`/Book/get-recommendations-for-input-age-group(Admin)?age=27`)
+        dispatch(productSlice.actions.setRecomendations17_27(response2.data))
+        const response3 = await $api.get(`/Book/get-recommendations-for-input-age-group(Admin)?age=35`)
+        dispatch(productSlice.actions.setRecomendations28_35(response3.data))
+        const response4 = await $api.get(`/Book/get-recommendations-for-input-age-group(Admin)?age=50`)
+        dispatch(productSlice.actions.setRecomendations36_50(response4.data))
+        const response5 = await $api.get(`/Book/get-recommendations-for-input-age-group(Admin)?age=51`)
+        dispatch(productSlice.actions.setRecomendations51_10000(response5.data))
+    } catch (err) {
+
+    }
+}

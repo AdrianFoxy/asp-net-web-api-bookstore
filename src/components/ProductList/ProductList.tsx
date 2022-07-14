@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import Button from "../UI/Button";
 import {useActions} from "../../hooks/useAppDispatch";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import ShowAdmin from "../../auth/ShowAdmin";
 
 interface ProductListProps {
     products: IProduct[]
@@ -22,7 +23,7 @@ const ProductList: FC<ProductListProps> = ({products}) => {
 
     return (
         <div className={styles.products__container}>
-            {products.map((product) =>
+            {products?.map((product) =>
                 <Card key={product.id} className={styles.products__card}>
                     <Link to={"/product"}>
                         <img src={`${process.env.REACT_APP_SERVER_IMAGE_URL}${product.imageUrl}`} alt={"product-image"}
@@ -32,7 +33,7 @@ const ProductList: FC<ProductListProps> = ({products}) => {
                         </div>
                     </Link>
                     <div style={{marginBottom: "10px"}}>
-                        {product.authorNames.map((authorName) =>
+                        {product.authorNames?.map((authorName) =>
                             <div>
                                 {authorName}
                             </div>
@@ -45,10 +46,12 @@ const ProductList: FC<ProductListProps> = ({products}) => {
                         {product.amount <= 0 ? "Нет в наличии" : "Есть в наличии"}
                     </div>
                     <div className={product.amount <= 0 ? `${styles.products__more}` : styles.products__more}>
-                        <div className={styles.products__admin}>
-                            <DeleteForeverOutlinedIcon className={styles.products__delete_btn}/>
-                            <EditOutlinedIcon className={styles.products__change_btn}/>
-                        </div>
+                        <ShowAdmin>
+                            <div className={styles.products__admin}>
+                                <DeleteForeverOutlinedIcon className={styles.products__delete_btn}/>
+                                <EditOutlinedIcon className={styles.products__change_btn}/>
+                            </div>
+                        </ShowAdmin>
                         <Link to={`/product/${product.id}`} className={styles.products__link}> Подробнее </Link>
                         {product.amount <= 0 ? "" :
                             <Button onClick={() => {
