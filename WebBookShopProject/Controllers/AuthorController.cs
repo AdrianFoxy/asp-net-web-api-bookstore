@@ -86,10 +86,22 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> AddAuthor([FromForm] AuthorVM author, IFormFile image)
         {
 
-            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
-            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
-            var streamImage = new FileStream(imagePath, FileMode.Append);
-            image.CopyTo(streamImage);
+            var imagePathforForm = "";
+
+            if (image == null)
+            {
+                imagePathforForm = "";
+            }
+            else
+            {
+
+                var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
+                imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
+
+                var streamImage = new FileStream(imagePath, FileMode.Append);
+                image.CopyTo(streamImage);
+            }
+
 
             await _authorService.AddAuthorAsync(author, imagePathforForm);
             return Ok(author);
@@ -99,10 +111,21 @@ namespace WebBookShopProject.Controllers
         [HttpPut("update-author-by-id/{id}")]
         public async Task<IActionResult> UpdateAuthorById(int id, [FromForm] AuthorVM author, IFormFile image)
         {
-            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName);
-            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
-            var streamImage = new FileStream(imagePath, FileMode.Append);
-            image.CopyTo(streamImage);
+            var imagePathforForm = "";
+
+            if (image == null)
+            {
+                imagePathforForm = "";
+            }
+            else
+            {
+
+                var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
+                imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
+
+                var streamImage = new FileStream(imagePath, FileMode.Append);
+                image.CopyTo(streamImage);
+            }
 
             var updatedAuthor = await _authorService.UpdateAsync(id, author, imagePathforForm);
             return Ok(updatedAuthor);

@@ -180,10 +180,21 @@ namespace WebBookShopProject.Controllers
         [HttpPut("update-book-by-id/{id}")]
         public async Task<IActionResult> UpdateBookById(int id, [FromForm] BookVM book, IFormFile image)
         {
-            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName);
-            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
-            var streamImage = new FileStream(imagePath, FileMode.Append);
-            image.CopyTo(streamImage);
+            var imagePathforForm = "";
+
+            if (image == null)
+            {
+                imagePathforForm = "";
+            }
+            else
+            {
+
+                var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
+                imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
+
+                var streamImage = new FileStream(imagePath, FileMode.Append);
+                image.CopyTo(streamImage);
+            }
 
             var updatedBook = await _bookService.UpdateAsync(id, book, imagePathforForm);
             return Ok(book);
@@ -206,10 +217,21 @@ namespace WebBookShopProject.Controllers
         [HttpPost("add-book")]
         public async Task<IActionResult> AddBookImage([FromForm] BookVM book, IFormFile image)
         {
-            var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
-            var imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
-            var streamImage = new FileStream(imagePath, FileMode.Append);
-            image.CopyTo(streamImage);
+            var imagePathforForm = "";
+
+            if (image == null)
+            {
+                imagePathforForm = "";
+            }
+            else
+            {
+
+                var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", image.FileName); // path for save img ...//img//image.jpg
+                imagePathforForm = ("/img/" + image.FileName); // path for DB /img/image.jpg
+
+                var streamImage = new FileStream(imagePath, FileMode.Append);
+                image.CopyTo(streamImage);
+            }
 
             await _bookService.AddBookAsync(book, imagePathforForm);
 
