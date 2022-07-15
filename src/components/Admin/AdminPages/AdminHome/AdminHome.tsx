@@ -78,10 +78,10 @@ const AdminHome: FC = () => {
                 )}
             </div>
             <AgeRecomendations title="Группа 0-16" recomendations={recomendations0_16}/>
-            <AgeRecomendations title="Группа 17_27" recomendations={recomendations17_27}/>
-            <AgeRecomendations title="Группа 28_35" recomendations={recomendations28_35}/>
-            <AgeRecomendations title="Группа 36_50" recomendations={recomendations36_50}/>
-            <AgeRecomendations title="Группа 51_10000" recomendations={recomendations51_10000}/>
+            <AgeRecomendations title="Группа 17-27" recomendations={recomendations17_27}/>
+            <AgeRecomendations title="Группа 28-35" recomendations={recomendations28_35}/>
+            <AgeRecomendations title="Группа 36-50" recomendations={recomendations36_50}/>
+            <AgeRecomendations title="Группа 51+" recomendations={recomendations51_10000}/>
         </div>
     );
 };

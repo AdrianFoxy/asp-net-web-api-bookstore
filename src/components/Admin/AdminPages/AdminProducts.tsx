@@ -7,6 +7,7 @@ import ProductForm from "../ProductForm";
 import { Link } from 'react-router-dom';
 import {editPublisher} from "../../../redux/actions/publisher";
 import {fetchAllProductAdmin} from "../../../redux/actions/product";
+import ModalProduct from "./ModalProduct";
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 70},
@@ -106,6 +107,9 @@ const AdminProducts: FC = () => {
                                 }
                             })
                         }} style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}>Delete</div>
+                        <ModalProduct id={params.row.id}>
+
+                        </ModalProduct>
                     </div>
                 )
             }

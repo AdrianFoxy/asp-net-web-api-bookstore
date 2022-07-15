@@ -3,7 +3,7 @@ import React from 'react';
 const AppBarAdmin = () => {
     return (
         <div>
-            Admin panel
+            Admin page
         </div>
     );
 };

@@ -87,4 +87,14 @@
         color: #797878;
         margin-bottom: 8px;
     }
+
+    &__edit {
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon {
+        transform: scale(0.8);
+        cursor: pointer;
+    }
 }

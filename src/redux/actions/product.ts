@@ -2,6 +2,7 @@ import {AppDispatch} from "../index";
 import $api from "../../http";
 import {IProduct} from "../../types/IProduct";
 import {productSlice} from "../reducers/ProductSlice";
+import {fetchAuthors} from "./author";
 
 export const fetchProducts = (genre: string, type: string, page: number = 1, count: number = 10) => async (dispatch: AppDispatch) => {
     try {
@@ -106,6 +107,17 @@ export const setPageDataGrid = (newPage: number) => async (dispatch: AppDispatch
 export const createProduct = (product: Object) => async (dispatch: AppDispatch) => {
     try {
         const response = await $api.post(`/Book/add-book`, product)
+    } catch (err) {
+
+    }
+}
+
+export const editProduct = (id: number, author: Object) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.put(`/Book/update-book-by-id/${id}`, author)
+        if (response.status === 200) {
+
+        }
     } catch (err) {
 
     }

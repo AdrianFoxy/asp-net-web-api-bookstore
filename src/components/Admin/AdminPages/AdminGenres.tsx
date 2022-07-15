@@ -4,6 +4,7 @@ import {useActions} from "../../../hooks/useAppDispatch";
 import DataTable from "../DataTable";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import ModalGenres from "./ModalGenres";
+import GenreForm from "../GenreForm";
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 70},
@@ -44,7 +45,7 @@ const AdminGenres = () => {
 
     return (
         <div>
-            Genre
+            <GenreForm/>
             <DataTable columns={columns.concat(actionColumn)} items={genres} count={count} page={page} setPage={setPageGenres} fetchItems={fetchGenresAdmin}/>
         </div>
     );

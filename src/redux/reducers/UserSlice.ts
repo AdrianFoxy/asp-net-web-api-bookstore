@@ -33,6 +33,18 @@ export const userSlice = createSlice({
         },
         setIsAuth(state, action: PayloadAction<boolean>) {
             state.isAuth = action.payload
+        },
+        changeFullName(state, action: PayloadAction<string>) {
+            state.user.fullName = action.payload
+        },
+        changePhone(state, action: PayloadAction<string>) {
+            state.user.phone = action.payload
+        },
+        changeEmail(state, action: PayloadAction<string>) {
+            state.user.email = action.payload
+        },
+        changeDateofBirth(state, action: PayloadAction<string>) {
+            state.user.dateofBirth = action.payload
         }
     }
 })

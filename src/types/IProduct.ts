@@ -13,4 +13,5 @@ export interface IProduct {
     authorNames: string[]
     genreNames: string[]
     publisherName: string
+    numOfSales?: number
 }

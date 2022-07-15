@@ -12,7 +12,7 @@ const ProfileContainer: FC = () => {
 
     const {orders, page, pageSize, count} = useTypedSelector(state => state.orderReducer)
 
-    const {getOrders, setOrderPage, changeOrderStatusToCancelled} = useActions()
+    const {getOrders, setOrderPage, changeOrderStatusToCancelled, changeUserInfo, changeFullName, changePhone, changeEmail, changeDateofBirth} = useActions()
 
     useEffect(() => {
         getOrders(page, pageSize)
@@ -26,7 +26,8 @@ const ProfileContainer: FC = () => {
 
     return (
         <Profile page={page} orders={orders} user={user} handleChange={handleChange} pages={pages}
-                 changeOrderStatusToCancelled={changeOrderStatusToCancelled} navigate={navigate}/>
+                 changeOrderStatusToCancelled={changeOrderStatusToCancelled} navigate={navigate}
+                 changeUserInfo={changeUserInfo} changeFullName={changeFullName} changePhone={changePhone} changeEmail={changeEmail} changeDateofBirth={changeDateofBirth}/>
     );
 };
 

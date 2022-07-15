@@ -1,8 +1,10 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from "./Profile.module.scss"
-import {Card, Pagination} from "@mui/material";
+import {Card, Pagination, TextField} from "@mui/material";
 import {IUser} from "../../types/IUser";
 import {IOrder} from "../../types/IOrder";
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 
 interface ProfileProps {
     user: IUser
@@ -12,6 +14,11 @@ interface ProfileProps {
     orders: IOrder[]
     changeOrderStatusToCancelled: (orderId: number) => void
     navigate: any
+    changeUserInfo: (id: string, user: Object) => void
+    changeFullName: (fullName: string) => void
+    changePhone: (fullName: string) => void
+    changeEmail: (fullName: string) => void
+    changeDateofBirth: (fullName: string) => void
 }
 
 const Profile: FC<ProfileProps> = (
@@ -22,33 +29,108 @@ const Profile: FC<ProfileProps> = (
         handleChange,
         orders,
         changeOrderStatusToCancelled,
-        navigate
+        navigate,
+        changeUserInfo,
+        changeFullName,
+        changePhone,
+        changeEmail,
+        changeDateofBirth
     }
 ) => {
+    const [isFullName, setIsFullName] = useState<boolean>(false)
+    const [isEmail, setIsEmail] = useState<boolean>(false)
+    const [isPhone, setIsPhone] = useState<boolean>(false)
+    const [isDateofBirth, setIsDateofBirth] = useState<boolean>(false)
+
+    const sendUserData = (id: string) => {
+        const formData = new FormData()
+        formData.append("FullName", user.fullName)
+        // @ts-ignore
+        formData.append("UserName", user.userName)
+        formData.append("Phone", user.phone)
+        formData.append("Email", user.email)
+        // @ts-ignore
+        formData.append("DateofBirth", user.dateofBirth)
+        changeUserInfo(id, formData)
+    }
+
     return (
         <div>
             <div className={styles.profile__title2}>Личные данные</div>
             <ul className={styles.profile__container}>
                 <li className={styles.profile__item}>
-                    <label>Фио </label>
-                    <p> {user.fullName}</p>
+                    <div className={styles.profile__edit}>
+                        <label>Фио </label>
+                        <ModeEditOutlineOutlinedIcon className={styles.profile__icon}
+                                                     onClick={() => setIsFullName(!isFullName)}/>
+                    </div>
+                    {isFullName ?
+                        <div className={styles.profile__edit}>
+                            <TextField value={user.fullName} onChange={(e) => changeFullName(e.target.value)}
+                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title"
+                                       variant="outlined"/>
+                            <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
+                                                  onClick={() => sendUserData(user.id)}/>
+                        </div>
+                        :
+                        <p> {user.fullName}</p>
+                    }
                 </li>
                 <li className={styles.profile__item}>
-                    <label>Электронная почта </label>
-                    <p> {user.email}</p>
+                    <div className={styles.profile__edit}>
+                        <label>Электронная почта </label>
+                        <ModeEditOutlineOutlinedIcon className={styles.profile__icon}
+                                                     onClick={() => setIsEmail(!isEmail)}/>
+                    </div>
+                    {isEmail ?
+                        <div className={styles.profile__edit}>
+                            <TextField value={user.email} onChange={(e) => changeEmail(e.target.value)}
+                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title" variant="outlined"/>
+                            <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
+                                                  onClick={() => sendUserData(user.id)}/>
+                        </div>
+                        :
+                        <p> {user.email}</p>
+                    }
                 </li>
                 <li className={styles.profile__item}>
-                    <label>Телефон </label>
-                    <p> {user.phone}</p>
+                    <div className={styles.profile__edit}>
+                        <label>Телефон </label>
+                        <ModeEditOutlineOutlinedIcon className={styles.profile__icon}
+                                                     onClick={() => setIsPhone(!isPhone)}/>
+                    </div>
+                    {isPhone ?
+                        <div className={styles.profile__edit}>
+                            <TextField value={user.phone} onChange={(e) => changePhone(e.target.value)}
+                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title" variant="outlined"/>
+                            <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
+                                                  onClick={() => sendUserData(user.id)}/>
+                        </div>
+                        :
+                        <p> {user.phone}</p>
+                    }
                 </li>
                 <li className={styles.profile__item}>
-                    <label>Дата рождения </label>
-                    <p> {user.dateofBirth && new Date(user.dateofBirth).toLocaleString("ru", {
-                        year: "numeric",
-                        month: "numeric",
-                        day: "numeric",
-                        timeZone: "UTC"
-                    })} </p>
+                    <div className={styles.profile__edit}>
+                        <label>Дата рождения </label>
+                        <ModeEditOutlineOutlinedIcon className={styles.profile__icon}
+                                                     onClick={() => setIsDateofBirth(!isDateofBirth)}/>
+                    </div>
+                    {isDateofBirth ?
+                        <div className={styles.profile__edit}>
+                            <TextField value={user.dateofBirth} onChange={(e) => changeDateofBirth(e.target.value)}
+                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title" variant="outlined"/>
+                            <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
+                                                  onClick={() => sendUserData(user.id)}/>
+                        </div>
+                        :
+                        <p> {user.dateofBirth && new Date(user.dateofBirth).toLocaleString("ru", {
+                            year: "numeric",
+                            month: "numeric",
+                            day: "numeric",
+                            timeZone: "UTC"
+                        })} </p>
+                    }
                 </li>
             </ul>
             <div className={styles.profile__title_wrapper}>

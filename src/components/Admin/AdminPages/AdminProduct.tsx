@@ -5,18 +5,17 @@ import $api from "../../../http";
 import {IProduct} from "../../../types/IProduct";
 import {Card, Grid} from "@mui/material";
 import styles from "../../../pages/Product/Product.module.scss";
+import {useActions} from "../../../hooks/useAppDispatch";
 
 const AdminProduct = () => {
 
     const {productId} = useParams();
 
-    console.log(productId)
-
     const [product] = useRequest(async () => {
         return await $api.get<IProduct>(`/Book/get-book-by-id/${productId}`)
     }, [productId])
 
-    console.log(product)
+    const {editProduct} = useActions()
 
     if (!product) {
         return <div> Загрузка... </div>

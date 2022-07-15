@@ -59,3 +59,28 @@ export const logout = () => async (dispatch: AppDispatch) => {
 
     }
 }
+
+export const changeUserInfo = (id: string, user: Object) => async (dispatch: AppDispatch) => {
+    try {
+        const response = await $api.put(`Auth/update-user-by-id/${id}`, user)
+        await dispatch(checkInfo())
+    } catch (err) {
+
+    }
+}
+
+export const changeFullName = (fullName: string) => async (dispatch: AppDispatch) => {
+    dispatch(userSlice.actions.changeFullName(fullName))
+}
+
+export const changePhone = (fullName: string) => async (dispatch: AppDispatch) => {
+    dispatch(userSlice.actions.changePhone(fullName))
+}
+
+export const changeEmail = (fullName: string) => async (dispatch: AppDispatch) => {
+    dispatch(userSlice.actions.changeEmail(fullName))
+}
+
+export const changeDateofBirth = (fullName: string) => async (dispatch: AppDispatch) => {
+    dispatch(userSlice.actions.changeDateofBirth(fullName))
+}
