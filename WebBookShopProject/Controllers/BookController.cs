@@ -182,7 +182,13 @@ namespace WebBookShopProject.Controllers
         {
             var imagePathforForm = "";
 
-            if (image == null)
+            var checkr = await _bookService.GetByIdAsync(id);
+
+            if (checkr.ImageUrl != null && image == null)
+            {
+                imagePathforForm = checkr.ImageUrl;
+            }
+            else if (image == null)
             {
                 imagePathforForm = "";
             }
