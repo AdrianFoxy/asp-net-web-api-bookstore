@@ -32,7 +32,7 @@ namespace WebBookShopProject.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Deliveryman")]
         [HttpGet("get-last-orders-for-Admin")]
         public async Task<IActionResult> GetLastOrders()
         {
@@ -76,7 +76,7 @@ namespace WebBookShopProject.Controllers
             return Ok(orders);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Deliveryman")]
         [HttpGet("get-all-orders-for-admin")]
         public async Task<IActionResult> GetAllOrders([FromQuery] PaginationParams @params)
         {
@@ -119,7 +119,6 @@ namespace WebBookShopProject.Controllers
             return Ok(responce);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPut("change-order-status-to-canceled")]
         public async Task<IActionResult> ChangeStatusToCanceled(int orderId)
         {
@@ -127,7 +126,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Deliveryman")]
         [HttpPut("change-order-status-to-approved")]
         public async Task<IActionResult> ChangeStatusToApproved(int orderId)
         {
@@ -135,7 +134,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Deliveryman")]
         [HttpPut("change-order-status-to-done")]
         public async Task<IActionResult> ChangeStatusToDone(int orderId)
         {

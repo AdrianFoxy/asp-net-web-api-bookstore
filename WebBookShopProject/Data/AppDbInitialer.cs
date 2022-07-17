@@ -2060,6 +2060,9 @@ namespace WebBookShopProject.Data
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
                 if (!await roleManager.RoleExistsAsync(UserRoles.User))
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+                if (!await roleManager.RoleExistsAsync(UserRoles.Deliveryman))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Deliveryman));
+
 
                 // Users
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -2099,6 +2102,25 @@ namespace WebBookShopProject.Data
                     };
                     await userManager.CreateAsync(newAppUser, "Ak.123");
                     await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
+                }
+
+                string appDelEmail = "delivery@gmail.com";
+
+                var appDel = await userManager.FindByEmailAsync(appDelEmail);
+                if(appDel == null)
+                {
+                    var newDelUser = new ApplicationUser()
+                    {
+                        FullName = "Del user",
+                        UserName = "Del-user",
+                        Email = appDelEmail,
+                        PhoneNumber = "380444618061",
+                        EmailConfirmed = true,
+                        DateofBirth = new DateTime(2001, 4, 18)
+                    };
+
+                    await userManager.CreateAsync(newDelUser, "Ak.123");
+                    await userManager.AddToRoleAsync(newDelUser, UserRoles.Deliveryman);
                 }
 
             }
