@@ -113,6 +113,16 @@ namespace WebBookShopProject.Data.Services
             return items;
         }
 
+        public async  Task<IEnumerable<Order>> GetAllApprovedOrders(PaginationParams @params)
+        {
+            var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.Delivery).Include(n => n.OrderStatus).Where(x => x.OrderStatus.Name == "Одобрено" | x.OrderStatus.Name == "В пути" | x.OrderStatus.Name == "Выполнено").ToListAsync();
+
+            var items = orders.Skip((@params.Page - 1) * @params.ItemsPerPage)
+            .Take(@params.ItemsPerPage);
+
+            return items;
+        }
+
         public async Task<IEnumerable<Order>> GetAllOrdersCount()
         {
             var orders = await _context.Order.Include(n => n.OrderItem).ThenInclude(n => n.Book).Include(n => n.OrderStatus).ToListAsync();

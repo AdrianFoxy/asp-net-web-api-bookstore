@@ -37,19 +37,12 @@ namespace WebBookShopProject.Controllers
         [HttpGet("get-age-recommendations(authorizedOnly)")]
         public async Task<IActionResult> GetAgeRecomendForUser()
         {
-
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             if (userId == null)
                 return Ok("Guest");
-
             var userinfo = await _userService.GetUserById(userId);
             var age = _userService.GetAge(userinfo.DateofBirth);
-
             int age2 = Convert.ToInt32(age);
-
-            //var res = await _bookService.GetBookForAgeGroup(21);
-
             var res = await _bookService.GetRecomentByDif(userId, age2);
             return Ok(res);
         }
@@ -119,7 +112,6 @@ namespace WebBookShopProject.Controllers
         public async Task<IActionResult> GetWhatToRead()
         {
             var allBook = await _bookService.GetWhatToReadsync();
-
             return Ok(allBook);
         }
 

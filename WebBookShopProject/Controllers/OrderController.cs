@@ -89,6 +89,20 @@ namespace WebBookShopProject.Controllers
             return Ok(orders);
         }
 
+        [Authorize(Roles = "Admin, Deliveryman")]
+        [HttpGet("get-all-approved-orders-for-admin")]
+        public async Task<IActionResult> GetAllApprovedOrders([FromQuery] PaginationParams @params)
+        {
+            var orders = await _orderService.GetAllApprovedOrders(@params);
+            var counter = await _orderService.GetAllOrdersCount();
+
+            var paginationMetadata = new PaginationMetadata(counter.Count(), @params.Page, @params.ItemsPerPage);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+            return Ok(orders);
+        }
+ 
+
         [HttpGet("get-orders-by-status")]
         public async Task<IActionResult> GetOrdersByStatus([FromQuery] PaginationParams @params, int statusId)
         {
@@ -142,7 +156,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Deliveryman")]
         [HttpPut("change-order-status-on-my-way")]
         public async Task<IActionResult> ChangeStatusOnMyWay(int orderId)
         {
@@ -150,7 +164,7 @@ namespace WebBookShopProject.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Deliveryman")]
         [HttpPut("change-order-status-waiting-at-the-point")]
         public async Task<IActionResult> ChangeStatusToWaitingAtThePoint(int orderId)
         {

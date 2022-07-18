@@ -17,6 +17,7 @@ namespace WebBookShopProject.Data.Services
 
         Task<IEnumerable<Order>> GetOrdersByUserIdCountAsync(string userId);
         Task<IEnumerable<Order>> GetAllOrders(PaginationParams @params);
+        Task<IEnumerable<Order>> GetAllApprovedOrders(PaginationParams @params);
         Task<IEnumerable<Order>> GetAllOrdersCount();
         Task<IEnumerable<Order>> GetAllOrdersByStatus(int statusId, PaginationParams @params);
         Task<IEnumerable<Order>> GetAllOrdersByStatusCount(int statusId);
