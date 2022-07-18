@@ -36,6 +36,15 @@ namespace WebBookShopProject.Controllers
             return Ok(allAuthors);
         }
 
+        [HttpGet("get-author-by-name/{name}")]
+        public async Task<IActionResult> GetAllAuthor(string name)
+        {
+            var authorInfo = await _authorService.GetByNameAsync(name);
+            return Ok(authorInfo);
+        }
+
+        
+
         [HttpGet("get-all-authors-pagination")]
         public async Task<IActionResult> GetFullAuthorPag([FromQuery] PaginationParams @params)
         {

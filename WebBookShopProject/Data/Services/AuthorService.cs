@@ -33,6 +33,12 @@ namespace WebBookShopProject.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Author> GetByNameAsync(string Name)
+        {
+            var _author = await _context.Author.FirstOrDefaultAsync(x => x.FullName == Name);
+            return _author;
+        }
+
         public AuthorWithBooksTitleVM GetAuthorsWithBooksTitle (int id)
         {
             var _author = _context.Author.Where(n => n.Id == id).Select(n => new AuthorWithBooksTitleVM()
