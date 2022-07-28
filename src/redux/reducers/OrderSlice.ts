@@ -7,6 +7,8 @@ interface OrderState {
     count: number
     pageSize: number
     lastOrders: IOrder[]
+    orderById?: IOrder | null
+    errorOrderById: boolean
 }
 
 const initialState: OrderState = {
@@ -15,6 +17,8 @@ const initialState: OrderState = {
     count: 0,
     pageSize: 5,
     lastOrders: [],
+    orderById: null,
+    errorOrderById: false
 }
 
 export const orderSlice = createSlice({
@@ -38,6 +42,12 @@ export const orderSlice = createSlice({
         lastOrdersFetching(state, action: PayloadAction<IOrder[]>) {
             state.lastOrders = action.payload
         },
+        orderByIdFetching(state, action: PayloadAction<IOrder | null>) {
+            state.orderById = action.payload
+        },
+        setErrorOrderById(state, action: PayloadAction<boolean>) {
+            state.errorOrderById = action.payload
+        }
     }
 })
 

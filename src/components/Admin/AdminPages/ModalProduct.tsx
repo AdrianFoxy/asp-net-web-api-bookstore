@@ -12,7 +12,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: "60vw",
-    height: "30vh",
+    height: "50vh",
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -125,10 +125,25 @@ const ModalProduct = ({id, children}: { id: number, children: React.ReactNode })
                             setProduct({...product, price: e.target.value})
                         }} style={{width: "45%", marginBottom: "15px", marginRight: "15px"}} id="outlined-basic" label="price"
                                    variant="outlined"/>
-                        <TextField value={product.imageUrl} onChange={(e) => {
-                            setProduct({...product, imageUrl: e.target.value})
-                        }} style={{width: "45%", marginBottom: "15px", marginRight: "15px"}} id="outlined-basic" label="imageUrl"
-                                   variant="outlined"/>
+                        {image &&
+                        <div style={{position: "absolute", top: 245, left: 550, bottom: 0, right: 0}}>
+                            <img src={URL.createObjectURL(image)}
+                                 style={{width: "70%", height: "70%", objectFit: "contain"}}
+                                 alt="product-img"/>
+                        </div>
+                        }
+                        <label htmlFor="contained-button-file3">
+                            <Input accept="image/*" id="contained-button-file3" type="file" onChange={
+                                (e) => setImage(e.target.files && e.target.files[0])
+                            }/>
+                            <Button variant="contained" component="span">
+                                Upload
+                            </Button>
+                        </label>
+                        {/*<TextField value={product.imageUrl} onChange={(e) => {*/}
+                        {/*    setProduct({...product, imageUrl: e.target.value})*/}
+                        {/*}} style={{width: "45%", marginBottom: "15px", marginRight: "15px"}} id="outlined-basic" label="imageUrl"*/}
+                        {/*           variant="outlined"/>*/}
                         {/*{image &&*/}
                         {/*<div style={{position: "absolute", top: 100, left: 300, bottom: 0, right: 0}}>*/}
                         {/*    <img src={URL.createObjectURL(image)}*/}

@@ -23,9 +23,6 @@ const Home = () => {
             <div className={styles.home__indent}/>
             <div className={styles.home__title}><span>Топ продаж </span></div>
             <ProductList products={booksHome}/>
-            <div className={styles.home__indent}/>
-            <div className={styles.home__title}><span>Рекомендуем </span></div>
-            <ProductList products={booksToRead}/>
             {booksAgeRecomendations.length === 0 ?
                 ""
                 :
@@ -35,6 +32,9 @@ const Home = () => {
                     <ProductList products={booksAgeRecomendations}/>
                 </>
             }
+            <div className={styles.home__indent}/>
+            <div className={styles.home__title}><span>Случайные книги </span></div>
+            <ProductList products={booksToRead}/>
         </div>
     );
 };

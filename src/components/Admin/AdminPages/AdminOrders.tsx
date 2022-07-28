@@ -4,8 +4,7 @@ import {Card, Pagination} from "@mui/material";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useActions} from "../../../hooks/useAppDispatch";
 import styles from "../../../pages/Profile/Profile.module.scss";
-import {getOrdersAdmin} from "../../../redux/actions/order";
-import {Link} from "react-router-dom";
+import ShowAdmin from "../../../auth/ShowAdmin";
 
 const columns: GridColDef[] = [
     {field: 'address', headerName: 'address', width: 70},
@@ -25,12 +24,26 @@ const columns: GridColDef[] = [
 const AdminOrders = () => {
 
     const {orders, page, pageSize, count} = useTypedSelector(state => state.orderReducer)
+    const {role} = useTypedSelector(state => state.userReducer)
 
-    const {getOrdersAdmin, setOrderPage, changeOrderStatusToCancelled, changeOrderStatusToApproved, changeOrderStatusToDone} = useActions()
+    const {
+        getOrdersAdmin,
+        getOrdersForCourier,
+        setOrderPage,
+        changeOrderStatusToCancelled,
+        changeOrderStatusToApproved,
+        changeOrderStatusToDone,
+        changeOrderStatusOnMyWay,
+        changeOrderStatusWaitingAtThePoint
+    } = useActions()
 
     useEffect(() => {
-        getOrdersAdmin(page, pageSize)
-    }, [page])
+        if (role === "Admin") {
+            getOrdersAdmin(page, pageSize)
+        } else if (role === "Deliveryman") {
+            getOrdersForCourier(page, pageSize)
+        }
+    }, [page, role])
 
     const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
         setOrderPage(page)
@@ -69,39 +82,103 @@ const AdminOrders = () => {
                                         </div>
                                         {order.orderStatus.id === 2 ?
                                             <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
-                                                <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #133337", cursor: "pointer"}}>
+                                                <div style={{
+                                                    padding: "2px 5px",
+                                                    borderRadius: "5px",
+                                                    border: "1px solid #133337",
+                                                    cursor: "pointer"
+                                                }}>
                                                     Заказ отменен
                                                 </div>
                                             </div> :
                                             order.orderStatus.id === 3 ?
                                                 <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
-                                                    <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #133337", cursor: "pointer"}}>
+                                                    <div style={{
+                                                        padding: "2px 5px",
+                                                        borderRadius: "5px",
+                                                        border: "1px solid #133337",
+                                                        cursor: "pointer"
+                                                    }}>
                                                         Заказ выполнен
                                                     </div>
                                                 </div> :
-                                            <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
-                                                <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #EB4C42", cursor: "pointer"}}
-                                                     onClick={() => {
-                                                         changeOrderStatusToCancelled(order.id)
-                                                     }}
-                                                >
-                                                    Отменить
+                                                order.orderStatus.id === 5 ?
+                                                    <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
+                                                        <div style={{
+                                                            padding: "2px 5px",
+                                                            borderRadius: "5px",
+                                                            border: "1px solid #133337",
+                                                            cursor: "pointer"
+                                                        }}>
+                                                            Заказ в пути
+                                                        </div>
+                                                        <div style={{
+                                                            padding: "2px 5px",
+                                                            borderRadius: "5px",
+                                                            border: "1px solid #5ab134",
+                                                            cursor: "pointer"
+                                                        }}
+                                                             onClick={() => {
+                                                                 changeOrderStatusToDone(order.id)
+                                                             }}
+                                                        >
+                                                            Завершить
+                                                        </div>
+                                                    </div> :
+                                                    <div style={{display: "flex", alignItems: "center", gap: "15px"}}>
+                                                    <ShowAdmin>
+                                                        <>
+                                                            <div style={{
+                                                                padding: "2px 5px",
+                                                                borderRadius: "5px",
+                                                                border: "1px solid #EB4C42",
+                                                                cursor: "pointer"
+                                                            }}
+                                                                 onClick={() => {
+                                                                     changeOrderStatusToCancelled(order.id)
+                                                                 }}
+                                                            >
+                                                                Отменить
+                                                            </div>
+                                                            <div style={{
+                                                                padding: "2px 5px",
+                                                                borderRadius: "5px",
+                                                                border: "1px solid #1976D2",
+                                                                cursor: "pointer"
+                                                            }}
+                                                                 onClick={() => {
+                                                                     changeOrderStatusToApproved(order.id)
+                                                                 }}
+                                                            >
+                                                                Подтвердить
+                                                            </div>
+                                                        </>
+                                                    </ShowAdmin>
+                                                    <div style={{
+                                                        padding: "2px 5px",
+                                                        borderRadius: "5px",
+                                                        border: "1px solid #5ab134",
+                                                        cursor: "pointer"
+                                                    }}
+                                                         onClick={() => {
+                                                             changeOrderStatusOnMyWay(order.id)
+                                                         }}
+                                                    >
+                                                        Взять заказ на доставку
+                                                    </div>
+                                                    <div style={{
+                                                        padding: "2px 5px",
+                                                        borderRadius: "5px",
+                                                        border: "1px solid #5ab134",
+                                                        cursor: "pointer"
+                                                    }}
+                                                         onClick={() => {
+                                                             changeOrderStatusToDone(order.id)
+                                                         }}
+                                                    >
+                                                        Завершить
+                                                    </div>
                                                 </div>
-                                                <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #1976D2", cursor: "pointer"}}
-                                                     onClick={() => {
-                                                         changeOrderStatusToApproved(order.id)
-                                                     }}
-                                                >
-                                                    Подтвердить
-                                                </div>
-                                                <div style={{padding: "2px 5px", borderRadius: "5px", border: "1px solid #5ab134", cursor: "pointer"}}
-                                                     onClick={() => {
-                                                         changeOrderStatusToDone(order.id)
-                                                     }}
-                                                >
-                                                    Завершить
-                                                </div>
-                                            </div>
                                         }
                                     </div>
                                 </li>

@@ -19,6 +19,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AppBarAdmin from "./AppBarAdmin";
 import {Link} from "react-router-dom";
+import ShowAdmin from "../../../auth/ShowAdmin";
 
 const drawerWidth = 240;
 
@@ -133,129 +134,133 @@ export default function MiniDrawer() {
                     </IconButton>
                 </DrawerHeader>
                 <Divider/>
-                <List>
-                    <Link to={"/admin"}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Home"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </Link>
-                    <Link to={"/admin/products"}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Products"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </Link>
-                    <Link to={"/admin/authors"}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Authors"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </Link>
-                    <Link to={"/admin/genres"}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Genres"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </Link>
-                    <Link to={"/admin/typeGenres"}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"TypeGenres"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </Link>
-                    <Link to={"/admin/publishers"}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: open ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <InboxIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={"Publishers"} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </Link>
-                </List>
-                <Divider/>
+                <ShowAdmin>
+                    <>
+                        <List>
+                            <Link to={"/admin"}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <InboxIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Home"} sx={{opacity: open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </Link>
+                            <Link to={"/admin/products"}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <InboxIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Products"} sx={{opacity: open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </Link>
+                            <Link to={"/admin/authors"}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <InboxIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Authors"} sx={{opacity: open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </Link>
+                            <Link to={"/admin/genres"}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <InboxIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Genres"} sx={{opacity: open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </Link>
+                            <Link to={"/admin/typeGenres"}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <InboxIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"TypeGenres"} sx={{opacity: open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </Link>
+                            <Link to={"/admin/publishers"}>
+                                <ListItemButton
+                                    sx={{
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
+                                    }}
+                                >
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <InboxIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Publishers"} sx={{opacity: open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </Link>
+                        </List>
+                        <Divider/>
+                    </>
+                </ShowAdmin>
                 <List>
                     <Link to={"/admin/orders"}>
                         <ListItemButton

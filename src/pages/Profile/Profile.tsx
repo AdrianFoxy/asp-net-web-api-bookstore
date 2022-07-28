@@ -70,7 +70,10 @@ const Profile: FC<ProfileProps> = (
                                        style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title"
                                        variant="outlined"/>
                             <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
-                                                  onClick={() => sendUserData(user.id)}/>
+                                                  onClick={() => {
+                                                      sendUserData(user.id)
+                                                      setIsFullName(!isFullName)
+                                                  }}/>
                         </div>
                         :
                         <p> {user.fullName}</p>
@@ -85,9 +88,13 @@ const Profile: FC<ProfileProps> = (
                     {isEmail ?
                         <div className={styles.profile__edit}>
                             <TextField value={user.email} onChange={(e) => changeEmail(e.target.value)}
-                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title" variant="outlined"/>
+                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title"
+                                       variant="outlined"/>
                             <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
-                                                  onClick={() => sendUserData(user.id)}/>
+                                                  onClick={() => {
+                                                      sendUserData(user.id)
+                                                      setIsEmail(!isEmail)
+                                                  }}/>
                         </div>
                         :
                         <p> {user.email}</p>
@@ -102,9 +109,13 @@ const Profile: FC<ProfileProps> = (
                     {isPhone ?
                         <div className={styles.profile__edit}>
                             <TextField value={user.phone} onChange={(e) => changePhone(e.target.value)}
-                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title" variant="outlined"/>
+                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title"
+                                       variant="outlined"/>
                             <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
-                                                  onClick={() => sendUserData(user.id)}/>
+                                                  onClick={() => {
+                                                      sendUserData(user.id)
+                                                      setIsPhone(!isPhone)
+                                                  }}/>
                         </div>
                         :
                         <p> {user.phone}</p>
@@ -119,9 +130,13 @@ const Profile: FC<ProfileProps> = (
                     {isDateofBirth ?
                         <div className={styles.profile__edit}>
                             <TextField value={user.dateofBirth} onChange={(e) => changeDateofBirth(e.target.value)}
-                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title" variant="outlined"/>
+                                       style={{width: "80%", marginRight: "10px"}} id="outlined-basic" label="title"
+                                       variant="outlined"/>
                             <CheckBoxOutlinedIcon style={{transform: "scale(1.3)"}}
-                                                  onClick={() => sendUserData(user.id)}/>
+                                                  onClick={() => {
+                                                      sendUserData(user.id)
+                                                      setIsDateofBirth(!isDateofBirth)
+                                                  }}/>
                         </div>
                         :
                         <p> {user.dateofBirth && new Date(user.dateofBirth).toLocaleString("ru", {

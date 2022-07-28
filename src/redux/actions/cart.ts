@@ -16,8 +16,6 @@ export const addProduct = (productId: string | number, products: ICart[]) => asy
 
         const indexProduct = products.findIndex((product) => product.book.id === Number(productId))
 
-        console.log(indexProduct)
-
         if (indexProduct === -1) {
             const response = await $api.post(`/Order/add-item-to-cart?id=${productId}`)
             dispatch(cartSlice.actions.setCart(response.data.shoppingCartItem))

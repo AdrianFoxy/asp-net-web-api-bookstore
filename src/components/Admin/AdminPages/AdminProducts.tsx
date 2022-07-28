@@ -5,9 +5,9 @@ import {GridColDef} from "@mui/x-data-grid";
 import {useActions} from "../../../hooks/useAppDispatch";
 import ProductForm from "../ProductForm";
 import { Link } from 'react-router-dom';
-import {editPublisher} from "../../../redux/actions/publisher";
-import {fetchAllProductAdmin} from "../../../redux/actions/product";
 import ModalProduct from "./ModalProduct";
+import {Alert, IconButton} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 const columns: GridColDef[] = [
     {field: 'id', headerName: 'ID', width: 70},
@@ -82,8 +82,9 @@ const AdminProducts: FC = () => {
     const count = useTypedSelector(state => state.productReducer.count)
     const page = useTypedSelector(state => state.productReducer.page)
     const pageDataGrid = useTypedSelector(state => state.productReducer.pageDataGrid)
+    const error = useTypedSelector(state => state.productReducer.error)
 
-    const {deleteProduct, setPageDataGrid, fetchAllProduct, fetchAllProductAdmin} = useActions()
+    const {deleteProduct, setPageDataGrid, fetchAllProduct, fetchAllProductAdmin, deleteError} = useActions()
 
     const actionColumn: GridColDef[] = [
         {
@@ -118,6 +119,22 @@ const AdminProducts: FC = () => {
 
     return (
         <>
+            {error &&
+            <div style={{position: "absolute", left: 1100, zIndex: "10"}}>
+                <Alert severity="error" action={
+                    <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                            deleteError()
+                        }}
+                    >
+                        <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                }>Ошибка удаления книги, она уже есть в каком-то заказе</Alert>
+            </div>
+            }
             <ProductForm/>
             <DataTable columns={columns.concat(actionColumn)} items={products} count={count} page={pageDataGrid} setPage={setPageDataGrid}
                        fetchItems={fetchAllProductAdmin}/>

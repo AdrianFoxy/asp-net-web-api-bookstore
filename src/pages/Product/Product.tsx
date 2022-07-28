@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useRequest} from "../../hooks/useRequest";
 import $api from "../../http";
 import {IProduct} from "../../types/IProduct";
@@ -29,7 +29,7 @@ const Product = () => {
 
     console.log(product)
 
-    const {removeCart, addProduct} = useActions()
+    const {removeCart, addProduct, setAuthorName} = useActions()
 
     const id: string = productId !== undefined ? productId : '';
 
@@ -68,8 +68,9 @@ const Product = () => {
                                                      style={{cursor: "pointer"}}/>
                                 </div> :
                                 product.amount <= 0 ? "Нет в наличии" :
-                                <Button variant="outlined" onClick={() => addProduct(id, products)}> <ShoppingCartOutlinedIcon/> В
-                                    корзину </Button>
+                                    <Button variant="outlined" onClick={() => addProduct(id, products)}>
+                                        <ShoppingCartOutlinedIcon/> В
+                                        корзину </Button>
                             }
                         </div>
                         {
@@ -78,9 +79,11 @@ const Product = () => {
                                     <div className={styles.product__property_name}>
                                         {product.authorNames.length <= 1 ? "Автор" : "Авторы"}
                                     </div>
-                                    <div className={styles.product__property}>
-                                        {author}
-                                    </div>
+                                    <Link to="/author" onClick={() => setAuthorName(author)}>
+                                        <div className={styles.product__property}>
+                                            {author}
+                                        </div>
+                                    </Link>
                                 </>
                             )
                         }

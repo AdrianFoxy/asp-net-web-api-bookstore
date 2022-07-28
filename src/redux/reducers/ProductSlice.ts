@@ -3,6 +3,7 @@ import {IProduct} from "../../types/IProduct";
 
 interface ProductState {
     products: IProduct[]
+    error: boolean
     //
     booksHome: IProduct[]
     booksToRead: IProduct[]
@@ -32,6 +33,7 @@ interface ProductState {
 
 const initialState: ProductState = {
     products: [],
+    error: false,
     //
     booksHome: [],
     booksToRead: [],
@@ -65,6 +67,12 @@ export const productSlice = createSlice({
     reducers: {
         productsFetching(state, action: PayloadAction<IProduct[]>) {
             state.products = action.payload
+        },
+        setError(state, action: PayloadAction<boolean>) {
+            state.error = action.payload
+        },
+        deleteError(state, action: PayloadAction<boolean>) {
+            state.error = action.payload
         },
         //
         setBooksHome(state, action: PayloadAction<IProduct[]>) {

@@ -26,6 +26,9 @@ import AdminOrders from "./components/Admin/AdminPages/AdminOrders";
 import AdminGenres from "./components/Admin/AdminPages/AdminGenres";
 import AdminTypeGenres from "./components/Admin/AdminPages/AdminTypeGenres";
 import AdminPublishers from "./components/Admin/AdminPages/AdminPublishers";
+import {RequireCourier} from "./auth/RequireCourier";
+import OrderById from "./pages/OrderById/OrderById";
+import Author from "./pages/Author/Author";
 
 function App() {
 
@@ -58,6 +61,8 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/cart" element={<Cart/>}/>
                         <Route path="/order" element={<Order/>}/>
+                        <Route path="/orderById" element={<OrderById/>}/>
+                        <Route path="/author" element={<Author/>}/>
                         <Route path="/profile" element={<ProfileContainer/>}/>
                     </Route>
                     <Route element={<RequireAuth><MainLayout/></RequireAuth>}>
@@ -68,10 +73,12 @@ function App() {
                         <Route path="/admin/products" element={<AdminProducts/>}/>
                         <Route path="/admin/authors" element={<AdminAuthors/>}/>
                         <Route path="/admin/product/:productId" element={<AdminProduct/>}/>
-                        <Route path="/admin/orders" element={<AdminOrders/>}/>
                         <Route path="/admin/genres" element={<AdminGenres/>}/>
                         <Route path="/admin/typeGenres" element={<AdminTypeGenres/>}/>
                         <Route path="/admin/publishers" element={<AdminPublishers/>}/>
+                    </Route>
+                    <Route element={<RequireCourier><AdminLayout/></RequireCourier>}>
+                        <Route path="/admin/orders" element={<AdminOrders/>}/>
                     </Route>
                     <Route path="/login" element={<RequireAuth><LoginContainer/></RequireAuth>}/>
                     <Route path="/registration" element={<RequireAuth><RegistrationContainer/></RequireAuth>}/>

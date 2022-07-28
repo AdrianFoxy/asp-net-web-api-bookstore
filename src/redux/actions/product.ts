@@ -179,8 +179,12 @@ export const deleteProduct = (id: number) => async (dispatch: AppDispatch): Prom
             })
         }
     } catch (err) {
-
+        dispatch(productSlice.actions.setError(true))
     }
+}
+
+export const deleteError = () => async (dispatch: AppDispatch) => {
+    dispatch(productSlice.actions.deleteError(false))
 }
 
 //const wrapDispatchWithLog = (fn: any) => (dispatch: AppDispatch) => fn(dispatch).then((r: any) => console.log(r))

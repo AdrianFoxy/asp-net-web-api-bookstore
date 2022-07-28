@@ -13,7 +13,6 @@ const BasicBreadcrumbs = () => {
     const {genres} = useTypedSelector(state => state.genreReducer)
     const {product} = useTypedSelector(state => state.productReducer)
 
-
     const {genre} = useParams()
     const {productId} = useParams()
 
@@ -64,7 +63,9 @@ const BasicBreadcrumbs = () => {
         "/search": "Поиск",
         "/cart": "Корзина",
         "/order": "Новый заказ",
+        "/orderById": "Отслеживание заказа по номеру",
         "/profile": "Личный кабинет",
+        "/author": "Автор",
     })
 
     //console.log(breadcrumbNameMap)

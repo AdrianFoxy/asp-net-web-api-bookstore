@@ -20,6 +20,7 @@ import {useActions} from "../../hooks/useAppDispatch";
 import ShowAuth from "../../auth/ShowAuth";
 import ShowAdmin from "../../auth/ShowAdmin";
 import Search from "../SearchDebounce/Search";
+import ShowCourier from "../../auth/ShowCourier";
 
 function PrimarySearchAppBar() {
 
@@ -77,6 +78,9 @@ function PrimarySearchAppBar() {
                     <ShowAdmin>
                         <Link to="/admin"><MenuItem onClick={handleMenuClose}> Admin </MenuItem> </Link>
                     </ShowAdmin>
+                    <ShowCourier>
+                        <Link to="/admin/orders"><MenuItem onClick={handleMenuClose}> Заказы </MenuItem> </Link>
+                    </ShowCourier>
                 </>
                 :
                 <>
@@ -174,6 +178,11 @@ function PrimarySearchAppBar() {
                     </KeepMountedModal>
                     <Search/>
                     <Box sx={{flexGrow: 1}}/>
+                    <Link to="/orderById">
+                        <MenuItem style={{marginRight: "20px"}}>
+                            Отследить заказ
+                        </MenuItem>
+                    </Link>
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <Link to="/cart" style={{marginRight: "12px"}}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
