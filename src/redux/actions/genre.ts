@@ -2,10 +2,11 @@ import {AppDispatch} from "../index";
 import $api from "../../http";
 import {genreSlice} from "../reducers/GenreSlice";
 import {IGenre} from "../../types/IGenre";
+import {genreApi} from "../../api/genre-api";
 
 export const fetchGenres = () => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get<IGenre[]>(`TypeGenre/get-all-types-and-genres-eng`)
+        const response = await genreApi.getGenres()
         dispatch(genreSlice.actions.genresFetching(response.data))
     } catch (error) {
 
@@ -15,10 +16,10 @@ export const fetchGenres = () => async (dispatch: AppDispatch) => {
 export const fetchDescriptionGenre = (genre: string, type: string) => async (dispatch: AppDispatch) => {
     try {
         if (type === "type-genre") {
-            const response = await $api.get(`TypeGenre/get-type-genre-description/${genre}`)
+            const response = await genreApi.getDescriptionTypeGenre(genre)
             dispatch(genreSlice.actions.descriptionGenre(response.data.description))
         } else if (type === "genre") {
-            const response = await $api.get(`Genre/get-genre-description/${genre}`)
+            const response = await genreApi.getDescriptionGenre(genre)
             dispatch(genreSlice.actions.descriptionGenre(response.data.description))
         }
     } catch (error) {
@@ -28,12 +29,7 @@ export const fetchDescriptionGenre = (genre: string, type: string) => async (dis
 
 export const fetchGenresAdmin = (page: number = 0, count: number = 10) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get(`Genre/get-all-genres-pagination`, {
-            params: {
-                Page: page + 1,
-                ItemsPerPage: count
-            }
-        })
+        const response = await genreApi.getGenresAdmin(page, count)
         dispatch(genreSlice.actions.genresAdminFetching(response.data))
         const x = JSON.parse(response.headers["x-pagination"])
         dispatch(genreSlice.actions.setCount(x.TotalCount))
@@ -48,7 +44,7 @@ export const setPageGenres = (newPage: number) => async (dispatch: AppDispatch) 
 
 export const fetchTypeGenres = (page: number = 0, count: number = 10) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get(`TypeGenre/get-all-type-genres`)
+        const response = await genreApi.getTypeGenresAdmin()
         dispatch(genreSlice.actions.typeGenresFetching(response.data))
         // const x = JSON.parse(response.headers["x-pagination"])
         // dispatch(genreSlice.actions.setCountTypeGenres(x.TotalCount))
@@ -63,7 +59,7 @@ export const setPageTypeGenres = (newPage: number) => async (dispatch: AppDispat
 
 export const addTypeGenre = (typeGenre: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.post(`TypeGenre/add-typegenre`, typeGenre)
+        const response = await genreApi.addTypeGenre(typeGenre)
         if (response.status === 200) {
             dispatch(fetchTypeGenres())
         }
@@ -74,7 +70,7 @@ export const addTypeGenre = (typeGenre: Object) => async (dispatch: AppDispatch)
 
 export const deleteTypeGenre = (id: number) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.delete(`TypeGenre/delete-typegenre-by-id/${id}`)
+        const response = await genreApi.deleteTypeGenre(id)
         if (response.status === 200) {
             dispatch(fetchTypeGenres())
         }
@@ -86,7 +82,7 @@ export const deleteTypeGenre = (id: number) => async (dispatch: AppDispatch) => 
 
 export const editTypeGenre = (id: number, typeGenre: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.put(`TypeGenre/update-typegenre-by-id/${id}`, typeGenre)
+        const response = await genreApi.updateTypeGenre(id, typeGenre)
         if (response.status === 200) {
             dispatch(fetchTypeGenres())
         }
@@ -97,7 +93,7 @@ export const editTypeGenre = (id: number, typeGenre: Object) => async (dispatch:
 
 export const addGenre = (genre: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.post(`Genre/add-genre`, genre)
+        const response = await genreApi.addGenre(genre)
         if (response.status === 200) {
             dispatch(fetchGenresAdmin())
         }
@@ -108,7 +104,7 @@ export const addGenre = (genre: Object) => async (dispatch: AppDispatch) => {
 
 export const deleteGenre = (id: number) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.delete(`Genre/delete-genre-by-id/${id}`)
+        const response = await genreApi.deleteGenre(id)
         if (response.status === 200) {
             dispatch(fetchGenresAdmin())
         }
@@ -120,7 +116,7 @@ export const deleteGenre = (id: number) => async (dispatch: AppDispatch) => {
 
 export const editGenre = (id: number, genre: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.put(`Genre/update-genre-by-id/${id}`, genre)
+        const response = await genreApi.updateGenre(id, genre)
         if (response.status === 200) {
             dispatch(fetchGenresAdmin())
         }

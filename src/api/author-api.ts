@@ -1,6 +1,4 @@
 import $api from "../http";
-import {deleteAuthor, editAuthor, getAuthorByName, getBooksAuthor} from "../redux/actions/author";
-
 
 export const authorApi = {
     getAuthors() {
@@ -15,7 +13,7 @@ export const authorApi = {
     deleteAuthor(id: number) {
         return $api.delete(`/Author/delete-author-by-id/${id}`)
     },
-    editAuthor(id: number, author: Object) {
+    updateAuthor(id: number, author: Object) {
         return $api.put(`/Author/update-author-by-id/${id}`, author)
     },
     getAuthorByName(name: string) {

@@ -1,10 +1,10 @@
 import {AppDispatch} from "../index";
-import $api from "../../http";
 import {userSlice} from "../reducers/UserSlice";
+import {userApi} from "../../api/user-api";
 
 export const checkRole = () => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get(`/Auth/get-gole-of-current-user`)
+        const response = await userApi.getRoleCurrentUser()
         dispatch(userSlice.actions.setRole(response.data))
         if (response.data === "Guest") {
             dispatch(userSlice.actions.setIsAuth(false))
@@ -18,7 +18,7 @@ export const checkRole = () => async (dispatch: AppDispatch) => {
 
 export const checkInfo = () => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get(`/Auth/get-current-user-info`)
+        const response = await userApi.getCurrentUserInfo()
         dispatch(userSlice.actions.setUser(response.data))
         dispatch(userSlice.actions.setIsInitialized(true))
     } catch (err) {
@@ -28,7 +28,7 @@ export const checkInfo = () => async (dispatch: AppDispatch) => {
 
 export const login = (user: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.post(`/Auth/Login`, user)
+        const response = await userApi.login(user)
         localStorage.setItem("token", response.data.message)
         await dispatch(checkRole())
         await dispatch(checkInfo())
@@ -39,7 +39,7 @@ export const login = (user: Object) => async (dispatch: AppDispatch) => {
 
 export const registration = (newUser: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.post(`Auth/register`, newUser)
+        const response = await userApi.register(newUser)
         if (response.status === 200) {
             localStorage.setItem("token", response.data.message)
             await dispatch(checkRole())
@@ -62,8 +62,10 @@ export const logout = () => async (dispatch: AppDispatch) => {
 
 export const changeUserInfo = (id: string, user: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.put(`Auth/update-user-by-id/${id}`, user)
-        await dispatch(checkInfo())
+        const response = await userApi.updateUserById(id, user)
+        if (response.status === 200) {
+            await dispatch(checkInfo())
+        }
     } catch (err) {
 
     }

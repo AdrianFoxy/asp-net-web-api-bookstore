@@ -1,10 +1,10 @@
 import {AppDispatch} from "../index";
-import $api from "../../http";
 import {publisherSlice} from "../reducers/PublisherSlice";
+import {publisherApi} from "../../api/publisher-api";
 
 export const fetchPublishers = (page: number = 0, count: number = 10) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.get(`Publisher/get-all-publishers`)
+        const response = await publisherApi.getAllPublishers()
         dispatch(publisherSlice.actions.publishersFetching(response.data))
         // const x = JSON.parse(response.headers["x-pagination"])
         // dispatch(genreSlice.actions.setCountTypeGenres(x.TotalCount))
@@ -15,7 +15,7 @@ export const fetchPublishers = (page: number = 0, count: number = 10) => async (
 
 export const addPublisher = (publisher: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.post(`Publisher/add-publisher`, publisher)
+        const response = await publisherApi.addPublisher(publisher)
         //dispatch(publisherSlice.actions.addPublisher(response.data))
         if (response.status === 200) {
             dispatch(fetchPublishers())
@@ -27,7 +27,7 @@ export const addPublisher = (publisher: Object) => async (dispatch: AppDispatch)
 
 export const deletePublisher = (id: number) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.delete(`Publisher/delete-publisher-by-id/${id}`)
+        const response = await publisherApi.deletePublisher(id)
         // if (response.status === 200) {
         //     dispatch(publisherSlice.actions.deletePublisher(id))
         // }
@@ -42,7 +42,7 @@ export const deletePublisher = (id: number) => async (dispatch: AppDispatch) => 
 
 export const editPublisher = (id: number, publisher: Object) => async (dispatch: AppDispatch) => {
     try {
-        const response = await $api.put(`Publisher/update-publisher-by-id/${id}`, publisher)
+        const response = await publisherApi.updatePublisher(id, publisher)
         if (response.status === 200) {
             dispatch(fetchPublishers())
         }
